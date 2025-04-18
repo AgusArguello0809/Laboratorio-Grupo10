@@ -10,18 +10,13 @@ function Navbar() {
           MyStore
         </Typography>
         <Box sx={{ display: "flex", gap: 2 }}>
-          <Button color="inherit" component={Link} to="/">
-            Home
-          </Button>
-          <Button color="inherit" component={Link} to="/products">
-            Productos
-          </Button>
-          <Button color="inherit" component={Link} to="/cart">
-            Carro
-          </Button>
-          <Button color="inherit" component={Link} to="/login">
-            Iniciar Sesión
-          </Button>
+          <Button color="inherit" component={Link} to="/">Home</Button>
+          <Button color="inherit" component={Link} to="/products">Productos</Button>
+          <Button color="inherit" component={Link} to="/cart">Carro</Button>
+          <Button color="inherit" component={Link} to="/my-publications">Mis Publicaciones</Button>
+          <Button color="inherit" component={Link} to="/sell">Vender</Button>
+          <Button color="inherit" component={Link} to="/login">Iniciar Sesión</Button>
+          <Button color="inherit" component={Link} to="/us">Nosotros</Button>
         </Box>
       </Toolbar>
     </AppBar>
