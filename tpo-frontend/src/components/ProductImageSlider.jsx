@@ -1,4 +1,4 @@
-import { useState, useRef } from "react";
+import { useState } from "react";
 import {
   Box,
   IconButton,
@@ -12,7 +12,6 @@ import DeleteIcon from "@mui/icons-material/Delete";
 
 export default function ProductImageSlider({ images, setImages }) {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const inputRef = useRef();
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
@@ -38,10 +37,6 @@ export default function ProductImageSlider({ images, setImages }) {
     if (currentIndex >= newImages.length) {
       setCurrentIndex(Math.max(0, newImages.length - 1));
     }
-  };
-
-  const triggerFileInput = () => {
-    inputRef.current.click();
   };
 
   return (
@@ -146,7 +141,7 @@ export default function ProductImageSlider({ images, setImages }) {
             {images.length < 10 && (
               <Button
                 size="small"
-                onClick={triggerFileInput}
+                component="label"
                 sx={{
                   backgroundColor: "rgba(255,255,255,0.9)",
                   "&:hover": {
@@ -157,6 +152,13 @@ export default function ProductImageSlider({ images, setImages }) {
                 startIcon={<AddPhotoAlternateIcon />}
               >
                 Agregar
+                <input
+                  type="file"
+                  hidden
+                  multiple
+                  accept="image/*"
+                  onChange={handleFileChange}
+                />
               </Button>
             )}
 
@@ -181,21 +183,10 @@ export default function ProductImageSlider({ images, setImages }) {
               multiple
               accept="image/*"
               onChange={handleFileChange}
-              ref={inputRef}
             />
           </Button>
         </Stack>
       )}
-
-      {/* Hidden input */}
-      <input
-        type="file"
-        hidden
-        multiple
-        accept="image/*"
-        ref={inputRef}
-        onChange={handleFileChange}
-      />
     </Box>
   );
 }
