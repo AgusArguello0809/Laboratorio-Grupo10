@@ -22,6 +22,7 @@ function Navbar() {
           <Button color="inherit" component={Link} to="/login">
             Iniciar Sesión
           </Button>
+          
         </Box>
       </Toolbar>
     </AppBar>
