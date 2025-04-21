@@ -1,77 +1,146 @@
 import React, { useState } from "react";
-import { TextField, Button, Box, Typography, Container } from "@mui/material";
+import {
+  TextField,
+  Button,
+  Box,
+  Typography,
+  Container,
+  Avatar,
+  Paper,
+  Snackbar,
+  Alert,
+} from "@mui/material";
+import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
+import { Formik, Form } from "formik";
+import * as Yup from "yup";
+
+// Simulamos un usuario "registrado previamente"
+const usuarioRegistrado = {
+  email: "juan@example.com",
+  password: "123456",
+};
+
+const validationSchema = Yup.object({
+  email: Yup.string()
+    .email("Formato de email inválido")
+    .required("El email es obligatorio"),
+  password: Yup.string()
+    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .required("La contraseña es obligatoria"),
+});
 
 function Login() {
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [snackbarMessage, setSnackbarMessage] = useState("");
+  const [snackbarSeverity, setSnackbarSeverity] = useState("info");
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Aquí validamos los datos ingresados
-    if (email === "" || password === "") {
-      setError("Please fill in both fields.");
-      return;
+  const handleSubmit = (values, { setSubmitting }) => {
+    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
+  
+    if (
+      usuarioGuardado &&
+      values.email === usuarioGuardado.email &&
+      values.password === usuarioGuardado.password
+    ) {
+      setSnackbarMessage("✅ ¡Entraste!");
+      setSnackbarSeverity("success");
+    } else {
+      setSnackbarMessage("❌ Usuario no encontrado");
+      setSnackbarSeverity("error");
     }
-
-    // Si todo es correcto, puedes agregar lógica para autenticar al usuario
-    setError("");
-    console.log("Logging in with:", email, password);
-    // Redirigir o hacer alguna acción después de login...
+  
+    setOpenSnackbar(true);
+    setSubmitting(false);
   };
+  
 
   return (
     <Container maxWidth="xs">
-      <Box
+      <Paper
+        elevation={4}
         sx={{
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          marginTop: 4,
-          padding: 3,
-          borderRadius: 2,
-          boxShadow: 3,
+          padding: 4,
+          borderRadius: 3,
+          marginTop: 8,
+          background: "#fff",
         }}
       >
-        <Typography variant="h5" gutterBottom>
-          Login
-        </Typography>
-        {error && (
-          <Typography variant="body2" color="error" sx={{ marginBottom: 2 }}>
-            {error}
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+            <LockOutlinedIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            Iniciar Sesión
           </Typography>
-        )}
-        <form onSubmit={handleSubmit} style={{ width: "100%" }}>
-          <TextField
-            label="Email"
-            type="email"
-            fullWidth
-            variant="outlined"
-            sx={{ marginBottom: 2 }}
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-          <TextField
-            label="Password"
-            type="password"
-            fullWidth
-            variant="outlined"
-            sx={{ marginBottom: 2 }}
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ marginTop: 2 }}
-          >
-            Log In
-          </Button>
-        </form>
-      </Box>
+        </Box>
+
+        <Formik
+          initialValues={{ email: "", password: "" }}
+          validationSchema={validationSchema}
+          onSubmit={handleSubmit}
+        >
+          {({
+            values,
+            errors,
+            touched,
+            handleChange,
+            handleBlur,
+            isSubmitting,
+          }) => (
+            <Form>
+              <TextField
+                margin="normal"
+                fullWidth
+                label="Email"
+                name="email"
+                type="email"
+                value={values.email}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.email && Boolean(errors.email)}
+                helperText={touched.email && errors.email}
+              />
+              <TextField
+                margin="normal"
+                fullWidth
+                label="Contraseña"
+                name="password"
+                type="password"
+                value={values.password}
+                onChange={handleChange}
+                onBlur={handleBlur}
+                error={touched.password && Boolean(errors.password)}
+                helperText={touched.password && errors.password}
+              />
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="primary"
+                disabled={isSubmitting}
+                sx={{ marginTop: 2 }}
+              >
+                Iniciar sesión
+              </Button>
+            </Form>
+          )}
+        </Formik>
+      </Paper>
+
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
+      >
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity={snackbarSeverity}
+          sx={{ width: "100%" }}
+        >
+          {snackbarMessage}
+        </Alert>
+      </Snackbar>
     </Container>
   );
 }
