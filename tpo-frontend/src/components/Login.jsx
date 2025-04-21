@@ -36,7 +36,7 @@ function Login() {
 
   const handleSubmit = (values, { setSubmitting }) => {
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-  
+
     if (
       usuarioGuardado &&
       values.email === usuarioGuardado.email &&
@@ -48,11 +48,10 @@ function Login() {
       setSnackbarMessage("❌ Usuario no encontrado");
       setSnackbarSeverity("error");
     }
-  
+
     setOpenSnackbar(true);
     setSubmitting(false);
   };
-  
 
   return (
     <Container maxWidth="xs">
@@ -65,7 +64,13 @@ function Login() {
           background: "#fff",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
             <LockOutlinedIcon />
           </Avatar>
