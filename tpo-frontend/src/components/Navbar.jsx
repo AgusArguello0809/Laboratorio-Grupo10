@@ -29,7 +29,6 @@ function Navbar() {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     setCantidadCarrito(carrito.length);
 
-    // Opción: escuchar el evento focus por si vuelven desde otra pestaña
     const handleFocus = () => {
       const nuevo = JSON.parse(localStorage.getItem("carrito")) || [];
       setCantidadCarrito(nuevo.length);
@@ -81,22 +80,20 @@ function Navbar() {
             </Button>
 
             {!usuarioLogueado ? (
-              <Button color="inherit" component={Link} to="/login">
-                Iniciar Sesión
-              </Button>
+              <>
+                <Button color="inherit" component={Link} to="/login">
+                  Iniciar Sesión
+                </Button>
+                <Button color="inherit" component={Link} to="/register">
+                  Registrarse
+                </Button>
+              </>
             ) : (
               <>
-                <Button
-                  color="inherit"
-                  onClick={handleMenuClick}
-                >
+                <Button color="inherit" onClick={handleMenuClick}>
                   {usuarioLogueado.nombre}
                 </Button>
-                <Menu
-                  anchorEl={anchorEl}
-                  open={open}
-                  onClose={handleMenuClose}
-                >
+                <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
                   <MenuItem onClick={() => navigate("/profile")}>
                     Mi Perfil
                   </MenuItem>
@@ -114,7 +111,11 @@ function Navbar() {
         onClose={handleSnackbarClose}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert onClose={handleSnackbarClose} severity="info" sx={{ width: "100%" }}>
+        <Alert
+          onClose={handleSnackbarClose}
+          severity="info"
+          sx={{ width: "100%" }}
+        >
           Sesión cerrada correctamente.
         </Alert>
       </Snackbar>
