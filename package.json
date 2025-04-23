@@ -1,5 +1,6 @@
 {
   "dependencies": {
-    "formik": "^2.4.6"
+    "formik": "^2.4.6",
+    "uuid": "^11.1.0"
   }
 }
