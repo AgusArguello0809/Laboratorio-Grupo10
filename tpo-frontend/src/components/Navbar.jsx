@@ -79,6 +79,13 @@ function Navbar() {
               </Badge>
             </Button>
 
+            <Button color="inherit" component={Link} to="/my-publications">
+            Mis Publicaciones
+            </Button>
+            <Button color="inherit" component={Link} to="/sell">
+            Vender
+            </Button>
+
             {!usuarioLogueado ? (
               <>
                 <Button color="inherit" component={Link} to="/login">
