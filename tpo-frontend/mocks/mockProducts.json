@@ -5,8 +5,8 @@
     "descripcion": "Camiseta transpirable para entrenamiento.",
     "imagen": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     "categoria": "Ropa",
-    "stock": 10,
-    "precio": 25
+    "stock": "10",
+    "precio": "25"
   },
   {
     "id": 2,
@@ -24,7 +24,7 @@
     "imagen": "https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
     "categoria": "Accesorios",
     "stock": 25,
-    "precio": 15
+    "precio": 15.34
   },
   {
     "id": 4,

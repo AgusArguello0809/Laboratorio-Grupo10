@@ -108,7 +108,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
 
         <CardContent>
           <Typography variant="h6">{title}</Typography>
-          <Typography variant="subtitle1">${price}</Typography>
+          <Typography variant="subtitle1">${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}</Typography>
         </CardContent>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
@@ -137,13 +137,38 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
           </CardContent>
 
           <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
-            <IconButton onClick={(e) => { e.stopPropagation(); setDetailOpen(true); }}>
+            <IconButton 
+            onClick={(e) => { e.stopPropagation(); setDetailOpen(true); }}
+            sx={{
+              color: "gray",
+              transition: "color 0.2s",
+              "&:hover": {
+                color: "primary.main"
+              }
+            }}>
               <VisibilityIcon />
             </IconButton>
-            <IconButton onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}>
+            <IconButton 
+            onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}
+            sx={{
+              color: "gray",
+              transition: "color 0.2s",
+              "&:hover": {
+                color: "primary.main"
+              }
+            }}>
               <EditIcon />
             </IconButton>
-            <IconButton onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}>
+            <IconButton 
+            onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
+              sx={{
+    color: "gray",
+    transition: "color 0.2s",
+    "&:hover": {
+      color: "primary.main"
+    }
+  }}
+            >
               <DeleteIcon />
             </IconButton>
           </CardActions>

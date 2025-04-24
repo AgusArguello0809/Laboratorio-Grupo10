@@ -18,16 +18,34 @@ const categorias = [
 export default function ProductForm({ formData, setFormData }) {
   const handleChange = (e) => {
     const { name, value } = e.target;
-
-    // Prevenir caracteres no numéricos solo en price y stock
-    if ((name === "price" || name === "stock") && /[^0-9]/.test(value)) return;
-    if (name === "price" && value !== "" && parseInt(value) < 1) return;
-    if (name === "stock" && value !== "" && parseInt(value) < 1) return;
-
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value
-    }));
+    
+    if (name === "price") {
+      // Prevenir caracteres no válidos (solo dígitos, punto o coma)
+      if(/[^0-9.,]/.test(value)) return;
+      const cleanValue = value.replace(",", ".");
+      if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
+      const floatVal = parseFloat(cleanValue);
+      if (isNaN(floatVal) || floatVal < 1) return;
+  
+      setFormData((prev) => ({
+        ...prev,
+        [name]: cleanValue
+      }));
+    } else if (name === "stock") {
+      if(/[^0-9]/.test(value)) return;
+      const intVal = parseInt(value);
+      if (isNaN(intVal) || intVal < 1) return;
+  
+      setFormData((prev) => ({
+        ...prev,
+        [name]: intVal
+      }));
+    } else {
+      setFormData((prev) => ({
+        ...prev,
+        [name]: value
+      }));
+    }
   };
 
   return (

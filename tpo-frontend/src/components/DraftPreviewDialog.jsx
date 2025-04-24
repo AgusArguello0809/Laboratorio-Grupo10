@@ -87,7 +87,7 @@ export default function DraftPreviewDialog({ open, onClose, product }) {
             {product.category} — Stock: {product.stock}
           </Typography>
           <Typography variant="h6" sx={{ my: 1 }}>
-            {product.price}
+          ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}
           </Typography>
           <Divider sx={{ my: 1 }} />
           <Typography variant="body1">{product.description}</Typography>

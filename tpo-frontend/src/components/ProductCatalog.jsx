@@ -32,7 +32,7 @@ const ProductCatalog = () => {
               <ProductCard
                 product={{
                   name: producto.nombre,
-                  price: `$${producto.precio}`,
+                  price: parseFloat(producto.precio),
                   description: producto.descripcion,
                   stock: producto.stock,
                   image: producto.imagen,

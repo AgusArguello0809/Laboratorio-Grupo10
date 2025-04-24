@@ -105,7 +105,7 @@ function ProductCard({ product }) {
             </Typography>
           </Box>
           <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-            {product.price}
+          ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}
           </Typography>
           <Button
             variant="contained"
