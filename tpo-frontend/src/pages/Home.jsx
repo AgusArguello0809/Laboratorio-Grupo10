@@ -5,12 +5,15 @@ import ProductCatalog from "../components/ProductCatalog";
 const Home = () => {
   return (
     <Container sx={{ marginTop: 4 }}>
-      <Typography variant="h3" gutterBottom>
-        Bienvenido a MyStore 🛍️
-      </Typography>
-      <Typography variant="h6" gutterBottom>
-        Explora nuestro catálogo de productos:
-      </Typography>
+      <Container sx={{ paddingBottom: "16px" }}>
+        <Typography variant="h3" gutterBottom>
+          Bienvenido a FitStore 🛍️
+        </Typography>
+        <Typography variant="h6" gutterBottom>
+          Explora nuestro catálogo de productos:
+        </Typography>
+      </Container>
+
       <ProductCatalog />
     </Container>
   );

@@ -13,12 +13,7 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-
-// Simulamos un usuario "registrado previamente"
-const usuarioRegistrado = {
-  email: "juan@example.com",
-  password: "123456",
-};
+import { useNavigate } from "react-router-dom";
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -33,6 +28,7 @@ function Login() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("info");
+  const navigate = useNavigate();
 
   const handleSubmit = (values, { setSubmitting }) => {
     const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
@@ -44,12 +40,17 @@ function Login() {
     ) {
       setSnackbarMessage("✅ ¡Entraste!");
       setSnackbarSeverity("success");
+      setOpenSnackbar(true);
+
+      setTimeout(() => {
+        navigate("/");
+      }, 1500);
     } else {
       setSnackbarMessage("❌ Usuario no encontrado");
       setSnackbarSeverity("error");
+      setOpenSnackbar(true);
     }
 
-    setOpenSnackbar(true);
     setSubmitting(false);
   };
 
@@ -71,7 +72,7 @@ function Login() {
             alignItems: "center",
           }}
         >
-          <Avatar sx={{ m: 1, bgcolor: "primary.main" }}>
+          <Avatar sx={{ m: 1, backgroundColor: "#FA9500", color: "black" }}>
             <LockOutlinedIcon />
           </Avatar>
           <Typography component="h1" variant="h5">
@@ -123,7 +124,11 @@ function Login() {
                 variant="contained"
                 color="primary"
                 disabled={isSubmitting}
-                sx={{ marginTop: 2 }}
+                sx={{
+                  marginTop: 2,
+                  backgroundColor: "#FA9500",
+                  color: "black",
+                }}
               >
                 Iniciar sesión
               </Button>

@@ -11,11 +11,24 @@ import {
   Snackbar,
   Alert,
   Badge,
+  Drawer,
+  IconButton,
+  List,
+  ListItem,
+  ListItemButton,
+  ListItemText,
+  Divider,
+  useMediaQuery,
 } from "@mui/material";
+import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useTheme } from "@mui/material/styles";
 
 function Navbar() {
   const navigate = useNavigate();
+  const theme = useTheme();
+  const isMobile = useMediaQuery(theme.breakpoints.down("md"));
+
   const [usuarioLogueado, setUsuarioLogueado] = useState(
     JSON.parse(localStorage.getItem("usuario"))
   );
@@ -23,8 +36,8 @@ function Navbar() {
   const open = Boolean(anchorEl);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [cantidadCarrito, setCantidadCarrito] = useState(0);
+  const [drawerOpen, setDrawerOpen] = useState(false);
 
-  // Actualiza la cantidad del carrito al cargar
   useEffect(() => {
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     setCantidadCarrito(carrito.length);
@@ -58,57 +71,145 @@ function Navbar() {
     setSnackbarOpen(false);
   };
 
+  const renderNavLinks = () => (
+    <>
+      <Button color="inherit" component={Link} to="/">
+        Home
+      </Button>
+      {/* <Button color="inherit" component={Link} to="/products">
+        Productos
+      </Button> */}
+      <Button color="inherit" component={Link} to="/my-publications">
+        Mis Publicaciones
+      </Button>
+      <Button color="inherit" component={Link} to="/sell">
+        Vender
+      </Button>
+      {!usuarioLogueado ? (
+        <>
+          <Button color="inherit" component={Link} to="/login">
+            Iniciar Sesión
+          </Button>
+          <Button color="inherit" component={Link} to="/register">
+            Registrarse
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button color="inherit" onClick={handleMenuClick}>
+            {usuarioLogueado.firstName + " " + usuarioLogueado.lastName}
+          </Button>
+          <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
+            <MenuItem onClick={() => navigate("/profile")}>Mi Perfil</MenuItem>
+            <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
+          </Menu>
+        </>
+      )}
+      <Button color="inherit" component={Link} to="/cart">
+        {/* <Badge badgeContent={cantidadCarrito} color="secondary"> */}
+        <ShoppingCartIcon />
+        {/* </Badge> */}
+      </Button>
+    </>
+  );
+
+  const renderDrawerLinks = () => (
+    <Box
+      sx={{ width: 250, height: "100%", backgroundColor: "#FA9500" }}
+      role="presentation"
+      onClick={() => setDrawerOpen(false)}
+    >
+      <List>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/">
+            <ListItemText primary="Home" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/products">
+            <ListItemText primary="Productos" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/my-publications">
+            <ListItemText primary="Mis Publicaciones" />
+          </ListItemButton>
+        </ListItem>
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/sell">
+            <ListItemText primary="Vender" />
+          </ListItemButton>
+        </ListItem>
+        <Divider />
+        {!usuarioLogueado ? (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/login">
+                <ListItemText primary="Iniciar Sesión" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton component={Link} to="/register">
+                <ListItemText primary="Registrarse" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        ) : (
+          <>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => navigate("/profile")}>
+                <ListItemText primary="Mi Perfil" />
+              </ListItemButton>
+            </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton onClick={handleLogout}>
+                <ListItemText primary="Cerrar sesión" />
+              </ListItemButton>
+            </ListItem>
+          </>
+        )}
+        <ListItem disablePadding>
+          <ListItemButton component={Link} to="/cart">
+            <ListItemText primary="Carrito" />
+            {/* <Badge badgeContent={cantidadCarrito} color="secondary"> */}
+            <ShoppingCartIcon />
+            {/* </Badge> */}
+          </ListItemButton>
+        </ListItem>
+      </List>
+    </Box>
+  );
+
   return (
     <>
-      <AppBar position="static" sx={{ width: "100%" }}>
+      <AppBar
+        position="static"
+        sx={{ width: "100%", backgroundColor: "#FA9500", color: "black" }}
+      >
         <Toolbar sx={{ padding: { xs: "8px 16px", md: "16px 32px" } }}>
-          <Typography variant="h6" sx={{ flexGrow: 1 }}>
-            MyStore
+          <Typography variant="h5" sx={{ flexGrow: 1, fontWeight: 700 }}>
+            FitStore
           </Typography>
-          <Box sx={{ display: "flex", gap: 2 }}>
-            <Button color="inherit" component={Link} to="/">
-              Home
-            </Button>
-            <Button color="inherit" component={Link} to="/products">
-              Productos
-            </Button>
-
-            <Button color="inherit" component={Link} to="/cart">
-              <Badge badgeContent={cantidadCarrito} color="secondary">
-                <ShoppingCartIcon />
-              </Badge>
-            </Button>
-
-            <Button color="inherit" component={Link} to="/my-publications">
-            Mis Publicaciones
-            </Button>
-            <Button color="inherit" component={Link} to="/sell">
-            Vender
-            </Button>
-
-            {!usuarioLogueado ? (
-              <>
-                <Button color="inherit" component={Link} to="/login">
-                  Iniciar Sesión
-                </Button>
-                <Button color="inherit" component={Link} to="/register">
-                  Registrarse
-                </Button>
-              </>
-            ) : (
-              <>
-                <Button color="inherit" onClick={handleMenuClick}>
-                  {usuarioLogueado.nombre}
-                </Button>
-                <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-                  <MenuItem onClick={() => navigate("/profile")}>
-                    Mi Perfil
-                  </MenuItem>
-                  <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
-                </Menu>
-              </>
-            )}
-          </Box>
+          {isMobile ? (
+            <>
+              <IconButton
+                edge="end"
+                color="inherit"
+                onClick={() => setDrawerOpen(true)}
+              >
+                <MenuIcon />
+              </IconButton>
+              <Drawer
+                anchor="right"
+                open={drawerOpen}
+                onClose={() => setDrawerOpen(false)}
+              >
+                {renderDrawerLinks()}
+              </Drawer>
+            </>
+          ) : (
+            <Box sx={{ display: "flex", gap: 2 }}>{renderNavLinks()}</Box>
+          )}
         </Toolbar>
       </AppBar>
 

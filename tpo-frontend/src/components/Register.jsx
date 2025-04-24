@@ -13,6 +13,7 @@ import {
 } from "@mui/material";
 import PersonAddAltIcon from "@mui/icons-material/PersonAddAlt";
 import { Formik, Form } from "formik";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 
 const validationSchema = Yup.object({
@@ -31,18 +32,20 @@ const validationSchema = Yup.object({
 
 function Register() {
   const [openSnackbar, setOpenSnackbar] = useState(false);
-
+  const navigate = useNavigate();
   const handleSubmit = (values, { setSubmitting, resetForm }) => {
     console.log("📋 Datos de registro:", values);
-  
+
     // Guardar usuario en localStorage
     localStorage.setItem("usuario", JSON.stringify(values));
-  
+
     setSubmitting(false);
     resetForm();
     setOpenSnackbar(true);
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
   };
-  
 
   return (
     <Container maxWidth="sm">
@@ -55,7 +58,13 @@ function Register() {
           background: "#f9f9f9",
         }}
       >
-        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+          }}
+        >
           <Avatar sx={{ m: 1, bgcolor: "#2e7d32" }}>
             <PersonAddAltIcon />
           </Avatar>
@@ -175,7 +184,11 @@ function Register() {
         onClose={() => setOpenSnackbar(false)}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
-        <Alert onClose={() => setOpenSnackbar(false)} severity="success" sx={{ width: "100%" }}>
+        <Alert
+          onClose={() => setOpenSnackbar(false)}
+          severity="success"
+          sx={{ width: "100%" }}
+        >
           ¡Usuario registrado con éxito!
         </Alert>
       </Snackbar>
