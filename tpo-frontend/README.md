@@ -1,1 +1,4 @@
-Para levantar el proyecto  *npm run dev *
+Para levantar el proyecto:
+
+  npm install
+  npm run dev 
