@@ -16,10 +16,9 @@ import ProductImageSlider from "./ProductImageSlider";
 
 const categorias = [
   "Electrónica",
-  "Hogar",
+  "Entrenamiento",
   "Ropa",
-  "Deportes",
-  "Libros",
+  "Suplementos",
   "Accesorios"
 ];
 

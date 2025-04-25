@@ -8,10 +8,9 @@ import {
 
 const categorias = [
   "Electrónica",
-  "Hogar",
+  "Entrenamiento",
   "Ropa",
-  "Deportes",
-  "Libros",
+  "Suplementos",
   "Accesorios"
 ];
 

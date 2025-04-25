@@ -143,7 +143,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               color: "gray",
               transition: "color 0.2s",
               "&:hover": {
-                color: "primary.main"
+                color: "#FA9500"
               }
             }}>
               <VisibilityIcon />
@@ -154,7 +154,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               color: "gray",
               transition: "color 0.2s",
               "&:hover": {
-                color: "primary.main"
+                color: "#FA9500"
               }
             }}>
               <EditIcon />
@@ -165,7 +165,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
     color: "gray",
     transition: "color 0.2s",
     "&:hover": {
-      color: "primary.main"
+      color: "#FA9500"
     }
   }}
             >
