@@ -1,4 +1,4 @@
 Para levantar el proyecto:
 
 - npm install
--  npm run dev
+-  npm run start:all
