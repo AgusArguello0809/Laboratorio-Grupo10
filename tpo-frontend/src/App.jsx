@@ -4,7 +4,7 @@ import Login from "./pages/Login";
 import Home from "./pages/Home";
 import Navbar from "./components/Navbar";
 import Carrito from "./components/Carrito";
-import Register from "./components/Register";
+import Register from "./pages/Register";
 import MyPublications from "./pages/MyPublications";
 import SellProduct from "./pages/SellProduct";
 import About from "./pages/About"

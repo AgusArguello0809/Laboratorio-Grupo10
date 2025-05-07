@@ -31,20 +31,59 @@ const validationSchema = Yup.object({
 });
 
 function Register() {
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const navigate = useNavigate();
-  const handleSubmit = (values, { setSubmitting, resetForm }) => {
-    console.log("📋 Datos de registro:", values);
+  const [snackbar, setSnackbar] = useState({
+    open: false,
+    message: "",
+    severity: "success",
+  });
 
-    // Guardar usuario en localStorage
-    localStorage.setItem("usuario", JSON.stringify(values));
+  const navigate = useNavigate();
+
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
+    const nuevoUsuario = {
+      username: values.username,
+      nombre: values.firstName,
+      apellido: values.lastName,
+      email: values.email,
+      password: values.password,
+    };
+
+    try {
+      const response = await fetch("http://localhost:3001/usuarios", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(nuevoUsuario),
+      });
+
+      if (response.ok) {
+        setSnackbar({
+          open: true,
+          message: "¡Usuario registrado con éxito!",
+          severity: "success",
+        });
+        resetForm();
+        setTimeout(() => {
+          navigate("/login");
+        }, 1500);
+      } else {
+        setSnackbar({
+          open: true,
+          message: "Error al registrar el usuario.",
+          severity: "error",
+        });
+      }
+    } catch (error) {
+      console.error("Error al conectar con la API:", error);
+      setSnackbar({
+        open: true,
+        message: "Error de conexión con el servidor.",
+        severity: "error",
+      });
+    }
 
     setSubmitting(false);
-    resetForm();
-    setOpenSnackbar(true);
-    setTimeout(() => {
-      navigate("/login");
-    }, 1500);
   };
 
   return (
@@ -58,13 +97,7 @@ function Register() {
           background: "#f9f9f9",
         }}
       >
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "column",
-            alignItems: "center",
-          }}
-        >
+        <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
           <Avatar sx={{ m: 1, bgcolor: "#2e7d32" }}>
             <PersonAddAltIcon />
           </Avatar>
@@ -177,19 +210,18 @@ function Register() {
         </Formik>
       </Paper>
 
-      {/* Snackbar de éxito */}
       <Snackbar
-        open={openSnackbar}
+        open={snackbar.open}
         autoHideDuration={3000}
-        onClose={() => setOpenSnackbar(false)}
+        onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
         anchorOrigin={{ vertical: "bottom", horizontal: "center" }}
       >
         <Alert
-          onClose={() => setOpenSnackbar(false)}
-          severity="success"
+          onClose={() => setSnackbar((prev) => ({ ...prev, open: false }))}
+          severity={snackbar.severity}
           sx={{ width: "100%" }}
         >
-          ¡Usuario registrado con éxito!
+          {snackbar.message}
         </Alert>
       </Snackbar>
     </Container>

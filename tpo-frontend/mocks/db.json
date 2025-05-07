@@ -10,7 +10,8 @@
       "images": [
         "https://http2.mlstatic.com/D_NQ_NP_2X_921969-MLU77724619049_072024-F.webp",
         "https://http2.mlstatic.com/D_NQ_NP_2X_868770-MLU77724321813_072024-F.webp"
-      ]
+      ],
+      "ownerId": "1"
     },
     {
       "id": "2",
@@ -21,7 +22,24 @@
       "description": "Pesas rusas de 20 kg, ideales para entrenar en casa.",
       "images": [
         "https://http2.mlstatic.com/D_NQ_NP_727899-MLU74368661704_022024-O.webp"
-      ]
+      ],
+      "ownerId": "2"
+    }
+  ],
+  "usuarios": [
+    {
+      "id": "1",
+      "nombre": "Cristiano",
+      "apellido": "Ronaldo",
+      "email": "cr7@example.com",
+      "password": "123456"
+    },
+    {
+      "id": "2",
+      "nombre": "Lionel",
+      "apellido": "Messi",
+      "email": "messi@example.com",
+      "password": "123456"
     }
   ]
 }

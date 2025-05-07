@@ -10,7 +10,6 @@ import {
   MenuItem,
   Snackbar,
   Alert,
-  Badge,
   Drawer,
   IconButton,
   List,
@@ -23,15 +22,14 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTheme } from "@mui/material/styles";
+import { useUser } from "../context/UserContext";
 
 function Navbar() {
+  const { user, setUser } = useUser();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
 
-  const [usuarioLogueado, setUsuarioLogueado] = useState(
-    JSON.parse(localStorage.getItem("usuario"))
-  );
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -61,7 +59,7 @@ function Navbar() {
 
   const handleLogout = () => {
     localStorage.removeItem("usuario");
-    setUsuarioLogueado(null);
+    setUser(null);
     handleMenuClose();
     setSnackbarOpen(true);
     navigate("/");
@@ -82,7 +80,7 @@ function Navbar() {
       <Button color="inherit" component={Link} to="/sell">
         Vender
       </Button>
-      {!usuarioLogueado ? (
+      {!user ? (
         <>
           <Button color="inherit" component={Link} to="/login">
             Iniciar Sesión
@@ -94,7 +92,7 @@ function Navbar() {
       ) : (
         <>
           <Button color="inherit" onClick={handleMenuClick}>
-            {usuarioLogueado.firstName + " " + usuarioLogueado.lastName}
+            {user.nombre + " " + user.apellido || "Usuario"}
           </Button>
           <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
             <MenuItem onClick={() => navigate("/profile")}>Mi Perfil</MenuItem>
@@ -103,9 +101,7 @@ function Navbar() {
         </>
       )}
       <Button color="inherit" component={Link} to="/cart">
-        {/* <Badge badgeContent={cantidadCarrito} color="secondary"> */}
         <ShoppingCartIcon />
-        {/* </Badge> */}
       </Button>
     </>
   );
@@ -138,7 +134,7 @@ function Navbar() {
           </ListItemButton>
         </ListItem>
         <Divider />
-        {!usuarioLogueado ? (
+        {!user ? (
           <>
             <ListItem disablePadding>
               <ListItemButton component={Link} to="/login">
@@ -168,9 +164,7 @@ function Navbar() {
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/cart">
             <ListItemText primary="Carrito" />
-            {/* <Badge badgeContent={cantidadCarrito} color="secondary"> */}
             <ShoppingCartIcon />
-            {/* </Badge> */}
           </ListItemButton>
         </ListItem>
       </List>

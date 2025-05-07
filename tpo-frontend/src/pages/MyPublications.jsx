@@ -6,14 +6,16 @@ import {
   Snackbar,
   Alert
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
 import MyPublicationCard from "../components/MyPublicationCard";
 import EmptyProductCard from "../components/EmptyProductCard";
 import FloatingPublishButton from "../components/FloatingPublishButton";
+import { useUser } from "../context/UserContext";
 
 export default function MyPublications() {
+  const { user } = useUser();
   const [products, setProducts] = useState([]);
   const [snackbar, setSnackbar] = useState({
     open: false,
@@ -23,14 +25,16 @@ export default function MyPublications() {
 
   const navigate = useNavigate();
 
-  // Obtener productos de json-server al cargar
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
   useEffect(() => {
     axios.get("http://localhost:3001/products")
       .then((res) => setProducts(res.data))
       .catch((err) => console.error("Error al obtener productos:", err));
   }, []);
 
-  // Editar producto
   const handleEdit = async (updatedProduct) => {
     try {
       await axios.patch(`http://localhost:3001/products/${updatedProduct.id}`, updatedProduct);
@@ -47,7 +51,6 @@ export default function MyPublications() {
     }
   };
 
-  // Eliminar producto
   const handleDelete = async (productId) => {
     try {
       await axios.delete(`http://localhost:3001/products/${productId}`);
@@ -62,6 +65,8 @@ export default function MyPublications() {
     }
   };
 
+  const misProductos = products.filter((p) => p.ownerId === user?.id);
+
   return (
     <Box sx={{ p: 4 }}>
       <Typography variant="h5" gutterBottom>
@@ -69,7 +74,7 @@ export default function MyPublications() {
       </Typography>
 
       <Grid container spacing={2}>
-        {products.map((product) => (
+        {misProductos.map((product) => (
           <Grid item key={product.id}>
             <MyPublicationCard
               product={product}

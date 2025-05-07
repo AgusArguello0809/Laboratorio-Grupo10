@@ -14,6 +14,9 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
+import { useUser } from "../context/UserContext";
+
+
 
 const validationSchema = Yup.object({
   email: Yup.string()
@@ -25,32 +28,41 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
+  const { setUser } = useUser();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("info");
   const navigate = useNavigate();
 
-  const handleSubmit = (values, { setSubmitting }) => {
-    const usuarioGuardado = JSON.parse(localStorage.getItem("usuario"));
-
-    if (
-      usuarioGuardado &&
-      values.email === usuarioGuardado.email &&
-      values.password === usuarioGuardado.password
-    ) {
-      setSnackbarMessage("✅ ¡Entraste!");
-      setSnackbarSeverity("success");
-      setOpenSnackbar(true);
-
-      setTimeout(() => {
-        navigate("/");
-      }, 1500);
-    } else {
-      setSnackbarMessage("❌ Usuario no encontrado");
+  const handleSubmit = async (values, { setSubmitting }) => {
+    try {
+      const response = await fetch(`http://localhost:3001/usuarios?email=${values.email}&password=${values.password}`);
+      const data = await response.json();
+  
+      if (data.length > 0) {
+        const usuario = data[0];
+        localStorage.setItem("usuario", JSON.stringify(usuario));
+        setUser(usuario);
+  
+        setSnackbarMessage("✅ ¡Entraste!");
+        setSnackbarSeverity("success");
+        setOpenSnackbar(true);
+  
+        setTimeout(() => {
+          navigate("/");
+        }, 1500);
+      } else {
+        setSnackbarMessage("❌ Usuario no encontrado");
+        setSnackbarSeverity("error");
+        setOpenSnackbar(true);
+      }
+    } catch (error) {
+      console.error("Error al hacer login:", error);
+      setSnackbarMessage("❌ Error de conexión");
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
-
+  
     setSubmitting(false);
   };
 
