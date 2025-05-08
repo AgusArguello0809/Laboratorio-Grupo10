@@ -25,8 +25,8 @@ export default function DraftPreviewDialog({ open, onClose, onConfirm, product }
       return;
     }
 
-    onConfirm(); // 🔁 delega la publicación al padre
-    onClose();   // cerrá el modal luego de confirmar
+    onConfirm(); // delega la publicación al padre
+    onClose();   // cierra el modal luego de confirmar
   };
 
   return (
