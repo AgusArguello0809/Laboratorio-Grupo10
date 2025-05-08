@@ -95,7 +95,6 @@ function Navbar() {
             {user.nombre + " " + user.apellido || "Usuario"}
           </Button>
           <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
-            <MenuItem onClick={() => navigate("/profile")}>Mi Perfil</MenuItem>
             <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
           </Menu>
         </>

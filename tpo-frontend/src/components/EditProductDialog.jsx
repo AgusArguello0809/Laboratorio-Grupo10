@@ -47,24 +47,42 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
     }
   }, [open, product]);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    if (name === "price") {
-      if(/[^0-9.,]/.test(value)) return;
-      const cleanValue = value.replace(",", ".");
-      if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
-      const floatVal = parseFloat(cleanValue);
-      if (isNaN(floatVal) || floatVal < 0) return;
-      setForm((prev) => ({ ...prev, [name]: cleanValue }));
-    } else if (name === "stock") {
-      if(/[^0-9]/.test(value)) return;
-      const intVal = parseInt(value);
-      if (isNaN(intVal) || intVal < 0) return;
-      setForm((prev) => ({ ...prev, [name]: intVal }));
-    } else {
-      setForm((prev) => ({ ...prev, [name]: value }));
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === "price") {
+    if (/[^0-9.,]/.test(value)) return;
+
+    const cleanValue = value.replace(",", ".");
+
+    if (value === "") {
+      setForm((prev) => ({ ...prev, [name]: "" }));
+      return;
     }
-  };
+
+    if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
+    const floatVal = parseFloat(cleanValue);
+    if (isNaN(floatVal) || floatVal < 1) return;
+
+    setForm((prev) => ({ ...prev, [name]: cleanValue }));
+
+  } else if (name === "stock") {
+    if (/[^0-9]/.test(value)) return;
+
+    if (value === "") {
+      setForm((prev) => ({ ...prev, [name]: "" }));
+      return;
+    }
+
+    const intVal = parseInt(value);
+    if (isNaN(intVal) || intVal < 1) return;
+
+    setForm((prev) => ({ ...prev, [name]: intVal }));
+
+  } else {
+    setForm((prev) => ({ ...prev, [name]: value }));
+  }
+};
 
   const handleSave = () => {
     const isValid =

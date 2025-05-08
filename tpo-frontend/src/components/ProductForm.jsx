@@ -15,37 +15,42 @@ const categorias = [
 ];
 
 export default function ProductForm({ formData, setFormData }) {
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    
-    if (name === "price") {
-      // Prevenir caracteres no válidos (solo dígitos, punto o coma)
-      if(/[^0-9.,]/.test(value)) return;
-      const cleanValue = value.replace(",", ".");
-      if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
-      const floatVal = parseFloat(cleanValue);
-      if (isNaN(floatVal) || floatVal < 1) return;
-  
-      setFormData((prev) => ({
-        ...prev,
-        [name]: cleanValue
-      }));
-    } else if (name === "stock") {
-      if(/[^0-9]/.test(value)) return;
-      const intVal = parseInt(value);
-      if (isNaN(intVal) || intVal < 1) return;
-  
-      setFormData((prev) => ({
-        ...prev,
-        [name]: intVal
-      }));
-    } else {
-      setFormData((prev) => ({
-        ...prev,
-        [name]: value
-      }));
+const handleChange = (e) => {
+  const { name, value } = e.target;
+
+  if (name === "price") {
+    if (/[^0-9.,]/.test(value)) return;
+
+    const cleanValue = value.replace(",", ".");
+
+    if (value === "") {
+      setFormData((prev) => ({ ...prev, [name]: "" }));
+      return;
     }
-  };
+
+    if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
+    const floatVal = parseFloat(cleanValue);
+    if (isNaN(floatVal) || floatVal < 1) return;
+
+    setFormData((prev) => ({ ...prev, [name]: cleanValue }));
+
+  } else if (name === "stock") {
+    if (/[^0-9]/.test(value)) return;
+
+    if (value === "") {
+      setFormData((prev) => ({ ...prev, [name]: "" }));
+      return;
+    }
+
+    const intVal = parseInt(value);
+    if (isNaN(intVal) || intVal < 1) return;
+
+    setFormData((prev) => ({ ...prev, [name]: intVal }));
+
+  } else {
+    setFormData((prev) => ({ ...prev, [name]: value }));
+  }
+};
 
   return (
     <Box
@@ -122,7 +127,7 @@ export default function ProductForm({ formData, setFormData }) {
           name="description"
           fullWidth
           multiline
-          rows={50}
+          rows={30}
           value={formData.description}
           onChange={handleChange}
           sx={textFieldStyle}

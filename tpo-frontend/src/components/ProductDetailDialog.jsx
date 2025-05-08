@@ -57,8 +57,8 @@ export default function ProductDetailDialog({ open, onClose, product }) {
             <ArrowForwardIosIcon />
           </IconButton>
         </Box>
-        <Typography variant="subtitle1" gutterBottom>
-          <strong>Precio:</strong> {price}
+        <Typography variant="body2" gutterBottom>
+          <strong>Precio:</strong> ${price}
         </Typography>
         <Typography variant="body2" gutterBottom>
           <strong>Categoría:</strong> {category}
@@ -68,12 +68,6 @@ export default function ProductDetailDialog({ open, onClose, product }) {
         </Typography>
         <Typography variant="body2" gutterBottom>
           <strong>Descripción:</strong> {description}
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <strong>Preguntas:</strong> 0 (sin implementar)
-        </Typography>
-        <Typography variant="body2" gutterBottom>
-          <strong>Ventas:</strong> 0 (sin implementar)
         </Typography>
       </DialogContent>
       <DialogActions>

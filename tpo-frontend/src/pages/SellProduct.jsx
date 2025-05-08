@@ -4,12 +4,16 @@ import ProductImageSlider from "../components/ProductImageSlider";
 import ProductForm from "../components/ProductForm";
 import ConfirmCancelDialog from "../components/ConfirmCancelDialog";
 import DraftPreviewDialog from "../components/DraftPreviewDialog";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Navigate } from "react-router-dom";
 import { useUser } from "../context/UserContext";
 
 export default function SellProduct() {
   const { user } = useUser();
   const navigate = useNavigate();
+
+  if (!user) {
+      return <Navigate to="/login" replace />;
+  }
 
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({
