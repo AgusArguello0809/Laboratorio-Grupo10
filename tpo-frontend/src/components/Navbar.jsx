@@ -149,11 +149,6 @@ function Navbar() {
         ) : (
           <>
             <ListItem disablePadding>
-              <ListItemButton onClick={() => navigate("/profile")}>
-                <ListItemText primary="Mi Perfil" />
-              </ListItemButton>
-            </ListItem>
-            <ListItem disablePadding>
               <ListItemButton onClick={handleLogout}>
                 <ListItemText primary="Cerrar sesión" />
               </ListItemButton>
