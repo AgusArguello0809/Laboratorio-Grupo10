@@ -9,10 +9,10 @@ import {
 import { useNavigate, Navigate } from "react-router-dom";
 import axios from "axios";
 
-import MyPublicationCard from "../components/MyPublicationCard";
-import EmptyProductCard from "../components/EmptyProductCard";
-import FloatingPublishButton from "../components/FloatingPublishButton";
-import { useUser } from "../context/UserContext";
+import MyPublicationCard from "../components/management/MyPublicationCard";
+import EmptyProductCard from "../components/management/EmptyProductCard";
+import FloatingPublishButton from "../components/management/FloatingPublishButton";
+import { useUser } from "../../auth/context/AuthContext";
 
 export default function MyPublications() {
   const { user } = useUser();

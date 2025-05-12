@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { Box, Button, Stack, Typography, Snackbar, Alert } from "@mui/material";
-import ProductImageSlider from "../components/ProductImageSlider";
-import ProductForm from "../components/ProductForm";
-import ConfirmCancelDialog from "../components/ConfirmCancelDialog";
-import DraftPreviewDialog from "../components/DraftPreviewDialog";
+import ProductImageSlider from "../components/management/ProductImageSlider";
+import ProductForm from "../components/management/ProductForm";
+import ConfirmCancelDialog from "../components/management/ConfirmCancelDialog";
+import DraftPreviewDialog from "../components/management/DraftPreviewDialog";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../auth/context/AuthContext";
 
 export default function SellProduct() {
   const { user } = useUser();

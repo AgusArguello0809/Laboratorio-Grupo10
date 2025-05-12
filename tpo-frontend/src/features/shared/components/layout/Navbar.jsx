@@ -22,7 +22,7 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTheme } from "@mui/material/styles";
-import { useUser } from "../context/UserContext";
+import { useUser } from "../../../auth/context/AuthContext";
 
 function Navbar() {
   const { user, setUser } = useUser();

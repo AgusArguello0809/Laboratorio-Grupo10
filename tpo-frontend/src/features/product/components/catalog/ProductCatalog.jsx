@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Grid, Box, Container } from "@mui/material";
 import ProductCard from "./ProductCard";
 import ProductFilter from "./ProductFilter";
-import mockProducts from "../../mocks/mockProducts.json";
+import mockProducts from "../../../../../mocks/mockProducts.json";
 
 const ProductCatalog = () => {
   const [filterOptions, setFilterOptions] = useState({
