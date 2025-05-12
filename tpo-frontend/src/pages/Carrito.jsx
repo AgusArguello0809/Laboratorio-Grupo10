@@ -28,15 +28,32 @@ const Carrito = () => {
     };
   }, []);
 
-  const eliminarProducto = (nombre) => {
-    const nuevoCarrito = carrito.filter((item) => item.nombre !== nombre);
+  const guardarCarrito = (nuevoCarrito) => {
     setCarrito(nuevoCarrito);
     localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
   };
 
+  const eliminarProducto = (nombre) => {
+    const nuevoCarrito = carrito.filter((item) => item.nombre !== nombre);
+    guardarCarrito(nuevoCarrito);
+  };
+
+  const aumentarCantidad = (index) => {
+    const nuevoCarrito = [...carrito];
+    nuevoCarrito[index].cantidad += 1;
+    guardarCarrito(nuevoCarrito);
+  };
+
+  const disminuirCantidad = (index) => {
+    const nuevoCarrito = [...carrito];
+    if (nuevoCarrito[index].cantidad > 1) {
+      nuevoCarrito[index].cantidad -= 1;
+      guardarCarrito(nuevoCarrito);
+    }
+  };
+
   const vaciarCarrito = () => {
-    setCarrito([]);
-    localStorage.setItem('carrito', JSON.stringify([]));
+    guardarCarrito([]);
   };
 
   const total = carrito.reduce(
@@ -66,6 +83,12 @@ const Carrito = () => {
                 </Typography>
               </CardContent>
               <CardActions>
+                <Button size="small" onClick={() => disminuirCantidad(index)}>
+                  -
+                </Button>
+                <Button size="small" onClick={() => aumentarCantidad(index)}>
+                  +
+                </Button>
                 <Button
                   size="small"
                   color="error"
