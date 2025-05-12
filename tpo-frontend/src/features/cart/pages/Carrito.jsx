@@ -83,10 +83,40 @@ const Carrito = () => {
                 </Typography>
               </CardContent>
               <CardActions>
-                <Button size="small" onClick={() => disminuirCantidad(index)}>
+                <Button
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                      minWidth: 36,
+                      borderRadius: 1,
+                      color: '#1976d2',
+                      borderColor: '#1976d2',
+                      fontWeight: 'bold',
+                      '&:hover': {
+                        backgroundColor: '#e3f2fd',
+                        borderColor: '#1565c0',
+                        color: '#1565c0'
+                        }
+                      }}
+                  onClick={() => disminuirCantidad(index)}>
                   -
                 </Button>
-                <Button size="small" onClick={() => aumentarCantidad(index)}>
+                <Button 
+                  size="small"
+                  variant="outlined"
+                  sx={{
+                    minWidth: 36,
+                    borderRadius: 1,
+                    color: '#388e3c',
+                    borderColor: '#388e3c',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                      backgroundColor: '#e8f5e9',
+                      borderColor: '#2e7d32',
+                      color: '#2e7d32'
+                    }
+                  }}
+                  onClick={() => aumentarCantidad(index)}>
                   +
                 </Button>
                 <Button
@@ -105,12 +135,12 @@ const Carrito = () => {
           <Typography variant="h6">Total: ${total}</Typography>
 
           <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
-            <Button variant="outlined" onClick={vaciarCarrito}>
+            <Button variant="outlined" color="error" onClick={vaciarCarrito}>
               Vaciar carrito
             </Button>
             <Button
               variant="contained"
-              color="primary"
+              color="success"
               onClick={() => {
                 alert('¡Gracias por tu compra!');
                 vaciarCarrito();
