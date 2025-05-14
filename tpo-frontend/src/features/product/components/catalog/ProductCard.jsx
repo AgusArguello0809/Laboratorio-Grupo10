@@ -17,9 +17,7 @@ function ProductCard({ product }) {
   const [loading, setLoading] = useState(false);
 
   const handleClose = (event, reason) => {
-    if (reason === "clickaway") {
-      return;
-    }
+    if (reason === "clickaway") return;
     setOpen(false);
   };
 
@@ -29,20 +27,29 @@ function ProductCard({ product }) {
     setLoading(true);
 
     const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
+    const existente = carrito.find((item) => item.id === product.id);
 
-    const existente = carrito.find((item) => item.nombre === product.name);
+    const stock = Number(product.stock);
+    const precio = typeof product.price === "string"
+      ? Number(product.price.replace("$", ""))
+      : Number(product.price);
 
     if (existente) {
-      existente.cantidad += 1;
+      if (existente.cantidad < stock) {
+        existente.cantidad += 1;
+      } else {
+        alert("No hay más stock disponible para este producto.");
+        setLoading(false);
+        return;
+      }
     } else {
       carrito.push({
+        id: product.id,
         nombre: product.name,
-        precio:
-          typeof product.price === "string"
-            ? Number(product.price.replace("$", ""))
-            : product.price,
+        precio: precio,
         cantidad: 1,
         imagen: product.image,
+        stock: stock
       });
     }
 
@@ -100,10 +107,7 @@ function ProductCard({ product }) {
             </Typography>
           </Box>
           <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-            $
-            {!isNaN(parseFloat(product.price))
-              ? parseFloat(product.price).toFixed(2)
-              : "0.00"}
+            ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}
           </Typography>
           <Button
             variant="contained"
@@ -121,7 +125,7 @@ function ProductCard({ product }) {
               py: 1,
               textTransform: "uppercase",
               color: "black",
-              backgroundColor: " #FA9500",
+              backgroundColor: "#FA9500",
             }}
           >
             {product.stock === 0 ? "Sin stock" : "Add to Cart"}

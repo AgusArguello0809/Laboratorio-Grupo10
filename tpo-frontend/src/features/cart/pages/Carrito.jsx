@@ -19,10 +19,7 @@ const Carrito = () => {
 
   useEffect(() => {
     cargarCarrito();
-
-    // Escuchamos cuando el usuario vuelve a la pestaña
     window.addEventListener('focus', cargarCarrito);
-
     return () => {
       window.removeEventListener('focus', cargarCarrito);
     };
@@ -56,6 +53,33 @@ const Carrito = () => {
     guardarCarrito([]);
   };
 
+  const handleCheckout = async () => {
+    try {
+      for (const item of carrito) {
+        const nuevoStock = item.stock - item.cantidad;
+
+        if (nuevoStock < 0) {
+          alert(`No hay suficiente stock de ${item.nombre}`);
+          return;
+        }
+
+        await fetch(`http://localhost:3001/products/${item.id}`, {
+          method: 'PATCH',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ stock: nuevoStock }),
+        });
+      }
+
+      alert('¡Gracias por tu compra!');
+      vaciarCarrito();
+    } catch (error) {
+      console.error('Error al actualizar el stock:', error);
+      alert('Hubo un error al procesar el pedido.');
+    }
+  };
+
   const total = carrito.reduce(
     (acc, item) => acc + item.precio * item.cantidad,
     0
@@ -87,21 +111,22 @@ const Carrito = () => {
                   size="small"
                   variant="outlined"
                   sx={{
-                      minWidth: 36,
-                      borderRadius: 1,
-                      color: '#1976d2',
-                      borderColor: '#1976d2',
-                      fontWeight: 'bold',
-                      '&:hover': {
-                        backgroundColor: '#e3f2fd',
-                        borderColor: '#1565c0',
-                        color: '#1565c0'
-                        }
-                      }}
-                  onClick={() => disminuirCantidad(index)}>
+                    minWidth: 36,
+                    borderRadius: 1,
+                    color: '#1976d2',
+                    borderColor: '#1976d2',
+                    fontWeight: 'bold',
+                    '&:hover': {
+                      backgroundColor: '#e3f2fd',
+                      borderColor: '#1565c0',
+                      color: '#1565c0',
+                    },
+                  }}
+                  onClick={() => disminuirCantidad(index)}
+                >
                   -
                 </Button>
-                <Button 
+                <Button
                   size="small"
                   variant="outlined"
                   sx={{
@@ -113,10 +138,11 @@ const Carrito = () => {
                     '&:hover': {
                       backgroundColor: '#e8f5e9',
                       borderColor: '#2e7d32',
-                      color: '#2e7d32'
-                    }
+                      color: '#2e7d32',
+                    },
                   }}
-                  onClick={() => aumentarCantidad(index)}>
+                  onClick={() => aumentarCantidad(index)}
+                >
                   +
                 </Button>
                 <Button
@@ -141,10 +167,7 @@ const Carrito = () => {
             <Button
               variant="contained"
               color="success"
-              onClick={() => {
-                alert('¡Gracias por tu compra!');
-                vaciarCarrito();
-              }}
+              onClick={handleCheckout}
             >
               Checkout
             </Button>
