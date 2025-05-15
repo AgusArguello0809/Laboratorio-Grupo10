@@ -11,7 +11,15 @@ import {
 } from "@mui/material";
 
 function ProductFilter({ filterOptions, onFilterChange }) {
-  
+
+  const categorias = [
+    "Calzado",
+    "Equipamiento",
+    "Ropa",
+    "Suplementos",
+    "Accesorios"
+  ];;
+
   const handleFilterChange = (filterName, value) => {
     onFilterChange({ ...filterOptions, [filterName]: value });
   };
@@ -31,6 +39,23 @@ function ProductFilter({ filterOptions, onFilterChange }) {
             onChange={(e) => handleFilterChange("searchTerm", e.target.value)}
             size="small"
           />
+        </Grid>
+        <Grid item xs={12} sm={6} md={4}>
+          <FormControl fullWidth size="small" sx={{ minWidth: 200 }}>
+            <InputLabel>Categoría</InputLabel>
+            <Select
+              value={filterOptions.category || "all"}
+              label="Categoría"
+              onChange={(e) => handleFilterChange("category", e.target.value)}
+            >
+              <MenuItem value="all">Todas</MenuItem>
+              {categorias.map((cat) => (
+                <MenuItem key={cat} value={cat}>
+                  {cat}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
           <FormControl fullWidth size="small" sx={{ minWidth: 200 }}>
@@ -54,8 +79,8 @@ function ProductFilter({ filterOptions, onFilterChange }) {
               label="Ordenar por"
               onChange={(e) => handleFilterChange("sortBy", e.target.value)}
             >
-              <MenuItem value="nameAsc">Nombre (A-Z)</MenuItem>
-              <MenuItem value="nameDesc">Nombre (Z-A)</MenuItem>
+              <MenuItem value="titleAsc">Nombre (A-Z)</MenuItem>
+              <MenuItem value="titleDesc">Nombre (Z-A)</MenuItem>
               <MenuItem value="priceLow">Precio (menor a mayor)</MenuItem>
               <MenuItem value="priceHigh">Precio (mayor a menor)</MenuItem>
             </Select>

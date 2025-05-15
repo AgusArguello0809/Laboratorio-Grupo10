@@ -23,12 +23,12 @@ import {
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTheme } from "@mui/material/styles";
-import { useUser } from "../../../auth/context/AuthProvider";
-import { useCarrito } from "../../../cart/context/CarritoProvider";
+import { useAuth } from "../../../auth/context/AuthContext";
+import { useCarrito } from "../../../cart/context/CartContext";
 
 function Navbar() {
-  // Modificamos para usar logout en lugar de setUser
-  const { user, logout } = useUser();
+  // Modificar para usar logout en lugar de setUser
+  const { user, logout } = useAuth();
   const { cantidadTotal } = useCarrito();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -42,7 +42,7 @@ function Navbar() {
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
 
-  // Actualizamos para usar la función logout del contexto
+  // Actualizar para usar la función logout del contexto
   const handleLogout = () => {
     logout(); // Esta función ya se encarga de remover el token y el usuario
     handleMenuClose();
@@ -106,11 +106,6 @@ function Navbar() {
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/">
             <ListItemText primary="Home" />
-          </ListItemButton>
-        </ListItem>
-        <ListItem disablePadding>
-          <ListItemButton component={Link} to="/products">
-            <ListItemText primary="Productos" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>

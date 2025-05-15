@@ -7,50 +7,50 @@ import {
 } from "@mui/material";
 
 const categorias = [
-  "Electrónica",
-  "Entrenamiento",
+  "Calzado",
+  "Equipamiento",
   "Ropa",
   "Suplementos",
   "Accesorios"
 ];
 
 export default function ProductForm({ formData, setFormData }) {
-const handleChange = (e) => {
-  const { name, value } = e.target;
+  const handleChange = (e) => {
+    const { name, value } = e.target;
 
-  if (name === "price") {
-    if (/[^0-9.,]/.test(value)) return;
+    if (name === "price") {
+      if (/[^0-9.,]/.test(value)) return;
 
-    const cleanValue = value.replace(",", ".");
+      const cleanValue = value.replace(",", ".");
 
-    if (value === "") {
-      setFormData((prev) => ({ ...prev, [name]: "" }));
-      return;
+      if (value === "") {
+        setFormData((prev) => ({ ...prev, [name]: "" }));
+        return;
+      }
+
+      if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
+      const floatVal = parseFloat(cleanValue);
+      if (isNaN(floatVal) || floatVal < 1) return;
+
+      setFormData((prev) => ({ ...prev, [name]: cleanValue }));
+
+    } else if (name === "stock") {
+      if (/[^0-9]/.test(value)) return;
+
+      if (value === "") {
+        setFormData((prev) => ({ ...prev, [name]: "" }));
+        return;
+      }
+
+      const intVal = parseInt(value);
+      if (isNaN(intVal) || intVal < 1) return;
+
+      setFormData((prev) => ({ ...prev, [name]: intVal }));
+
+    } else {
+      setFormData((prev) => ({ ...prev, [name]: value }));
     }
-
-    if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
-    const floatVal = parseFloat(cleanValue);
-    if (isNaN(floatVal) || floatVal < 1) return;
-
-    setFormData((prev) => ({ ...prev, [name]: cleanValue }));
-
-  } else if (name === "stock") {
-    if (/[^0-9]/.test(value)) return;
-
-    if (value === "") {
-      setFormData((prev) => ({ ...prev, [name]: "" }));
-      return;
-    }
-
-    const intVal = parseInt(value);
-    if (isNaN(intVal) || intVal < 1) return;
-
-    setFormData((prev) => ({ ...prev, [name]: intVal }));
-
-  } else {
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  }
-};
+  };
 
   return (
     <Box

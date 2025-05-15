@@ -11,12 +11,34 @@ import {
   CircularProgress,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
-import { useCarrito } from "../../../cart/context/CarritoProvider";
+import ArrowBackIosIcon from "@mui/icons-material/ArrowBackIos";
+import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
+import { IconButton } from "@mui/material";
+import { useCarrito } from "../../../cart/context/CartContext";
+import { useAuth } from "../../../auth/context/AuthContext";
+import { useNavigate } from "react-router-dom";
+
 
 function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
   const { carrito, setCarrito } = useCarrito();
+  const { user } = useAuth();
+  const navigate = useNavigate();
+  const [currentImage, setCurrentImage] = useState(0);
+  const [hovered, setHovered] = useState(false);
+
+  const nextImage = (e) => {
+    e.stopPropagation?.();
+    setCurrentImage((prev) => (prev + 1) % product.images.length);
+  };
+
+  const prevImage = (e) => {
+    e.stopPropagation?.();
+    setCurrentImage((prev) =>
+      prev === 0 ? product.images.length - 1 : prev - 1
+    );
+  };
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") return;
@@ -24,6 +46,10 @@ function ProductCard({ product }) {
   };
 
   const agregarAlCarrito = () => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
     if (loading) return;
     setLoading(true);
 
@@ -67,6 +93,8 @@ function ProductCard({ product }) {
   return (
     <>
       <Card
+        onMouseEnter={() => setHovered(true)}
+        onMouseLeave={() => setHovered(false)}
         sx={{
           width: "100%",
           height: "100%",
@@ -81,15 +109,71 @@ function ProductCard({ product }) {
           },
         }}
       >
-    {product.images && (
-      <CardMedia
-        component="img"
-        height="140"
-        image={Array.isArray(product.images) ? product.images[0] : product.images}
-        alt={product.title}
-        sx={{ objectFit: "cover" }}
-      />
-    )}
+        <Box position="relative">
+          <Box
+            sx={{
+              position: "relative",
+              width: "100%",
+              height: 140,
+              overflow: "hidden",
+            }}
+          >
+            <CardMedia
+              component="img"
+              image={product.images?.[currentImage]}
+              alt={product.title}
+              sx={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+            />
+
+            {hovered && product.images?.length > 1 && (
+              <>
+                <IconButton
+                  onClick={prevImage}
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: 8,
+                    transform: "translateY(-50%)",
+                    opacity: 1,
+                    transition: "opacity 1s ease",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    color: "white",
+                    zIndex: 1,
+                    "&:hover": {
+                      backgroundColor: "rgba(0,0,0,0.7)",
+                    },
+                  }}
+                >
+                  <ArrowBackIosIcon fontSize="small" />
+                </IconButton>
+
+                <IconButton
+                  onClick={nextImage}
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    right: 8,
+                    transform: "translateY(-50%)",
+                    opacity: 1,
+                    transition: "opacity 1s ease",
+                    backgroundColor: "rgba(0,0,0,0.5)",
+                    color: "white",
+                    zIndex: 1,
+                    "&:hover": {
+                      backgroundColor: "rgba(0,0,0,0.7)",
+                    },
+                  }}
+                >
+                  <ArrowForwardIosIcon fontSize="small" />
+                </IconButton>
+              </>
+            )}
+          </Box>
+        </Box>
 
         <CardContent
           sx={{
@@ -105,6 +189,20 @@ function ProductCard({ product }) {
             <Typography variant="h6" component="div" gutterBottom>
               {product.title}
             </Typography>
+            <Box
+              sx={{
+                display: "flex",
+                justifyContent: "space-between",
+                mb: 1,
+              }}
+            >
+              <Typography variant="body2" color="text.secondary">
+                <strong>{product.category || "Sin categoría"}</strong>
+              </Typography>
+              <Typography variant="body2" color="text.secondary">
+                <strong>Stock:</strong> {product.stock}
+              </Typography>
+            </Box>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               {product.description}
             </Typography>

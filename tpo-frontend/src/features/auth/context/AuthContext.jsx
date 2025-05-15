@@ -1,14 +1,14 @@
 import { createContext, useContext, useState, useEffect } from "react";
-import { 
-  login as loginService, 
-  logout as logoutService, 
-  getCurrentUser, 
-  isAuthenticated 
+import {
+  login as loginService,
+  logout as logoutService,
+  getCurrentUser,
+  isAuthenticated
 } from "../services/authService";
 
-const UserContext = createContext();
+const AuthContext = createContext();
 
-export const UserProvider = ({ children }) => {
+export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
@@ -50,7 +50,7 @@ export const UserProvider = ({ children }) => {
 
   const value = {
     user,
-    setUser, 
+    setUser,
     loading,
     error,
     login,
@@ -60,15 +60,15 @@ export const UserProvider = ({ children }) => {
   };
 
   return (
-    <UserContext.Provider value={value}>
+    <AuthContext.Provider value={value}>
       {children}
-    </UserContext.Provider>
+    </AuthContext.Provider>
   );
 };
-export const useUser = () => {
-  const context = useContext(UserContext);
+export const useAuth = () => {
+  const context = useContext(AuthContext);
   if (!context) {
-    throw new Error("useUser debe usarse dentro de un UserProvider");
+    throw new Error("useAuth debe usarse dentro de un AuthProvider");
   }
   return context;
 };

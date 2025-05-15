@@ -8,7 +8,7 @@
         "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"
       ],
       "category": "Ropa",
-      "stock": 5,
+      "stock": 2,
       "price": 25,
       "ownerId": "62f5"
     },
@@ -32,7 +32,7 @@
         "https://images.unsplash.com/photo-1523362628745-0c100150b504"
       ],
       "category": "Accesorios",
-      "stock": 20,
+      "stock": 14,
       "price": 15.34,
       "ownerId": "1"
     },
@@ -44,7 +44,7 @@
         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
       ],
       "category": "Accesorios",
-      "stock": 15,
+      "stock": 14,
       "price": 45,
       "ownerId": "2"
     },
@@ -55,7 +55,7 @@
       "images": [
         "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
       ],
-      "category": "Accesorios",
+      "category": "Electrónica",
       "stock": 8,
       "price": 120,
       "ownerId": "62f5"
@@ -68,7 +68,7 @@
         "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543"
       ],
       "category": "Ropa",
-      "stock": 19,
+      "stock": 17,
       "price": 35,
       "ownerId": "62f5"
     },
@@ -92,7 +92,7 @@
         "https://images.unsplash.com/photo-1518611012118-696072aa579a"
       ],
       "category": "Equipamiento",
-      "stock": 12,
+      "stock": 11,
       "price": 25,
       "ownerId": "2"
     },
@@ -101,7 +101,7 @@
       "title": "Thor",
       "category": "Ropa",
       "price": 25,
-      "stock": 30,
+      "stock": 29,
       "description": "Producto de Ropa Thor",
       "images": [
         "https://http2.mlstatic.com/D_626339-MLA54966106993_042023-O.jpg",
@@ -110,30 +110,17 @@
       "ownerId": "1"
     },
     {
-      "id": "b8f7",
-      "title": "test",
-      "category": "Electrónica",
-      "price": 1234,
-      "stock": 12,
-      "description": "test",
-      "images": [
-        "blob:http://localhost:5173/6c771687-e169-4238-80a7-d47d8d51a282"
-      ],
-      "ownerId": "2d46"
-    },
-    {
-      "id": "04c6",
-      "title": "PapitoMireyeeee",
+      "title": "dasd",
       "category": "Suplementos",
-      "price": 1234,
+      "price": 12312.21,
       "stock": 0,
-      "description": "PAPI",
+      "description": "sadsaddsadsa",
       "images": [
-        "blob:http://localhost:5173/16a39b88-13e5-4bff-82a6-7311a1ebf60c",
-        "blob:http://localhost:5173/55218b51-0620-43a5-ab49-9c0515c569a5",
-        "blob:http://localhost:5173/1d87f837-7d05-4c48-9ed8-d630aeefe7b2"
+        "blob:http://localhost:5173/4bdac2f4-dc19-41ca-9f1e-ea4662c21d53",
+        "blob:http://localhost:5173/b1cbef12-f33f-49a9-92a5-01350e5b2066"
       ],
-      "ownerId": "cd78"
+      "ownerId": "cd78",
+      "id": "MVAj991"
     }
   ],
   "users": [

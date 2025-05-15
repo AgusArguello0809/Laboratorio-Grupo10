@@ -5,11 +5,11 @@ import ProductForm from "../components/management/ProductForm";
 import ConfirmCancelDialog from "../components/management/ConfirmCancelDialog";
 import DraftPreviewDialog from "../components/management/DraftPreviewDialog";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useUser } from "../../auth/context/AuthProvider";
+import { useAuth } from "../../auth/context/AuthContext";
 import { useProductService } from "../hooks/useProductService"; 
 
 export default function SellProduct() {
-  const { user } = useUser();
+  const { user } = useAuth();
   const { addProduct, loading } = useProductService(); 
   const navigate = useNavigate();
   

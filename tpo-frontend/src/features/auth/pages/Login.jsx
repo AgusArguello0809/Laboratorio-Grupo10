@@ -14,7 +14,7 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useUser } from "../context/AuthProvider";
+import { useAuth } from "../context/AuthContext";
 
 const validationSchema = Yup.object({
   identificador: Yup.string().required("El email o usuario es obligatorio"),
@@ -24,7 +24,7 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-  const { login, loading, error: authError } = useUser();
+  const { login, loading, error: authError } = useAuth();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("info");

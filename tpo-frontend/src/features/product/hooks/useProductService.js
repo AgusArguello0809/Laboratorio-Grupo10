@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import axios from "axios";
-import { useProductContext } from "../../context/ProductContext";
+import { useProductContext } from "../context/ProductContext";
 
 export const useProductService = () => {
-  const { 
-    products, 
-    setProducts, 
-    loading, 
-    setLoading, 
-    error, 
-    setError 
+  const {
+    products,
+    setProducts,
+    loading,
+    setLoading,
+    error,
+    setError
   } = useProductContext();
 
   useEffect(() => {
@@ -34,7 +34,7 @@ export const useProductService = () => {
     setLoading(true);
     try {
       const response = await axios.post(
-        "http://localhost:3001/products", 
+        "http://localhost:3001/products",
         newProduct
       );
       setProducts(prevProducts => [...prevProducts, response.data]);
@@ -51,11 +51,11 @@ export const useProductService = () => {
     setLoading(true);
     try {
       const response = await axios.patch(
-        `http://localhost:3001/products/${updatedProduct.id}`, 
+        `http://localhost:3001/products/${updatedProduct.id}`,
         updatedProduct
       );
-      setProducts(prevProducts => 
-        prevProducts.map(product => 
+      setProducts(prevProducts =>
+        prevProducts.map(product =>
           product.id === updatedProduct.id ? response.data : product
         )
       );
@@ -73,7 +73,7 @@ export const useProductService = () => {
     setLoading(true);
     try {
       await axios.delete(`http://localhost:3001/products/${productId}`);
-      setProducts(prevProducts => 
+      setProducts(prevProducts =>
         prevProducts.filter(product => product.id !== productId)
       );
       setLoading(false);
@@ -90,7 +90,7 @@ export const useProductService = () => {
     return products.filter(product => product.ownerId === ownerId);
   };
 
-  const filterProducts = (searchTerm = "", stockFilter = "all") => {
+  const filterProducts = (searchTerm = "", stockFilter = "all", category = "all") => {
     return products.filter(product => {
       const matchesSearch = product.title
         .toLowerCase()
@@ -103,7 +103,10 @@ export const useProductService = () => {
         matchesStock = product.stock === 0;
       }
 
-      return matchesSearch && matchesStock;
+      const matchesCategory =
+        category === "all" || product.category === category;
+
+      return matchesSearch && matchesStock && matchesCategory;
     });
   };
 

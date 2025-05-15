@@ -1,9 +1,9 @@
 import { Navigate, useLocation } from 'react-router-dom';
-import { useUser } from '../context/AuthProvider';
+import { useAuth } from '../context/AuthContext';
 import { CircularProgress, Box } from '@mui/material';
 
 const PrivateRoute = ({ children }) => {
-  const { user, loading } = useUser();
+  const { user, loading } = useAuth();
   const location = useLocation();
 
   if (loading) {

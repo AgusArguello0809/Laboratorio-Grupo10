@@ -12,11 +12,11 @@ import { useNavigate, Navigate } from "react-router-dom";
 import MyPublicationCard from "../components/management/MyPublicationCard";
 import EmptyProductCard from "../components/management/EmptyProductCard";
 import FloatingPublishButton from "../components/management/FloatingPublishButton";
-import { useUser } from "../../auth/context/AuthProvider";
+import { useAuth } from "../../auth/context/AuthContext";
 import { useProductService } from "../hooks/useProductService";
 
 export default function MyPublications() {
-  const { user } = useUser();
+  const { user } = useAuth();
   const { 
     loading, 
     updateProduct, 
