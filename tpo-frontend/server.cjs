@@ -62,7 +62,11 @@ server.use((req, res, next) => {
   const url = req.originalUrl;
 
   const isLogin = url.startsWith('/auth/login');
-  const isRegister = req.method === 'POST' && url.startsWith('/auth/register');
+  
+  const isRegister = req.method === 'POST' && (
+    url.startsWith('/users')
+  );
+    
   const isGet = req.method === 'GET';
 
   if (isLogin || isRegister || isGet) {
