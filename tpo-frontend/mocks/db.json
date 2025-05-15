@@ -125,11 +125,13 @@
       "id": "04c6",
       "title": "PapitoMireyeeee",
       "category": "Suplementos",
-      "price": 123,
+      "price": 1234,
       "stock": 0,
       "description": "PAPI",
       "images": [
-        "blob:http://localhost:5173/16a39b88-13e5-4bff-82a6-7311a1ebf60c"
+        "blob:http://localhost:5173/16a39b88-13e5-4bff-82a6-7311a1ebf60c",
+        "blob:http://localhost:5173/55218b51-0620-43a5-ab49-9c0515c569a5",
+        "blob:http://localhost:5173/1d87f837-7d05-4c48-9ed8-d630aeefe7b2"
       ],
       "ownerId": "cd78"
     }

@@ -27,7 +27,8 @@ import { useUser } from "../../../auth/context/AuthProvider";
 import { useCarrito } from "../../../cart/context/CarritoProvider";
 
 function Navbar() {
-  const { user, setUser } = useUser();
+  // Modificamos para usar logout en lugar de setUser
+  const { user, logout } = useUser();
   const { cantidadTotal } = useCarrito();
   const navigate = useNavigate();
   const theme = useTheme();
@@ -41,9 +42,9 @@ function Navbar() {
   const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
   const handleMenuClose = () => setAnchorEl(null);
 
+  // Actualizamos para usar la función logout del contexto
   const handleLogout = () => {
-    localStorage.removeItem("usuario");
-    setUser(null);
+    logout(); // Esta función ya se encarga de remover el token y el usuario
     handleMenuClose();
     setSnackbarOpen(true);
     navigate("/");

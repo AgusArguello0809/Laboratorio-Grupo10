@@ -13,10 +13,8 @@ import {
 import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useUser } from "../context/AuthProvider";
-
-
 
 const validationSchema = Yup.object({
   identificador: Yup.string().required("El email o usuario es obligatorio"),
@@ -26,48 +24,54 @@ const validationSchema = Yup.object({
 });
 
 function Login() {
-  const { setUser } = useUser();
+  const { login, loading, error: authError } = useUser();
   const [openSnackbar, setOpenSnackbar] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState("");
   const [snackbarSeverity, setSnackbarSeverity] = useState("info");
   const navigate = useNavigate();
+  const location = useLocation();
+
+  // Redirigir a la página anterior o a la página principal
+  const from = location.state?.from?.pathname || "/";
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch(`http://localhost:3001/users`);
-      const data = await response.json();
-    
-      const usuario = data.find(
-        (u) =>
-          (u.email === values.identificador || u.username === values.identificador) &&
-          u.password === values.password
-      );
-    
-      if (usuario) {
-        localStorage.setItem("usuario", JSON.stringify(usuario));
-        setUser(usuario);
+      // Usamos el email como identificador para JWT
+      // La API de JWT normalmente espera un email específico
+      const result = await login(values.identificador, values.password);
       
+      if (result.success) {
         setSnackbarMessage("✅ ¡Entraste!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
-      
+        
         setTimeout(() => {
-          navigate("/");
+          navigate(from, { replace: true });
         }, 1500);
       } else {
-        setSnackbarMessage("❌ Usuario o contraseña incorrectos");
+        // Si hay error específico del login
+        setSnackbarMessage(`❌ ${result.error || "Usuario o contraseña incorrectos"}`);
         setSnackbarSeverity("error");
         setOpenSnackbar(true);
       }
     } catch (error) {
       console.error("Error al hacer login:", error);
-      setSnackbarMessage("❌ Error de conexión");
+      setSnackbarMessage(`❌ ${error.message || "Error de conexión"}`);
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
-  
+    
     setSubmitting(false);
   };
+
+  // Mostrar error de autenticación del contexto si existe
+  React.useEffect(() => {
+    if (authError) {
+      setSnackbarMessage(`❌ ${authError}`);
+      setSnackbarSeverity("error");
+      setOpenSnackbar(true);
+    }
+  }, [authError]);
 
   return (
     <Container maxWidth="xs">
@@ -140,14 +144,14 @@ function Login() {
                 fullWidth
                 variant="contained"
                 color="primary"
-                disabled={isSubmitting}
+                disabled={isSubmitting || loading}
                 sx={{
                   marginTop: 2,
                   backgroundColor: "#FA9500",
                   color: "black",
                 }}
               >
-                Iniciar sesión
+                {loading ? "Iniciando sesión..." : "Iniciar sesión"}
               </Button>
             </Form>
           )}
