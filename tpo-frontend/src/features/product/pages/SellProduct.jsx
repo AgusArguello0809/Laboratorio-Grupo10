@@ -6,16 +6,12 @@ import ConfirmCancelDialog from "../components/management/ConfirmCancelDialog";
 import DraftPreviewDialog from "../components/management/DraftPreviewDialog";
 import { useNavigate, Navigate } from "react-router-dom";
 import { useUser } from "../../auth/context/AuthProvider";
-import { useProducts } from "../../context/ProductContext"; 
+import { useProductService } from "../hooks/useProductService"; 
 
 export default function SellProduct() {
   const { user } = useUser();
-  const { addProduct } = useProducts(); 
+  const { addProduct, loading } = useProductService(); 
   const navigate = useNavigate();
-  
-  if (!user) {
-      return <Navigate to="/login" replace />;
-  }
   
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({
@@ -28,6 +24,10 @@ export default function SellProduct() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openDraft, setOpenDraft] = useState(false);
   const [validationError, setValidationError] = useState(false);
+
+  if (!user) {
+      return <Navigate to="/login" replace />;
+  }
   
   const isFormValid =
     formData.title.trim() !== "" &&
@@ -61,7 +61,7 @@ export default function SellProduct() {
       stock: parseInt(formData.stock)
     };
     
-    try {     
+    try {
       const result = await addProduct(nuevoProducto);
       if (result.success) {
         navigate("/my-publications");
@@ -90,8 +90,17 @@ export default function SellProduct() {
         <ProductForm formData={formData} setFormData={setFormData} />
       </Box>
       <Stack direction="row" spacing={2} justifyContent="flex-end">
-        <Button variant="outlined" color="error" onClick={handleCancel}>Cancelar</Button>
-        <Button variant="contained" color="primary" onClick={handleSave}>Guardar</Button>
+        <Button variant="outlined" color="error" onClick={handleCancel} disabled={loading}>
+          Cancelar
+        </Button>
+        <Button 
+          variant="contained" 
+          color="primary" 
+          onClick={handleSave} 
+          disabled={loading}
+        >
+          {loading ? "Guardando..." : "Guardar"}
+        </Button>
       </Stack>
       <ConfirmCancelDialog
         open={openConfirm}

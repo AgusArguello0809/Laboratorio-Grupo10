@@ -1,46 +1,26 @@
-import React from "react";
+import React, { useState, useMemo } from "react";
 import { Grid, Box, Container, CircularProgress } from "@mui/material";
 import ProductCard from "./ProductCard";
 import ProductFilter from "./ProductFilter";
-import { useProducts } from "../../../context/ProductContext";
+import { useProductService } from "../../hooks/useProductService"; 
+
 const ProductCatalog = () => {
-  const [filterOptions, setFilterOptions] = React.useState({
+  const [filterOptions, setFilterOptions] = useState({
     searchTerm: "",
     stockFilter: "all",
     sortBy: "titleAsc",
   });
 
-  const { products, loading } = useProducts();
+  const { products, loading, error, filterProducts, sortProducts } = useProductService();
 
-  const filteredProducts = products.filter((producto) => {
-    const matchesSearch = producto.title
-      .toLowerCase()
-      .includes(filterOptions.searchTerm.toLowerCase());
-
-    let matchesStock = true;
-    if (filterOptions.stockFilter === "inStock") {
-      matchesStock = producto.stock > 0;
-    } else if (filterOptions.stockFilter === "outOfStock") {
-      matchesStock = producto.stock === 0;
-    }
-
-    return matchesSearch && matchesStock;
-  });
-
-  const sortedProducts = [...filteredProducts].sort((a, b) => {
-    switch (filterOptions.sortBy) {
-      case "titleAsc":
-        return a.title.localeCompare(b.title);
-      case "titleDesc":
-        return b.title.localeCompare(a.title);
-      case "priceLow":
-        return parseFloat(a.price) - parseFloat(b.price);
-      case "priceHigh":
-        return parseFloat(b.price) - parseFloat(a.price);
-      default:
-        return a.title.localeCompare(b.title);
-    }
-  });
+  const sortedProducts = useMemo(() => {
+    const filtered = filterProducts(
+      filterOptions.searchTerm, 
+      filterOptions.stockFilter
+    );
+    
+    return sortProducts(filtered, filterOptions.sortBy);
+  }, [products, filterOptions, filterProducts, sortProducts]);
 
   if (loading) {
     return (
@@ -59,6 +39,24 @@ const ProductCatalog = () => {
     );
   }
 
+  if (error) {
+    return (
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+            color: "error.main",
+          }}
+        >
+          {error}
+        </Box>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="lg">
       <Box
@@ -68,11 +66,11 @@ const ProductCatalog = () => {
           p: { xs: 2, sm: 3 },
         }}
       >
-        <ProductFilter
-          filterOptions={filterOptions}
-          onFilterChange={setFilterOptions}
+        <ProductFilter 
+          filterOptions={filterOptions} 
+          onFilterChange={setFilterOptions} 
         />
-
+        
         <Grid container sx={{ width: "100%", margin: 0 }}>
           {sortedProducts.length > 0 ? (
             sortedProducts.map((producto) => (
@@ -93,7 +91,7 @@ const ProductCatalog = () => {
                     description: producto.description,
                     stock: producto.stock,
                     images: producto.images,
-                    ownerId: producto.ownerId,
+                    ownerId: producto.ownerId
                   }}
                 />
               </Grid>

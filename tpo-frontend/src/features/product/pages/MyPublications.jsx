@@ -13,16 +13,16 @@ import MyPublicationCard from "../components/management/MyPublicationCard";
 import EmptyProductCard from "../components/management/EmptyProductCard";
 import FloatingPublishButton from "../components/management/FloatingPublishButton";
 import { useUser } from "../../auth/context/AuthProvider";
-import { useProducts } from "../../context/ProductContext"; 
+import { useProductService } from "../hooks/useProductService";
 
 export default function MyPublications() {
   const { user } = useUser();
-  const {     
+  const { 
     loading, 
     updateProduct, 
     deleteProduct, 
     getProductsByOwner 
-  } = useProducts();
+  } = useProductService();
   
   const [snackbar, setSnackbar] = useState({
     open: false,

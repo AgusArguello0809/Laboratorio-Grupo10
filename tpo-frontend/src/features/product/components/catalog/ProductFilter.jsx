@@ -17,7 +17,7 @@ function ProductFilter({ filterOptions, onFilterChange }) {
   };
 
   return (
-    <Box sx={{ mb: 3, p: 2, borderRadius: 2, backgroundColor: "#d1d5db" }}>
+    <Box sx={{ mb: 3, p: 2, borderRadius: 2, backgroundColor: "#d1d5db", minWidth: 200 }}>
       <Typography variant="h6" sx={{ mb: 2, color: "black" }}>
         Filtrar productos
       </Typography>
@@ -33,7 +33,7 @@ function ProductFilter({ filterOptions, onFilterChange }) {
           />
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size="small" sx={{ minWidth: 200 }}>
             <InputLabel>Disponibilidad</InputLabel>
             <Select
               value={filterOptions.stockFilter}
@@ -47,7 +47,7 @@ function ProductFilter({ filterOptions, onFilterChange }) {
           </FormControl>
         </Grid>
         <Grid item xs={12} sm={6} md={4}>
-          <FormControl fullWidth size="small">
+          <FormControl fullWidth size="small" sx={{ minWidth: 200 }}>
             <InputLabel>Ordenar por</InputLabel>
             <Select
               value={filterOptions.sortBy}

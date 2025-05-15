@@ -122,26 +122,14 @@
       "ownerId": "2d46"
     },
     {
-      "id": "e764",
-      "title": "Test123",
-      "category": "Electrónica",
-      "price": 999,
-      "stock": 12,
-      "description": "TestTest Taiel",
+      "id": "04c6",
+      "title": "PapitoMireyeeee",
+      "category": "Suplementos",
+      "price": 123,
+      "stock": 0,
+      "description": "PAPI",
       "images": [
-        "blob:http://localhost:5173/18d467d0-73ac-4123-a489-dc16f5c99222"
-      ],
-      "ownerId": "cd78"
-    },
-    {
-      "id": "4689",
-      "title": "TEST MELI",
-      "category": "Entrenamiento",
-      "price": 900000000009,
-      "stock": 1,
-      "description": "ES LA UNICA (?  pero esta viene linda RICO",
-      "images": [
-        "blob:http://localhost:5173/d91a2956-5468-4aed-a3fd-23b61a31019e"
+        "blob:http://localhost:5173/16a39b88-13e5-4bff-82a6-7311a1ebf60c"
       ],
       "ownerId": "cd78"
     }

@@ -75,7 +75,7 @@ const handleChange = (e) => {
     }
 
     const intVal = parseInt(value);
-    if (isNaN(intVal) || intVal < 1) return;
+    if (isNaN(intVal) || intVal < 0) return;
 
     setForm((prev) => ({ ...prev, [name]: intVal }));
 
@@ -161,7 +161,7 @@ const handleChange = (e) => {
               onChange={handleChange}
               slotProps={{
                 input: {
-                  min: 1
+                  min: 0
                 }
               }}
             />
