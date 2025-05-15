@@ -12,7 +12,7 @@ import axios from "axios";
 import MyPublicationCard from "../components/management/MyPublicationCard";
 import EmptyProductCard from "../components/management/EmptyProductCard";
 import FloatingPublishButton from "../components/management/FloatingPublishButton";
-import { useUser } from "../../auth/context/AuthContext";
+import { useUser } from "../../auth/context/AuthProvider";
 
 export default function MyPublications() {
   const { user } = useUser();

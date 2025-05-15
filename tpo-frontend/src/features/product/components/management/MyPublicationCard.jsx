@@ -67,13 +67,29 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
         onClick={toggleExpand}
       >
         <Box position="relative">
+        <Box
+          sx={{
+            height: "200px",
+            width: "100%",
+            backgroundColor: "#fff",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            borderRadius: 1,
+            overflow: "hidden"
+          }}
+        >
           <CardMedia
             component="img"
-            height="180"
-            image={images?.[currentImage]}
-            alt={title}
-            sx={{ objectFit: "contain", backgroundColor: "#fff" }}
+    image={images?.[currentImage]}
+    alt={title}
+    sx={{
+      maxHeight: "100%",
+      maxWidth: "100%",
+      objectFit: "contain"
+            }}
           />
+          </Box>
           {expanded && images?.length > 1 && (
             <>
               <IconButton

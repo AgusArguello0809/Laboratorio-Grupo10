@@ -42,14 +42,14 @@ function Register() {
   const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     const nuevoUsuario = {
       username: values.username,
-      nombre: values.firstName,
-      apellido: values.lastName,
+      name: values.firstName,
+      lastName: values.lastName,
       email: values.email,
       password: values.password,
     };
 
     try {
-      const response = await fetch("http://localhost:3001/usuarios", {
+      const response = await fetch("http://localhost:3001/users", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

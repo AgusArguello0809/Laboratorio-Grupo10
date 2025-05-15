@@ -14,14 +14,12 @@ import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
 import { Formik, Form } from "formik";
 import * as Yup from "yup";
 import { useNavigate } from "react-router-dom";
-import { useUser } from "../context/AuthContext";
+import { useUser } from "../context/AuthProvider";
 
 
 
 const validationSchema = Yup.object({
-  email: Yup.string()
-    .email("Formato de email inválido")
-    .required("El email es obligatorio"),
+  identificador: Yup.string().required("El email o usuario es obligatorio"),
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .required("La contraseña es obligatoria"),
@@ -36,23 +34,28 @@ function Login() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      const response = await fetch(`http://localhost:3001/usuarios?email=${values.email}&password=${values.password}`);
+      const response = await fetch(`http://localhost:3001/users`);
       const data = await response.json();
-  
-      if (data.length > 0) {
-        const usuario = data[0];
+    
+      const usuario = data.find(
+        (u) =>
+          (u.email === values.identificador || u.username === values.identificador) &&
+          u.password === values.password
+      );
+    
+      if (usuario) {
         localStorage.setItem("usuario", JSON.stringify(usuario));
         setUser(usuario);
-  
+      
         setSnackbarMessage("✅ ¡Entraste!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
-  
+      
         setTimeout(() => {
           navigate("/");
         }, 1500);
       } else {
-        setSnackbarMessage("❌ Usuario no encontrado");
+        setSnackbarMessage("❌ Usuario o contraseña incorrectos");
         setSnackbarSeverity("error");
         setOpenSnackbar(true);
       }
@@ -93,7 +96,7 @@ function Login() {
         </Box>
 
         <Formik
-          initialValues={{ email: "", password: "" }}
+          initialValues={{ identificador: "", password: "" }}
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
@@ -109,14 +112,15 @@ function Login() {
               <TextField
                 margin="normal"
                 fullWidth
-                label="Email"
-                name="email"
-                type="email"
-                value={values.email}
+                label="Email o nombre de usuario"
+                name="identificador"
+                type="text"
+                autoComplete="username"
+                value={values.identificador}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                error={touched.email && Boolean(errors.email)}
-                helperText={touched.email && errors.email}
+                error={touched.identificador && Boolean(errors.identificador)}
+                helperText={touched.identificador && errors.identificador}
               />
               <TextField
                 margin="normal"
@@ -124,6 +128,7 @@ function Login() {
                 label="Contraseña"
                 name="password"
                 type="password"
+                autoComplete="current-password"
                 value={values.password}
                 onChange={handleChange}
                 onBlur={handleBlur}

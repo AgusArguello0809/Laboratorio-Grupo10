@@ -11,10 +11,12 @@ import {
   CircularProgress,
 } from "@mui/material";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
+import { useCarrito } from "../../../cart/context/CarritoProvider";
 
 function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
+  const { carrito, setCarrito } = useCarrito();
 
   const handleClose = (event, reason) => {
     if (reason === "clickaway") return;
@@ -23,12 +25,9 @@ function ProductCard({ product }) {
 
   const agregarAlCarrito = () => {
     if (loading) return;
-
     setLoading(true);
 
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
     const existente = carrito.find((item) => item.id === product.id);
-
     const stock = Number(product.stock);
     const precio = typeof product.price === "string"
       ? Number(product.price.replace("$", ""))
@@ -36,29 +35,32 @@ function ProductCard({ product }) {
 
     if (existente) {
       if (existente.cantidad < stock) {
-        existente.cantidad += 1;
+        setCarrito(prev =>
+          prev.map((item) =>
+            item.id === product.id
+              ? { ...item, cantidad: item.cantidad + 1 }
+              : item
+          )
+        );
       } else {
         alert("No hay más stock disponible para este producto.");
         setLoading(false);
         return;
       }
     } else {
-      carrito.push({
+      const nuevoItem = {
         id: product.id,
         nombre: product.name,
         precio: precio,
         cantidad: 1,
         imagen: product.image,
         stock: stock
-      });
+      };
+      setCarrito(prev => [...prev, nuevoItem]);
     }
 
-    localStorage.setItem("carrito", JSON.stringify(carrito));
     setOpen(true);
-
-    setTimeout(() => {
-      setLoading(false);
-    }, 1000);
+    setTimeout(() => setLoading(false), 1000);
   };
 
   return (

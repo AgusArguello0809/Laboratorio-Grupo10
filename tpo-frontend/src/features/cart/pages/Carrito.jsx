@@ -1,4 +1,6 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
+import { useEffect } from 'react';
+import { useNavigate, Navigate } from "react-router-dom";
 import {
   Box,
   Card,
@@ -8,49 +10,44 @@ import {
   Typography,
   Divider,
 } from '@mui/material';
+import { useCarrito } from '../context/CarritoProvider';
+import { useUser } from '../../auth/context/AuthProvider'
 
 const Carrito = () => {
-  const [carrito, setCarrito] = useState([]);
-
-  const cargarCarrito = () => {
-    const carritoGuardado = JSON.parse(localStorage.getItem('carrito')) || [];
-    setCarrito(carritoGuardado);
-  };
+  const { carrito, setCarrito } = useCarrito();
+  const { user } = useUser();
+  const navigate = useNavigate();
 
   useEffect(() => {
-    cargarCarrito();
-    window.addEventListener('focus', cargarCarrito);
-    return () => {
-      window.removeEventListener('focus', cargarCarrito);
-    };
-  }, []);
+  if (!user) {
+    navigate("/login");
+  }
+  }, [user]);
 
-  const guardarCarrito = (nuevoCarrito) => {
-    setCarrito(nuevoCarrito);
-    localStorage.setItem('carrito', JSON.stringify(nuevoCarrito));
+  const eliminarProducto = (id) => {
+    setCarrito(prev => prev.filter((item) => item.id !== id));
   };
 
-  const eliminarProducto = (nombre) => {
-    const nuevoCarrito = carrito.filter((item) => item.nombre !== nombre);
-    guardarCarrito(nuevoCarrito);
-  };
+const aumentarCantidad = (id) => {
+  setCarrito(prev =>
+    prev.map(item =>
+      item.id === id ? { ...item, cantidad: item.cantidad + 1 } : item
+    )
+  );
+};
 
-  const aumentarCantidad = (index) => {
-    const nuevoCarrito = [...carrito];
-    nuevoCarrito[index].cantidad += 1;
-    guardarCarrito(nuevoCarrito);
-  };
-
-  const disminuirCantidad = (index) => {
-    const nuevoCarrito = [...carrito];
-    if (nuevoCarrito[index].cantidad > 1) {
-      nuevoCarrito[index].cantidad -= 1;
-      guardarCarrito(nuevoCarrito);
-    }
-  };
+const disminuirCantidad = (id) => {
+  setCarrito(prev =>
+    prev.map(item =>
+      item.id === id && item.cantidad > 1
+        ? { ...item, cantidad: item.cantidad - 1 }
+        : item
+    )
+  );
+};
 
   const vaciarCarrito = () => {
-    guardarCarrito([]);
+    setCarrito([]);
   };
 
   const handleCheckout = async () => {
@@ -96,14 +93,14 @@ const Carrito = () => {
       ) : (
         <>
           {carrito.map((item, index) => (
-            <Card key={index} sx={{ mb: 2 }}>
+            <Card key={item.id} sx={{ mb: 2 }}>
               <CardContent>
                 <Typography variant="h6">{item.nombre}</Typography>
                 <Typography>
                   Cantidad: {item.cantidad} | Precio unitario: ${item.precio}
                 </Typography>
                 <Typography variant="subtitle2">
-                  Subtotal: ${item.precio * item.cantidad}
+                  Subtotal: ${(item.precio * item.cantidad).toFixed(2)}
                 </Typography>
               </CardContent>
               <CardActions>
@@ -122,7 +119,7 @@ const Carrito = () => {
                       color: '#1565c0',
                     },
                   }}
-                  onClick={() => disminuirCantidad(index)}
+                  onClick={() => disminuirCantidad(item.id)}
                 >
                   -
                 </Button>
@@ -141,14 +138,14 @@ const Carrito = () => {
                       color: '#2e7d32',
                     },
                   }}
-                  onClick={() => aumentarCantidad(index)}
+                  onClick={() => aumentarCantidad(item.id)}
                 >
                   +
                 </Button>
                 <Button
                   size="small"
                   color="error"
-                  onClick={() => eliminarProducto(item.nombre)}
+                  onClick={() => eliminarProducto(item.id)}
                 >
                   Eliminar
                 </Button>
@@ -158,7 +155,9 @@ const Carrito = () => {
 
           <Divider sx={{ my: 2 }} />
 
-          <Typography variant="h6">Total: ${total}</Typography>
+          <Typography variant="h6">
+            Total: ${total.toFixed(2)}
+          </Typography>
 
           <Box sx={{ mt: 2, display: 'flex', gap: 2 }}>
             <Button variant="outlined" color="error" onClick={vaciarCarrito}>

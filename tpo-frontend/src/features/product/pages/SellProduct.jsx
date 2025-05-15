@@ -5,7 +5,7 @@ import ProductForm from "../components/management/ProductForm";
 import ConfirmCancelDialog from "../components/management/ConfirmCancelDialog";
 import DraftPreviewDialog from "../components/management/DraftPreviewDialog";
 import { useNavigate, Navigate } from "react-router-dom";
-import { useUser } from "../../auth/context/AuthContext";
+import { useUser } from "../../auth/context/AuthProvider";
 
 export default function SellProduct() {
   const { user } = useUser();

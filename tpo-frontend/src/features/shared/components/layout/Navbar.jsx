@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
   AppBar,
@@ -18,14 +18,17 @@ import {
   ListItemText,
   Divider,
   useMediaQuery,
+  Badge,
 } from "@mui/material";
 import MenuIcon from "@mui/icons-material/Menu";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 import { useTheme } from "@mui/material/styles";
-import { useUser } from "../../../auth/context/AuthContext";
+import { useUser } from "../../../auth/context/AuthProvider";
+import { useCarrito } from "../../../cart/context/CarritoProvider";
 
 function Navbar() {
   const { user, setUser } = useUser();
+  const { cantidadTotal } = useCarrito();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("md"));
@@ -33,29 +36,10 @@ function Navbar() {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
   const [snackbarOpen, setSnackbarOpen] = useState(false);
-  const [cantidadCarrito, setCantidadCarrito] = useState(0);
   const [drawerOpen, setDrawerOpen] = useState(false);
 
-  useEffect(() => {
-    const carrito = JSON.parse(localStorage.getItem("carrito")) || [];
-    setCantidadCarrito(carrito.length);
-
-    const handleFocus = () => {
-      const nuevo = JSON.parse(localStorage.getItem("carrito")) || [];
-      setCantidadCarrito(nuevo.length);
-    };
-
-    window.addEventListener("focus", handleFocus);
-    return () => window.removeEventListener("focus", handleFocus);
-  }, []);
-
-  const handleMenuClick = (event) => {
-    setAnchorEl(event.currentTarget);
-  };
-
-  const handleMenuClose = () => {
-    setAnchorEl(null);
-  };
+  const handleMenuClick = (event) => setAnchorEl(event.currentTarget);
+  const handleMenuClose = () => setAnchorEl(null);
 
   const handleLogout = () => {
     localStorage.removeItem("usuario");
@@ -65,9 +49,7 @@ function Navbar() {
     navigate("/");
   };
 
-  const handleSnackbarClose = () => {
-    setSnackbarOpen(false);
-  };
+  const handleSnackbarClose = () => setSnackbarOpen(false);
 
   const renderNavLinks = () => (
     <>
@@ -92,15 +74,23 @@ function Navbar() {
       ) : (
         <>
           <Button color="inherit" onClick={handleMenuClick}>
-            {user.nombre + " " + user.apellido || "Usuario"}
+            {user.name + " " + user.lastName || "Usuario"}
           </Button>
           <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
             <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>
           </Menu>
         </>
       )}
+
       <Button color="inherit" component={Link} to="/cart">
-        <ShoppingCartIcon />
+        <Badge
+          badgeContent={user && cantidadTotal > 0 ? cantidadTotal : null}
+          color="error"
+          max={99}
+          invisible={!user || cantidadTotal === 0}
+        >
+          <ShoppingCartIcon />
+        </Badge>
       </Button>
     </>
   );
@@ -147,18 +137,23 @@ function Navbar() {
             </ListItem>
           </>
         ) : (
-          <>
-            <ListItem disablePadding>
-              <ListItemButton onClick={handleLogout}>
-                <ListItemText primary="Cerrar sesión" />
-              </ListItemButton>
-            </ListItem>
-          </>
+          <ListItem disablePadding>
+            <ListItemButton onClick={handleLogout}>
+              <ListItemText primary="Cerrar sesión" />
+            </ListItemButton>
+          </ListItem>
         )}
         <ListItem disablePadding>
           <ListItemButton component={Link} to="/cart">
             <ListItemText primary="Carrito" />
-            <ShoppingCartIcon />
+            <Badge
+              badgeContent={user && cantidadTotal > 0 ? cantidadTotal : null}
+              color="error"
+              max={99}
+              invisible={!user || cantidadTotal === 0}
+            >
+              <ShoppingCartIcon />
+            </Badge>
           </ListItemButton>
         </ListItem>
       </List>
