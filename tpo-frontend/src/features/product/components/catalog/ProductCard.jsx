@@ -55,7 +55,7 @@ function ProductCard({ product }) {
 
     const existente = carrito.find((item) => item.id === product.id);
     const stock = Number(product.stock);
-    const precio = typeof product.price === "string"
+    const price = typeof product.price === "string"
       ? Number(product.price.replace("$", ""))
       : Number(product.price);
 

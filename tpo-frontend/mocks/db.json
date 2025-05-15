@@ -108,19 +108,6 @@
         "https://http2.mlstatic.com/D_NQ_NP_2X_839253-MLA78412291309_082024-F.webp"
       ],
       "ownerId": "1"
-    },
-    {
-      "title": "dasd",
-      "category": "Suplementos",
-      "price": 12312.21,
-      "stock": 0,
-      "description": "sadsaddsadsa",
-      "images": [
-        "blob:http://localhost:5173/4bdac2f4-dc19-41ca-9f1e-ea4662c21d53",
-        "blob:http://localhost:5173/b1cbef12-f33f-49a9-92a5-01350e5b2066"
-      ],
-      "ownerId": "cd78",
-      "id": "MVAj991"
     }
   ],
   "users": [
@@ -179,6 +166,14 @@
       "lastName": "Palermo",
       "email": "palermo@gmail.com",
       "password": "123456"
+    },
+    {
+      "username": "dinamo0809",
+      "name": "Agustin",
+      "lastName": "Arguello",
+      "email": "agustin.arguello.04@gmail.com",
+      "password": "123456",
+      "id": "eFFWE0Y"
     }
   ]
 }

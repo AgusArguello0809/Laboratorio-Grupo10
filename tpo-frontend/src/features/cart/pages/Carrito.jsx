@@ -230,7 +230,7 @@ const Carrito = () => {
                     value={cantidadTemp[item.id] ?? item.cantidad}
                     onChange={(e) => manejarInputTemp(item.id, e.target.value)}
                     sx={{ width: 90 }}
-                    inputProps={{
+                    inputMode={{
                       style: { textAlign: 'center' },
                       inputMode: 'numeric',
                       pattern: '[0-9]*',
