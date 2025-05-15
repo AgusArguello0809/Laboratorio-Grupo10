@@ -1,22 +1,29 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import {
   Box,
   Typography,
   Grid,
   Snackbar,
-  Alert
+  Alert,
+  CircularProgress
 } from "@mui/material";
 import { useNavigate, Navigate } from "react-router-dom";
-import axios from "axios";
 
 import MyPublicationCard from "../components/management/MyPublicationCard";
 import EmptyProductCard from "../components/management/EmptyProductCard";
 import FloatingPublishButton from "../components/management/FloatingPublishButton";
 import { useUser } from "../../auth/context/AuthProvider";
+import { useProducts } from "../../context/ProductContext"; 
 
 export default function MyPublications() {
   const { user } = useUser();
-  const [products, setProducts] = useState([]);
+  const {     
+    loading, 
+    updateProduct, 
+    deleteProduct, 
+    getProductsByOwner 
+  } = useProducts();
+  
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -29,43 +36,67 @@ export default function MyPublications() {
     return <Navigate to="/login" replace />;
   }
 
-  useEffect(() => {
-    axios.get("http://localhost:3001/products")
-      .then((res) => setProducts(res.data))
-      .catch((err) => console.error("Error al obtener productos:", err));
-  }, []);
-
   const handleEdit = async (updatedProduct) => {
     try {
-      await axios.patch(`http://localhost:3001/products/${updatedProduct.id}`, updatedProduct);
-      setProducts((prev) =>
-        prev.map((p) => (p.id === updatedProduct.id ? updatedProduct : p))
-      );
-      setSnackbar({
-        open: true,
-        message: "Producto actualizado",
-        severity: "success"
-      });
+      const result = await updateProduct(updatedProduct);
+      if (result.success) {
+        setSnackbar({
+          open: true,
+          message: "Producto actualizado",
+          severity: "success"
+        });
+      } else {
+        setSnackbar({
+          open: true,
+          message: "Error al actualizar producto",
+          severity: "error"
+        });
+      }
     } catch (err) {
       console.error("Error al actualizar producto:", err);
+      setSnackbar({
+        open: true,
+        message: "Error al actualizar producto",
+        severity: "error"
+      });
     }
   };
 
   const handleDelete = async (productId) => {
     try {
-      await axios.delete(`http://localhost:3001/products/${productId}`);
-      setProducts((prev) => prev.filter((p) => p.id !== productId));
-      setSnackbar({
-        open: true,
-        message: "Producto eliminado",
-        severity: "info"
-      });
+      const result = await deleteProduct(productId);
+      if (result.success) {
+        setSnackbar({
+          open: true,
+          message: "Producto eliminado",
+          severity: "info"
+        });
+      } else {
+        setSnackbar({
+          open: true,
+          message: "Error al eliminar producto",
+          severity: "error"
+        });
+      }
     } catch (err) {
       console.error("Error al eliminar producto:", err);
+      setSnackbar({
+        open: true,
+        message: "Error al eliminar producto",
+        severity: "error"
+      });
     }
   };
 
-  const misProductos = products.filter((p) => p.ownerId === user?.id);
+  const misProductos = getProductsByOwner(user?.id);
+
+  if (loading) {
+    return (
+      <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
+        <CircularProgress />
+      </Box>
+    );
+  }
 
   return (
     <Box sx={{ p: 4 }}>

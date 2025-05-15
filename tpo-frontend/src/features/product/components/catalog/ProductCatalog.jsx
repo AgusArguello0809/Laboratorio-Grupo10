@@ -1,17 +1,18 @@
-import React, { useState } from "react";
-import { Grid, Box, Container } from "@mui/material";
+import React from "react";
+import { Grid, Box, Container, CircularProgress } from "@mui/material";
 import ProductCard from "./ProductCard";
 import ProductFilter from "./ProductFilter";
-import mockProducts from "../../../../../mocks/mockProducts.json";
-
+import { useProducts } from "../../../context/ProductContext";
 const ProductCatalog = () => {
-  const [filterOptions, setFilterOptions] = useState({
+  const [filterOptions, setFilterOptions] = React.useState({
     searchTerm: "",
     stockFilter: "all",
     sortBy: "titleAsc",
   });
 
-  const filteredProducts = [...mockProducts].filter((producto) => {
+  const { products, loading } = useProducts();
+
+  const filteredProducts = products.filter((producto) => {
     const matchesSearch = producto.title
       .toLowerCase()
       .includes(filterOptions.searchTerm.toLowerCase());
@@ -26,7 +27,7 @@ const ProductCatalog = () => {
     return matchesSearch && matchesStock;
   });
 
-  const sortedProducts = filteredProducts.sort((a, b) => {
+  const sortedProducts = [...filteredProducts].sort((a, b) => {
     switch (filterOptions.sortBy) {
       case "titleAsc":
         return a.title.localeCompare(b.title);
@@ -41,6 +42,23 @@ const ProductCatalog = () => {
     }
   });
 
+  if (loading) {
+    return (
+      <Container maxWidth="lg">
+        <Box
+          sx={{
+            display: "flex",
+            justifyContent: "center",
+            alignItems: "center",
+            height: "50vh",
+          }}
+        >
+          <CircularProgress />
+        </Box>
+      </Container>
+    );
+  }
+
   return (
     <Container maxWidth="lg">
       <Box
@@ -50,11 +68,11 @@ const ProductCatalog = () => {
           p: { xs: 2, sm: 3 },
         }}
       >
-        <ProductFilter 
-          filterOptions={filterOptions} 
-          onFilterChange={setFilterOptions} 
+        <ProductFilter
+          filterOptions={filterOptions}
+          onFilterChange={setFilterOptions}
         />
-        
+
         <Grid container sx={{ width: "100%", margin: 0 }}>
           {sortedProducts.length > 0 ? (
             sortedProducts.map((producto) => (
@@ -75,7 +93,7 @@ const ProductCatalog = () => {
                     description: producto.description,
                     stock: producto.stock,
                     images: producto.images,
-                    ownerId: producto.ownerId
+                    ownerId: producto.ownerId,
                   }}
                 />
               </Grid>

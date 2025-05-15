@@ -108,6 +108,42 @@
         "https://http2.mlstatic.com/D_NQ_NP_2X_839253-MLA78412291309_082024-F.webp"
       ],
       "ownerId": "1"
+    },
+    {
+      "id": "b8f7",
+      "title": "test",
+      "category": "Electrónica",
+      "price": 1234,
+      "stock": 12,
+      "description": "test",
+      "images": [
+        "blob:http://localhost:5173/6c771687-e169-4238-80a7-d47d8d51a282"
+      ],
+      "ownerId": "2d46"
+    },
+    {
+      "id": "e764",
+      "title": "Test123",
+      "category": "Electrónica",
+      "price": 999,
+      "stock": 12,
+      "description": "TestTest Taiel",
+      "images": [
+        "blob:http://localhost:5173/18d467d0-73ac-4123-a489-dc16f5c99222"
+      ],
+      "ownerId": "cd78"
+    },
+    {
+      "id": "4689",
+      "title": "TEST MELI",
+      "category": "Entrenamiento",
+      "price": 900000000009,
+      "stock": 1,
+      "description": "ES LA UNICA (?  pero esta viene linda RICO",
+      "images": [
+        "blob:http://localhost:5173/d91a2956-5468-4aed-a3fd-23b61a31019e"
+      ],
+      "ownerId": "cd78"
     }
   ],
   "users": [

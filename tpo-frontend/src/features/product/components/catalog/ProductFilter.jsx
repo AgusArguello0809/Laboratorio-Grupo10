@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 
 function ProductFilter({ filterOptions, onFilterChange }) {
+  
   const handleFilterChange = (filterName, value) => {
     onFilterChange({ ...filterOptions, [filterName]: value });
   };
