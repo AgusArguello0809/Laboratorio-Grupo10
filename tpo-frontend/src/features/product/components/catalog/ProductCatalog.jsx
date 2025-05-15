@@ -8,11 +8,11 @@ const ProductCatalog = () => {
   const [filterOptions, setFilterOptions] = useState({
     searchTerm: "",
     stockFilter: "all",
-    sortBy: "nameAsc",
+    sortBy: "titleAsc",
   });
 
   const filteredProducts = [...mockProducts].filter((producto) => {
-    const matchesSearch = producto.nombre
+    const matchesSearch = producto.title
       .toLowerCase()
       .includes(filterOptions.searchTerm.toLowerCase());
 
@@ -28,16 +28,16 @@ const ProductCatalog = () => {
 
   const sortedProducts = filteredProducts.sort((a, b) => {
     switch (filterOptions.sortBy) {
-      case "nameAsc":
-        return a.nombre.localeCompare(b.nombre);
-      case "nameDesc":
-        return b.nombre.localeCompare(a.nombre);
+      case "titleAsc":
+        return a.title.localeCompare(b.title);
+      case "titleDesc":
+        return b.title.localeCompare(a.title);
       case "priceLow":
-        return parseFloat(a.precio) - parseFloat(b.precio);
+        return parseFloat(a.price) - parseFloat(b.price);
       case "priceHigh":
-        return parseFloat(b.precio) - parseFloat(a.precio);
+        return parseFloat(b.price) - parseFloat(a.price);
       default:
-        return a.nombre.localeCompare(b.nombre);
+        return a.title.localeCompare(b.title);
     }
   });
 
@@ -70,11 +70,11 @@ const ProductCatalog = () => {
                 <ProductCard
                   product={{
                     id: producto.id,
-                    name: producto.nombre,
-                    price: parseFloat(producto.precio),
-                    description: producto.descripcion,
+                    title: producto.title,
+                    price: parseFloat(producto.price),
+                    description: producto.description,
                     stock: producto.stock,
-                    image: producto.imagen,
+                    images: producto.images,
                   }}
                 />
               </Grid>

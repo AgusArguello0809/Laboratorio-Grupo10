@@ -50,11 +50,12 @@ function ProductCard({ product }) {
     } else {
       const nuevoItem = {
         id: product.id,
-        nombre: product.name,
-        precio: precio,
+        title: product.title,
+        price: product.price,
         cantidad: 1,
-        imagen: product.image,
-        stock: stock
+        images: product.images,
+        stock: product.stock,
+        ownerId: product.ownerId
       };
       setCarrito(prev => [...prev, nuevoItem]);
     }
@@ -80,15 +81,15 @@ function ProductCard({ product }) {
           },
         }}
       >
-        {product.image && (
-          <CardMedia
-            component="img"
-            height="140"
-            image={product.image}
-            alt={product.name}
-            sx={{ objectFit: "cover" }}
-          />
-        )}
+    {product.images && (
+      <CardMedia
+        component="img"
+        height="140"
+        image={Array.isArray(product.images) ? product.images[0] : product.images}
+        alt={product.title}
+        sx={{ objectFit: "cover" }}
+      />
+    )}
 
         <CardContent
           sx={{
@@ -102,7 +103,7 @@ function ProductCard({ product }) {
         >
           <Box sx={{ flexGrow: 1 }}>
             <Typography variant="h6" component="div" gutterBottom>
-              {product.name}
+              {product.title}
             </Typography>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
               {product.description}
@@ -147,7 +148,7 @@ function ProductCard({ product }) {
           variant="filled"
           sx={{ width: "100%" }}
         >
-          {product.name} agregado al carrito
+          {product.title} agregado al carrito
         </Alert>
       </Snackbar>
     </>

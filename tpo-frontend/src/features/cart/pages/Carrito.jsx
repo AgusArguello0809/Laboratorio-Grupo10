@@ -52,33 +52,51 @@ const disminuirCantidad = (id) => {
 
   const handleCheckout = async () => {
     try {
-      for (const item of carrito) {
-        const nuevoStock = item.stock - item.cantidad;
+      // Evitar comprar productos propios
+      const productosPropios = carrito.filter(item => item.userId === user?.id);
+      if (productosPropios.length > 0) {
+        alert("No podés comprar tus propios productos.");
+        return;
+      }
 
-        if (nuevoStock < 0) {
-          alert(`No hay suficiente stock de ${item.nombre}`);
-          return;
+      const erroresStock = carrito.find(item => item.stock < item.cantidad);
+      if (erroresStock) {
+        alert(`No hay suficiente stock de ${erroresStock.nombre}`);
+        return;
+      }
+
+    await Promise.all(
+      carrito.map(async (item) => {
+        // Traer el producto actualizado
+        const res = await fetch(`http://localhost:3001/products/${item.id}`);
+        const productoActual = await res.json();
+      
+        const nuevoStock = productoActual.stock - item.cantidad;
+      
+        if (nuevoStock < 0) {   
+      throw new Error(`No hay suficiente stock de ${item.title}`);
         }
-
-        await fetch(`http://localhost:3001/products/${item.id}`, {
-          method: 'PATCH',
+      
+        return fetch(`http://localhost:3001/products/${item.id}`, {
+          method: "PATCH",
           headers: {
-            'Content-Type': 'application/json',
+            "Content-Type": "application/json",
           },
           body: JSON.stringify({ stock: nuevoStock }),
         });
-      }
+      })
+    );
 
-      alert('¡Gracias por tu compra!');
+      alert("¡Gracias por tu compra!");
       vaciarCarrito();
-    } catch (error) {
-      console.error('Error al actualizar el stock:', error);
-      alert('Hubo un error al procesar el pedido.');
+    } catch (error) { 
+      console.error("Error al actualizar el stock:", error);
+      alert("Hubo un error al procesar el pedido.");
     }
   };
 
   const total = carrito.reduce(
-    (acc, item) => acc + item.precio * item.cantidad,
+    (acc, item) => acc + item.price * item.cantidad,
     0
   );
 
@@ -95,12 +113,12 @@ const disminuirCantidad = (id) => {
           {carrito.map((item, index) => (
             <Card key={item.id} sx={{ mb: 2 }}>
               <CardContent>
-                <Typography variant="h6">{item.nombre}</Typography>
+                <Typography variant="h6">{item.title}</Typography>
                 <Typography>
-                  Cantidad: {item.cantidad} | Precio unitario: ${item.precio}
+                  Cantidad: {item.cantidad} | Precio unitario: ${item.price} | Stock: {item.stock}
                 </Typography>
                 <Typography variant="subtitle2">
-                  Subtotal: ${(item.precio * item.cantidad).toFixed(2)}
+                  Subtotal: ${(item.price * item.cantidad).toFixed(2)}
                 </Typography>
               </CardContent>
               <CardActions>

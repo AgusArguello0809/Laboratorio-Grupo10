@@ -1,74 +1,111 @@
 [
-  {
-    "id": "1",
-    "nombre": "Camiseta Deportiva",
-    "descripcion": "Camiseta transpirable para entrenamiento.",
-    "imagen": "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Ropa",
-    "stock": "10",
-    "precio": "25"
-  },
-  {
-    "id": "2",
-    "nombre": "Zapatillas Running",
-    "descripcion": "Zapatillas livianas para correr largas distancias.",
-    "imagen": "https://images.unsplash.com/photo-1542291026-7eec264c27ff?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Calzado",
-    "stock": 0,
-    "precio": 80
-  },
-  {
-    "id": "3",
-    "nombre": "Botella de Agua",
-    "descripcion": "Botella térmica de acero inoxidable.",
-    "imagen": "https://images.unsplash.com/photo-1523362628745-0c100150b504?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Accesorios",
-    "stock": 25,
-    "precio": 15.34
-  },
-  {
-    "id": "4",
-    "nombre": "Mochila Deportiva",
-    "descripcion": "Mochila impermeable con múltiples compartimentos.",
-    "imagen": "https://images.unsplash.com/photo-1553062407-98eeb64c6a62?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Accesorios",
-    "stock": 15,
-    "precio": 45
-  },
-  {
-    "id": "5",
-    "nombre": "Reloj Deportivo",
-    "descripcion": "Reloj resistente al agua con monitor cardíaco.",
-    "imagen": "https://images.unsplash.com/photo-1523275335684-37898b6baf30?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Accesorios",
-    "stock": 8,
-    "precio": 120
-  },
-  {
-    "id": "6",
-    "nombre": "Leggings Fitness",
-    "descripcion": "Leggings de compresión para entrenamiento intenso.",
-    "imagen": "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Ropa",
-    "stock": 20,
-    "precio": 35
-  },
-  {
-    "id": "7",
-    "nombre": "Pesas Ajustables",
-    "descripcion": "Set de pesas ajustables de 2 a 10 kg.",
-    "imagen": "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Equipamiento",
-    "stock": 5,
-    "precio": 90
-  },
-  {
-    "id": "8",
-    "nombre": "Pelota de Yoga",
-    "descripcion": "Pelota de yoga antideslizante de 65 cm.",
-    "imagen": "https://images.unsplash.com/photo-1518611012118-696072aa579a?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80",
-    "categoria": "Equipamiento",
-    "stock": 12,
-    "precio": 25
-  }
+    {
+      "id": "1",
+      "title": "Camiseta Deportiva",
+      "description": "Camiseta transpirable para entrenamiento.",
+      "images": [
+        "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"
+      ],
+      "category": "Ropa",
+      "stock": 5,
+      "price": 25,
+      "ownerId": "62f5"
+    },
+    {
+      "id": "2",
+      "title": "Zapatillas Running",
+      "description": "Zapatillas livianas para correr largas distancias.",
+      "images": [
+        "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
+      ],
+      "category": "Calzado",
+      "stock": 0,
+      "price": 80,
+      "ownerId": "1"
+    },
+    {
+      "id": "3",
+      "title": "Botella de Agua",
+      "description": "Botella térmica de acero inoxidable.",
+      "images": [
+        "https://images.unsplash.com/photo-1523362628745-0c100150b504"
+      ],
+      "category": "Accesorios",
+      "stock": 20,
+      "price": 15.34,
+      "ownerId": "1"
+    },
+    {
+      "id": "4",
+      "title": "Mochila Deportiva",
+      "description": "Mochila impermeable con múltiples compartimentos.",
+      "images": [
+        "https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
+      ],
+      "category": "Accesorios",
+      "stock": 15,
+      "price": 45,
+      "ownerId": "2"
+    },
+    {
+      "id": "5",
+      "title": "Reloj Deportivo",
+      "description": "Reloj resistente al agua con monitor cardíaco.",
+      "images": [
+        "https://images.unsplash.com/photo-1523275335684-37898b6baf30"
+      ],
+      "category": "Accesorios",
+      "stock": 8,
+      "price": 120,
+      "ownerId": "62f5"
+    },
+    {
+      "id": "6",
+      "title": "Leggings Fitness",
+      "description": "Leggings de compresión para entrenamiento intenso.",
+      "images": [
+        "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543"
+      ],
+      "category": "Ropa",
+      "stock": 19,
+      "price": 35,
+      "ownerId": "62f5"
+    },
+    {
+      "id": "7",
+      "title": "Pesas Ajustables",
+      "description": "Set de pesas ajustables de 2 a 10 kg.",
+      "images": [
+        "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5"
+      ],
+      "category": "Equipamiento",
+      "stock": 5,
+      "price": 90,
+      "ownerId": "62f5"
+    },
+    {
+      "id": "8",
+      "title": "Pelota de Yoga",
+      "description": "Pelota de yoga antideslizante de 65 cm.",
+      "images": [
+        "https://images.unsplash.com/photo-1518611012118-696072aa579a"
+      ],
+      "category": "Equipamiento",
+      "stock": 12,
+      "price": 25,
+      "ownerId": "2"
+    },
+    {
+      "id": "fbf9",
+      "title": "Thor",
+      "category": "Ropa",
+      "price": 25,
+      "stock": 30,
+      "description": "Producto de Ropa Thor",
+      "images": [
+        "https://http2.mlstatic.com/D_626339-MLA54966106993_042023-O.jpg",
+        "https://http2.mlstatic.com/D_NQ_NP_2X_839253-MLA78412291309_082024-F.webp"
+      ],
+      "ownerId": "1"
+    }
 ]
