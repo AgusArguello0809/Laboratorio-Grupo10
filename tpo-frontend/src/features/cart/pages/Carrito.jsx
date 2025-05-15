@@ -31,10 +31,6 @@ const Carrito = () => {
   // Guarda inputs temporales antes de confirmar
   const [cantidadTemp, setCantidadTemp] = useState({});
 
-  useEffect(() => {
-    if (!user) navigate('/login');
-  }, [user]);
-
   const disminuirCantidad = (id) => {
     setCarrito((prev) =>
       prev.map((item) =>

@@ -4,15 +4,15 @@ import ProductImageSlider from "../components/management/ProductImageSlider";
 import ProductForm from "../components/management/ProductForm";
 import ConfirmCancelDialog from "../components/management/ConfirmCancelDialog";
 import DraftPreviewDialog from "../components/management/DraftPreviewDialog";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useAuth } from "../../auth/context/AuthContext";
-import { useProductService } from "../hooks/useProductService"; 
+import { useProductService } from "../hooks/useProductService";
 
 export default function SellProduct() {
   const { user } = useAuth();
-  const { addProduct, loading } = useProductService(); 
+  const { addProduct, loading } = useProductService();
   const navigate = useNavigate();
-  
+
   const [images, setImages] = useState([]);
   const [formData, setFormData] = useState({
     title: "",
@@ -25,10 +25,6 @@ export default function SellProduct() {
   const [openDraft, setOpenDraft] = useState(false);
   const [validationError, setValidationError] = useState(false);
 
-  if (!user) {
-      return <Navigate to="/login" replace />;
-  }
-  
   const isFormValid =
     formData.title.trim() !== "" &&
     formData.category.trim() !== "" &&
@@ -36,14 +32,14 @@ export default function SellProduct() {
     parseInt(formData.stock) >= 0 &&
     formData.description.trim() !== "" &&
     images.length > 0;
-    
+
   const handleCancel = () => setOpenConfirm(true);
-  
+
   const handleConfirmCancel = () => {
     setOpenConfirm(false);
     navigate("/");
   };
-  
+
   const handleSave = () => {
     if (!isFormValid) {
       setValidationError(true);
@@ -51,7 +47,7 @@ export default function SellProduct() {
     }
     setOpenDraft(true);
   };
-  
+
   const handleConfirmSave = async () => {
     const nuevoProducto = {
       ...formData,
@@ -60,7 +56,7 @@ export default function SellProduct() {
       price: parseFloat(formData.price),
       stock: parseInt(formData.stock)
     };
-    
+
     try {
       const result = await addProduct(nuevoProducto);
       if (result.success) {
@@ -72,7 +68,7 @@ export default function SellProduct() {
       console.error("Error al guardar el producto:", error);
     }
   };
-  
+
   return (
     <Box sx={{ p: 4 }}>
       <Typography variant="h4" gutterBottom fontWeight="bold">Publicar producto</Typography>
@@ -93,10 +89,10 @@ export default function SellProduct() {
         <Button variant="outlined" color="error" onClick={handleCancel} disabled={loading}>
           Cancelar
         </Button>
-        <Button 
-          variant="contained" 
-          color="primary" 
-          onClick={handleSave} 
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleSave}
           disabled={loading}
         >
           {loading ? "Guardando..." : "Guardar"}

@@ -7,7 +7,7 @@ import {
   Alert,
   CircularProgress
 } from "@mui/material";
-import { useNavigate, Navigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import MyPublicationCard from "../components/management/MyPublicationCard";
 import EmptyProductCard from "../components/management/EmptyProductCard";
@@ -17,13 +17,13 @@ import { useProductService } from "../hooks/useProductService";
 
 export default function MyPublications() {
   const { user } = useAuth();
-  const { 
-    loading, 
-    updateProduct, 
-    deleteProduct, 
-    getProductsByOwner 
+  const {
+    loading,
+    updateProduct,
+    deleteProduct,
+    getProductsByOwner
   } = useProductService();
-  
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
@@ -31,10 +31,6 @@ export default function MyPublications() {
   });
 
   const navigate = useNavigate();
-
-  if (!user) {
-    return <Navigate to="/login" replace />;
-  }
 
   const handleEdit = async (updatedProduct) => {
     try {
