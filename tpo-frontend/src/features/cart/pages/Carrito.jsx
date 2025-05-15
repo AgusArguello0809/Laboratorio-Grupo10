@@ -74,6 +74,16 @@ const Carrito = () => {
       return;
     }
 
+    const producto = carrito.find(p => p.id === id);
+    if (producto && num > producto.stock) {
+      setSnackbar({
+        open: true,
+        message: `No hay suficiente stock para ${producto.title}.`,
+        severity: 'error',
+      });
+      return;
+    }
+
     setCarrito((prev) =>
       prev.map((item) =>
         item.id === id ? { ...item, cantidad: num } : item
