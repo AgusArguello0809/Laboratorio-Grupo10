@@ -53,7 +53,7 @@ const disminuirCantidad = (id) => {
   const handleCheckout = async () => {
     try {
       // Evitar comprar productos propios
-      const productosPropios = carrito.filter(item => item.userId === user?.id);
+      const productosPropios = carrito.filter(item => item.ownerId === user?.id);
       if (productosPropios.length > 0) {
         alert("No podés comprar tus propios productos.");
         return;
