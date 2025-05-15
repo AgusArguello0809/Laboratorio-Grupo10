@@ -67,28 +67,28 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
         onClick={toggleExpand}
       >
         <Box position="relative">
-        <Box
-          sx={{
-            height: "200px",
-            width: "100%",
-            backgroundColor: "#fff",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            borderRadius: 1,
-            overflow: "hidden"
-          }}
-        >
-          <CardMedia
-            component="img"
-    image={images?.[currentImage]}
-    alt={title}
-    sx={{
-      maxHeight: "100%",
-      maxWidth: "100%",
-      objectFit: "contain"
+          <Box
+            sx={{
+              height: "200px",
+              width: "100%",
+              backgroundColor: "#fff",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              borderRadius: 1,
+              overflow: "hidden"
             }}
-          />
+          >
+            <CardMedia
+              component="img"
+              image={images?.[currentImage]}
+              alt={title}
+              sx={{
+                maxHeight: "100%",
+                maxWidth: "100%",
+                objectFit: "contain"
+              }}
+            />
           </Box>
           {expanded && images?.length > 1 && (
             <>
@@ -145,7 +145,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
                 WebkitLineClamp: 3,
                 WebkitBoxOrient: "vertical",
                 overflow: "hidden",
-                textOverflow: "ellipsis"
+                textOverflow: "ellipsis",
               }}
             >
               {description}
@@ -153,37 +153,37 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
           </CardContent>
 
           <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
-            <IconButton 
-            onClick={(e) => { e.stopPropagation(); setDetailOpen(true); }}
-            sx={{
-              color: "gray",
-              transition: "color 0.2s",
-              "&:hover": {
-                color: "#FA9500"
-              }
-            }}>
+            <IconButton
+              onClick={(e) => { e.stopPropagation(); setDetailOpen(true); }}
+              sx={{
+                color: "gray",
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: "#FA9500"
+                }
+              }}>
               <VisibilityIcon />
             </IconButton>
-            <IconButton 
-            onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}
-            sx={{
-              color: "gray",
-              transition: "color 0.2s",
-              "&:hover": {
-                color: "#FA9500"
-              }
-            }}>
+            <IconButton
+              onClick={(e) => { e.stopPropagation(); setEditOpen(true); }}
+              sx={{
+                color: "gray",
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: "#FA9500"
+                }
+              }}>
               <EditIcon />
             </IconButton>
-            <IconButton 
-            onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
+            <IconButton
+              onClick={(e) => { e.stopPropagation(); setDeleteOpen(true); }}
               sx={{
-    color: "gray",
-    transition: "color 0.2s",
-    "&:hover": {
-      color: "#FA9500"
-    }
-  }}
+                color: "gray",
+                transition: "color 0.2s",
+                "&:hover": {
+                  color: "#FA9500"
+                }
+              }}
             >
               <DeleteIcon />
             </IconButton>
