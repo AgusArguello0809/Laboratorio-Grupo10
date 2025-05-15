@@ -75,6 +75,7 @@ const ProductCatalog = () => {
                     description: producto.description,
                     stock: producto.stock,
                     images: producto.images,
+                    ownerId: producto.ownerId
                   }}
                 />
               </Grid>
