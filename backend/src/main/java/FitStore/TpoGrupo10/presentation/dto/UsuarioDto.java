@@ -10,9 +10,6 @@ public class UsuarioDto {
     private String email;
     private String password;
 
-    private List<ProductoDto> productos;
-    private CarritoDto carrito;
-
     public Long getId() {
         return id;
     }
@@ -59,21 +56,5 @@ public class UsuarioDto {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<ProductoDto> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<ProductoDto> productos) {
-        this.productos = productos;
-    }
-
-    public CarritoDto getCarrito() {
-        return carrito;
-    }
-
-    public void setCarrito(CarritoDto carrito) {
-        this.carrito = carrito;
     }
 }

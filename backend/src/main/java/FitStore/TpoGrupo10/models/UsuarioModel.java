@@ -11,9 +11,6 @@ public class UsuarioModel {
     private String email;
     private String password;
 
-    private List<ProductoModel> productos;
-    private CarritoModel carrito;
-
     public Long getId() {
         return id;
     }
@@ -60,21 +57,5 @@ public class UsuarioModel {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public List<ProductoModel> getProductos() {
-        return productos;
-    }
-
-    public void setProductos(List<ProductoModel> productos) {
-        this.productos = productos;
-    }
-
-    public CarritoModel getCarrito() {
-        return carrito;
-    }
-
-    public void setCarrito(CarritoModel carrito) {
-        this.carrito = carrito;
     }
 }

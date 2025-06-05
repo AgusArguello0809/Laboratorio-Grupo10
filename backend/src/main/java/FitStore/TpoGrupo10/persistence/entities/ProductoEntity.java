@@ -1,5 +1,6 @@
 package FitStore.TpoGrupo10.persistence.entities;
 
+import FitStore.TpoGrupo10.models.ProductoModel;
 import jakarta.persistence.*;
 
 @Entity
@@ -46,4 +47,13 @@ public class ProductoEntity {
 
     public UsuarioEntity getOwner() { return owner; }
     public void setOwner(UsuarioEntity owner) { this.owner = owner; }
+
+    public void updateFromModel(ProductoModel model, CategoriaEntity categoria, UsuarioEntity owner) {
+        this.title = model.getTitle();
+        this.description = model.getDescription();
+        this.price = model.getPrice();
+        this.stock = model.getStock();
+        this.category = categoria;
+        this.owner = owner;
+    }
 }

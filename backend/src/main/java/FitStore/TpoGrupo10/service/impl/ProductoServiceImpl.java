@@ -30,15 +30,12 @@ public class ProductoServiceImpl implements ProductoService {
 
     @Override
     public ProductoModel create(ProductoModel producto) {
-        return productoRepository.save(producto);
+        return productoRepository.saveEntity(producto);
     }
 
     @Override
     public ProductoModel update(Long id, ProductoModel producto) {
-        if (!productoRepository.existsById(id)) {
-            throw new RuntimeException("Producto no encontrado con id: " + id);
-        }
-        return productoRepository.save(producto);
+        return productoRepository.update(id, producto);
     }
 
     @Override

@@ -1,27 +1,21 @@
 package FitStore.TpoGrupo10.persistence.mappers;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
-import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.entities.CarritoEntity;
-import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
 import FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;
-import java.util.ArrayList;
-import java.util.List;
 import javax.annotation.processing.Generated;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-05T01:06:22-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.12 (Oracle Corporation)"
+    date = "2025-06-05T19:02:51-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class CarritoMapperImpl implements CarritoMapper {
 
-    @Autowired
-    private ProductoMapper productoMapper;
     @Autowired
     private ItemCarritoMapper itemCarritoMapper;
 
@@ -68,23 +62,8 @@ public class CarritoMapperImpl implements CarritoMapper {
         usuarioModel.setLastName( usuarioEntity.getLastName() );
         usuarioModel.setEmail( usuarioEntity.getEmail() );
         usuarioModel.setPassword( usuarioEntity.getPassword() );
-        usuarioModel.setProductos( productoMapper.toModelList( usuarioEntity.getProductos() ) );
-        usuarioModel.setCarrito( toModel( usuarioEntity.getCarrito() ) );
 
         return usuarioModel;
-    }
-
-    protected List<ProductoEntity> productoModelListToProductoEntityList(List<ProductoModel> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<ProductoEntity> list1 = new ArrayList<ProductoEntity>( list.size() );
-        for ( ProductoModel productoModel : list ) {
-            list1.add( productoMapper.toEntity( productoModel ) );
-        }
-
-        return list1;
     }
 
     protected UsuarioEntity usuarioModelToUsuarioEntity(UsuarioModel usuarioModel) {
@@ -100,8 +79,6 @@ public class CarritoMapperImpl implements CarritoMapper {
         usuarioEntity.setLastName( usuarioModel.getLastName() );
         usuarioEntity.setEmail( usuarioModel.getEmail() );
         usuarioEntity.setPassword( usuarioModel.getPassword() );
-        usuarioEntity.setProductos( productoModelListToProductoEntityList( usuarioModel.getProductos() ) );
-        usuarioEntity.setCarrito( toEntity( usuarioModel.getCarrito() ) );
 
         return usuarioEntity;
     }

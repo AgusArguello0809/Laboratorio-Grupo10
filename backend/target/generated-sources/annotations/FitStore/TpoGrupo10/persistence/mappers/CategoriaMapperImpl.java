@@ -1,25 +1,19 @@
 package FitStore.TpoGrupo10.persistence.mappers;
 
 import FitStore.TpoGrupo10.models.CategoriaModel;
-import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
-import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-05T01:06:22-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.12 (Oracle Corporation)"
+    date = "2025-06-05T19:02:52-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class CategoriaMapperImpl implements CategoriaMapper {
-
-    @Autowired
-    private ProductoMapper productoMapper;
 
     @Override
     public CategoriaModel toModel(CategoriaEntity entity) {
@@ -29,7 +23,6 @@ public class CategoriaMapperImpl implements CategoriaMapper {
 
         CategoriaModel categoriaModel = new CategoriaModel();
 
-        categoriaModel.setProductos( productoMapper.toModelList( entity.getProductos() ) );
         categoriaModel.setId( entity.getId() );
         categoriaModel.setNombre( entity.getNombre() );
 
@@ -44,7 +37,6 @@ public class CategoriaMapperImpl implements CategoriaMapper {
 
         CategoriaEntity categoriaEntity = new CategoriaEntity();
 
-        categoriaEntity.setProductos( productoModelListToProductoEntityList( model.getProductos() ) );
         categoriaEntity.setId( model.getId() );
         categoriaEntity.setNombre( model.getNombre() );
 
@@ -63,18 +55,5 @@ public class CategoriaMapperImpl implements CategoriaMapper {
         }
 
         return list;
-    }
-
-    protected List<ProductoEntity> productoModelListToProductoEntityList(List<ProductoModel> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<ProductoEntity> list1 = new ArrayList<ProductoEntity>( list.size() );
-        for ( ProductoModel productoModel : list ) {
-            list1.add( productoMapper.toEntity( productoModel ) );
-        }
-
-        return list1;
     }
 }

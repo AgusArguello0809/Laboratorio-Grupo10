@@ -6,8 +6,9 @@ import org.springframework.data.domain.Pageable;
 
 public interface ProductoRepository {
     Page<ProductoModel> findAll(Pageable pageable);
+    ProductoModel update(Long id, ProductoModel model);
     ProductoModel findById(Long id);
-    ProductoModel save(ProductoModel model);
+    ProductoModel saveEntity(ProductoModel model);
     void deleteById(Long id);
     boolean existsById(Long id);
 }

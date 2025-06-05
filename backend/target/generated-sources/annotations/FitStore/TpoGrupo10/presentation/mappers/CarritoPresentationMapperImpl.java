@@ -2,28 +2,22 @@ package FitStore.TpoGrupo10.presentation.mappers;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
 import FitStore.TpoGrupo10.models.ItemCarritoModel;
-import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.presentation.dto.CarritoDto;
 import FitStore.TpoGrupo10.presentation.dto.ItemCarritoDto;
-import FitStore.TpoGrupo10.presentation.dto.ProductoDto;
 import FitStore.TpoGrupo10.presentation.dto.UsuarioDto;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.processing.Generated;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Generated(
     value = "org.mapstruct.ap.MappingProcessor",
-    date = "2025-06-05T01:06:22-0300",
-    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.12 (Oracle Corporation)"
+    date = "2025-06-05T19:02:52-0300",
+    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 21.0.6 (Oracle Corporation)"
 )
 @Component
 public class CarritoPresentationMapperImpl implements CarritoPresentationMapper {
-
-    @Autowired
-    private ProductoPresentationMapper productoPresentationMapper;
 
     @Override
     public CarritoDto toDto(CarritoModel model) {
@@ -94,8 +88,6 @@ public class CarritoPresentationMapperImpl implements CarritoPresentationMapper 
         usuarioDto.setLastName( usuarioModel.getLastName() );
         usuarioDto.setEmail( usuarioModel.getEmail() );
         usuarioDto.setPassword( usuarioModel.getPassword() );
-        usuarioDto.setProductos( productoPresentationMapper.toDtoList( usuarioModel.getProductos() ) );
-        usuarioDto.setCarrito( toDto( usuarioModel.getCarrito() ) );
 
         return usuarioDto;
     }
@@ -126,19 +118,6 @@ public class CarritoPresentationMapperImpl implements CarritoPresentationMapper 
         return list1;
     }
 
-    protected List<ProductoModel> productoDtoListToProductoModelList(List<ProductoDto> list) {
-        if ( list == null ) {
-            return null;
-        }
-
-        List<ProductoModel> list1 = new ArrayList<ProductoModel>( list.size() );
-        for ( ProductoDto productoDto : list ) {
-            list1.add( productoPresentationMapper.toModel( productoDto ) );
-        }
-
-        return list1;
-    }
-
     protected UsuarioModel usuarioDtoToUsuarioModel(UsuarioDto usuarioDto) {
         if ( usuarioDto == null ) {
             return null;
@@ -152,8 +131,6 @@ public class CarritoPresentationMapperImpl implements CarritoPresentationMapper 
         usuarioModel.setLastName( usuarioDto.getLastName() );
         usuarioModel.setEmail( usuarioDto.getEmail() );
         usuarioModel.setPassword( usuarioDto.getPassword() );
-        usuarioModel.setProductos( productoDtoListToProductoModelList( usuarioDto.getProductos() ) );
-        usuarioModel.setCarrito( toModel( usuarioDto.getCarrito() ) );
 
         return usuarioModel;
     }
