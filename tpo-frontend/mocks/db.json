@@ -8,32 +8,20 @@
         "https://images.unsplash.com/photo-1521572163474-6864f9cf17ab"
       ],
       "category": "Ropa",
-      "stock": 2,
+      "stock": 0,
       "price": 25,
       "ownerId": "62f5"
     },
     {
       "id": "2",
       "title": "Zapatillas Running",
-      "description": "Zapatillas livianas para correr largas distancias.",
+      "description": "Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum Lorem ipsum lorem ipsum Zapatillas livianas para correr largas distancias.",
       "images": [
         "https://images.unsplash.com/photo-1542291026-7eec264c27ff"
       ],
       "category": "Calzado",
       "stock": 0,
-      "price": 80,
-      "ownerId": "1"
-    },
-    {
-      "id": "3",
-      "title": "Botella de Agua",
-      "description": "Botella térmica de acero inoxidable.",
-      "images": [
-        "https://images.unsplash.com/photo-1523362628745-0c100150b504"
-      ],
-      "category": "Accesorios",
-      "stock": 14,
-      "price": 15.34,
+      "price": 123,
       "ownerId": "1"
     },
     {
@@ -44,7 +32,7 @@
         "https://images.unsplash.com/photo-1553062407-98eeb64c6a62"
       ],
       "category": "Accesorios",
-      "stock": 14,
+      "stock": 0,
       "price": 45,
       "ownerId": "2"
     },
@@ -68,7 +56,7 @@
         "https://images.unsplash.com/photo-1539533113208-f6df8cc8b543"
       ],
       "category": "Ropa",
-      "stock": 17,
+      "stock": 16,
       "price": 35,
       "ownerId": "62f5"
     },
@@ -80,7 +68,7 @@
         "https://images.unsplash.com/photo-1526506118085-60ce8714f8c5"
       ],
       "category": "Equipamiento",
-      "stock": 5,
+      "stock": 0,
       "price": 90,
       "ownerId": "62f5"
     },
@@ -92,7 +80,7 @@
         "https://images.unsplash.com/photo-1518611012118-696072aa579a"
       ],
       "category": "Equipamiento",
-      "stock": 11,
+      "stock": 8,
       "price": 25,
       "ownerId": "2"
     },
@@ -182,6 +170,38 @@
       "email": "juan@gmail.com",
       "password": "123456",
       "id": "MqAfcrG"
+    },
+    {
+      "username": "boca",
+      "name": "Boca",
+      "lastName": "Juniors",
+      "email": "boca@gmail.com",
+      "password": "la12.com",
+      "id": "JIrpz-4"
+    },
+    {
+      "username": "Ejemplo123",
+      "name": "Ejemplo",
+      "lastName": "SoyUnEjemplo",
+      "email": "example@gmail.com",
+      "password": "123456",
+      "id": "mnPGgCD"
+    },
+    {
+      "username": "Ejemplo2",
+      "name": "Ejemplo",
+      "lastName": "SoyEjemplo",
+      "email": "example2@gmail.com",
+      "password": "123456",
+      "id": "bCYUHv2"
+    },
+    {
+      "username": "Ejemplo",
+      "name": "ad",
+      "lastName": "adsa",
+      "email": "ejemplo@gmail.com",
+      "password": "123456",
+      "id": "ghJWjBv"
     }
   ]
 }
