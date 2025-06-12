@@ -65,6 +65,21 @@ public class CarritoServiceImpl implements CarritoService {
         return repository.save(carrito);
     }
 
+    @Override
+    public CarritoModel disminuirCantidad(Long carritoId, Long productoId) {
+        CarritoModel carrito = repository.findById(carritoId)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
+        for (ItemCarritoModel item : carrito.getProductos()) {
+            if (item.getProductoId().equals(productoId)) {
+                item.setCantidad(item.getCantidad() - 1);
+                break;
+            }
+        }
+
+        return repository.save(carrito);
+    }
+
     public CarritoModel addProduct(Long ownerId, Long productId, int cant) {
 
         CarritoModel carrito = repository.findByOwnerId(ownerId)
