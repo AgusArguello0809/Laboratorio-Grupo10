@@ -46,4 +46,14 @@ public class CarritoController {
         service.deleteCarritoProducto(id, productoId);
     }
 
+
+    @PatchMapping("/{id}/producto/{productoId}/incrementar")
+    public CarritoDto incrementarCantidad(
+            @PathVariable Long id,
+            @PathVariable Long productoId) {
+
+        CarritoModel actualizado = service.incrementarCantidad(id, productoId);
+        return mapper.toDto(actualizado);
+    }
+
 }

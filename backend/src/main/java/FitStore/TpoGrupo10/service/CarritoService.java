@@ -10,5 +10,5 @@ public interface CarritoService {
     CarritoModel save(CarritoModel model);
     void deleteCarrito(Long id);
     void deleteCarritoProducto(Long carritoId, Long productoId);
-
+    CarritoModel incrementarCantidad(Long carritoId, Long productoId);
 }
