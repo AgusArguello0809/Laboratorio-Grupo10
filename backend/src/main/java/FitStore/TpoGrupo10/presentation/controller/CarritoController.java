@@ -56,4 +56,13 @@ public class CarritoController {
         return mapper.toDto(actualizado);
     }
 
+    @PatchMapping("/{id}/producto/{productoId}/disminuir")
+    public CarritoDto disminuirCantidad(
+            @PathVariable Long id,
+            @PathVariable Long productoId) {
+
+        CarritoModel actualizado = service.disminuirCantidad(id, productoId);
+        return mapper.toDto(actualizado);
+    }
+
 }
