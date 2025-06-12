@@ -2,14 +2,15 @@ package FitStore.TpoGrupo10.presentation.dto;
 
 public class ItemCarritoDto {
 
-    private String productoId;
+    private Long productoId;
     private int cantidad;
+    private double precioUnitario;
 
-    public String getProductoId() {
+    public Long getProductoId() {
         return productoId;
     }
 
-    public void setProductoId(String productoId) {
+    public void setProductoId(Long productoId) {
         this.productoId = productoId;
     }
 
@@ -19,5 +20,13 @@ public class ItemCarritoDto {
 
     public void setCantidad(int cantidad) {
         this.cantidad = cantidad;
+    }
+
+    public double getPrecioUnitario() {
+        return precioUnitario;
+    }
+
+    public void setPrecioUnitario(double precioUnitario) {
+        this.precioUnitario = precioUnitario;
     }
 }

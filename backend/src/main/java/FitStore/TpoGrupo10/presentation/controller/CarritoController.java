@@ -1,6 +1,7 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
+import FitStore.TpoGrupo10.presentation.dto.AddProductRequestDto;
 import FitStore.TpoGrupo10.presentation.dto.CarritoDto;
 import FitStore.TpoGrupo10.presentation.mappers.CarritoPresentationMapper;
 import FitStore.TpoGrupo10.service.CarritoService;
@@ -20,19 +21,21 @@ public class CarritoController {
         this.mapper = mapper;
     }
 
-    @GetMapping("/usuario/{ownerId}")
+    @GetMapping("usuario/{ownerId}")
     public CarritoDto getByUsuarioId(@PathVariable Long ownerId) {
         Optional<CarritoModel> model = service.getCarritoByOwnerId(ownerId);
         return model.map(mapper::toDto).orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
     }
 
-    @PostMapping
-    public CarritoDto save(@RequestBody CarritoDto dto) {
-        CarritoModel model = service.save(mapper.toModel(dto));
+    @PostMapping("usuario/{ownerId}")
+    public CarritoDto save(
+            @PathVariable Long ownerId,
+            @RequestBody AddProductRequestDto requestDto) {
+        CarritoModel model = service.addProduct(ownerId, requestDto.getProductId(), requestDto.getCant());
         return mapper.toDto(model);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("{id}")
     public void delete(@PathVariable Long id) {
         service.deleteCarrito(id);
     }

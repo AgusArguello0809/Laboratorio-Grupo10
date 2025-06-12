@@ -1,7 +1,5 @@
 package FitStore.TpoGrupo10.presentation.dto;
 
-import java.util.List;
-
 public class UsuarioDto {
     private Long id;
     private String username;

@@ -17,6 +17,8 @@ public class CarritoEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     private List<ItemCarritoEmbeddable> productos;
 
+    private double total;
+
     public Long getId() {
         return id;
     }
@@ -39,5 +41,13 @@ public class CarritoEntity {
 
     public void setProductos(List<ItemCarritoEmbeddable> productos) {
         this.productos = productos;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

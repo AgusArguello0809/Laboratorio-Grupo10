@@ -7,8 +7,8 @@ public class ProductoDto {
     private int stock;
     private double price;
 
-    private CategoriaDto category;
-    private UsuarioDto owner;
+    private Long categoryId;
+    private Long ownerId;
 
     public Long getId() { return id; }
     public void setId(Long id) { this.id = id; }
@@ -25,9 +25,9 @@ public class ProductoDto {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
-    public CategoriaDto getCategory() { return category; }
-    public void setCategory(CategoriaDto category) { this.category = category; }
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
 
-    public UsuarioDto getOwner() { return owner; }
-    public void setOwner(UsuarioDto owner) { this.owner = owner; }
+    public Long getOwnerId() { return ownerId; }
+    public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
 }

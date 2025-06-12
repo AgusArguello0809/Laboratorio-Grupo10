@@ -6,6 +6,7 @@ import java.util.Optional;
 
 public interface CarritoService {
     Optional<CarritoModel> getCarritoByOwnerId(Long ownerId);
+    CarritoModel addProduct(Long ownerId, Long productId, int cant);
     CarritoModel save(CarritoModel model);
     void deleteCarrito(Long id);
 }

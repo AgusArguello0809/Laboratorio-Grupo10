@@ -16,25 +16,25 @@ public class App {
         SpringApplication.run(App.class, args);
     }
 
-    @Bean
-    public CommandLineRunner init(UsuarioService usuarioService, CarritoService carritoService) {
-        return args -> {
-            UsuarioModel usuario = new UsuarioModel();
-            usuario.setUsername("fituser");
-            usuario.setName("Agus");
-            usuario.setLastName("Argüello");
-            usuario.setEmail("agus@example.com");
-            usuario.setPassword("123456");
-
-            UsuarioModel savedUsuario = usuarioService.save(usuario);
-
-            CarritoModel carrito = new CarritoModel();
-            carrito.setOwner(savedUsuario);
-
-            carritoService.save(carrito);
-
-            System.out.println("✅ Usuario y Carrito de prueba creados");
-        };
-    }
+//    @Bean
+//    public CommandLineRunner init(UsuarioService usuarioService, CarritoService carritoService) {
+//        return args -> {
+//            UsuarioModel usuario = new UsuarioModel();
+//            usuario.setUsername("fituser");
+//            usuario.setName("Agus");
+//            usuario.setLastName("Argüello");
+//            usuario.setEmail("agus@example.com");
+//            usuario.setPassword("123456");
+//
+//            UsuarioModel savedUsuario = usuarioService.addProduct(usuario);
+//
+//            CarritoModel carrito = new CarritoModel();
+//            carrito.setOwnerId(savedUsuario);
+//
+//            carritoService.addProduct(carrito);
+//
+//            System.out.println("✅ Usuario y Carrito de prueba creados");
+//        };
+//    }
 
 }

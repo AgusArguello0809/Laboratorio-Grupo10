@@ -2,6 +2,7 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.CategoriaModel;
 import FitStore.TpoGrupo10.persistence.daos.CategoriaDao;
+import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
 import FitStore.TpoGrupo10.persistence.mappers.CategoriaMapper;
 import FitStore.TpoGrupo10.persistence.repositories.CategoriaRepository;
 import org.slf4j.Logger;
@@ -9,6 +10,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import java.util.Optional;
 
 @Repository
 public class CategoriaRepositoryImpl implements CategoriaRepository {
@@ -28,5 +31,10 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
         return categoriaDao
                 .findAll(pageable)
                 .map(mapper::toModel);
+    }
+
+    @Override
+    public Optional<CategoriaEntity> findById(Long id) {
+        return categoriaDao.findById(id);
     }
 }

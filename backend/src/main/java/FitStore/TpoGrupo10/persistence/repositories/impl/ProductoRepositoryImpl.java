@@ -1,6 +1,7 @@
 package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.ProductoModel;
+import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.daos.ProductoDao;
 import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
 import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
@@ -8,7 +9,9 @@ import FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;
 import FitStore.TpoGrupo10.persistence.mappers.CategoriaMapper;
 import FitStore.TpoGrupo10.persistence.mappers.ProductoMapper;
 import FitStore.TpoGrupo10.persistence.mappers.UsuarioMapper;
+import FitStore.TpoGrupo10.persistence.repositories.CategoriaRepository;
 import FitStore.TpoGrupo10.persistence.repositories.ProductoRepository;
+import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -20,12 +23,16 @@ public class ProductoRepositoryImpl implements ProductoRepository {
     private final ProductoMapper mapper;
     private final CategoriaMapper categoriaMapper;
     private final UsuarioMapper usuarioMapper;
+    private final CategoriaRepository categoriaRepository;
+    private final UsuarioRepository usuarioRepository;
 
-    public ProductoRepositoryImpl(ProductoDao productoDao, ProductoMapper mapper, CategoriaMapper categoriaMapper, UsuarioMapper usuarioMapper) {
+    public ProductoRepositoryImpl(ProductoDao productoDao, ProductoMapper mapper, CategoriaMapper categoriaMapper, UsuarioMapper usuarioMapper, CategoriaRepository categoriaRepository, UsuarioRepository usuarioRepository) {
         this.productoDao = productoDao;
         this.mapper = mapper;
         this.categoriaMapper = categoriaMapper;
         this.usuarioMapper = usuarioMapper;
+        this.categoriaRepository = categoriaRepository;
+        this.usuarioRepository = usuarioRepository;
     }
 
     @Override
@@ -59,7 +66,20 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public ProductoModel saveEntity(ProductoModel model) {
-        return mapper.toModel(productoDao.save(mapper.toEntity(model)));
+        CategoriaEntity categoriaEntity = categoriaRepository.findById(model.getCategory().getId())
+                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+
+        UsuarioModel ownerModel = usuarioRepository.findById(model.getOwner().getId())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+
+        ProductoEntity entity = mapper.toEntity(model);
+        UsuarioEntity ownerEntity = usuarioMapper.toEntity(ownerModel);
+
+        entity.setCategory(categoriaEntity);
+        entity.setOwner(ownerEntity);
+
+        ProductoEntity savedEntity = productoDao.save(entity);
+        return mapper.toModel(savedEntity);
     }
 
     @Override

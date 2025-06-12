@@ -7,6 +7,7 @@ public class CarritoDto {
     private Long id;
     private UsuarioDto owner;
     private List<ItemCarritoDto> productos;
+    private double total;
 
     public Long getId() {
         return id;
@@ -30,5 +31,13 @@ public class CarritoDto {
 
     public void setProductos(List<ItemCarritoDto> productos) {
         this.productos = productos;
+    }
+
+    public double getTotal() {
+        return total;
+    }
+
+    public void setTotal(double total) {
+        this.total = total;
     }
 }

@@ -10,7 +10,7 @@
 	</parent>
 	<groupId>FitStore</groupId>
 	<artifactId>TPOGrupo10</artifactId>
-	<version>0.0.2</version>
+	<version>0.0.3</version>
 	<name>TPOGrupo10</name>
 	<description>Trabajo práctico para Aplicaciones Interactivas UADE</description>
 	<url/>
