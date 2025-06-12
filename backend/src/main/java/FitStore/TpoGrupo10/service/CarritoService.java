@@ -9,4 +9,6 @@ public interface CarritoService {
     CarritoModel addProduct(Long ownerId, Long productId, int cant);
     CarritoModel save(CarritoModel model);
     void deleteCarrito(Long id);
+    void deleteCarritoProducto(Long carritoId, Long productoId);
+
 }

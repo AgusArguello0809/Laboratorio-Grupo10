@@ -39,4 +39,11 @@ public class CarritoController {
     public void delete(@PathVariable Long id) {
         service.deleteCarrito(id);
     }
+
+    @DeleteMapping("{id}/producto/{productoId}")
+    public void delete(@PathVariable Long id,
+                       @PathVariable Long productoId) {
+        service.deleteCarritoProducto(id, productoId);
+    }
+
 }

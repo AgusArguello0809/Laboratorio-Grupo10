@@ -1,5 +1,7 @@
 package FitStore.TpoGrupo10.service.impl;
 
+import FitStore.TpoGrupo10.models.CarritoModel;
+import FitStore.TpoGrupo10.models.ItemCarritoModel;
 import FitStore.TpoGrupo10.models.*;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
 import FitStore.TpoGrupo10.service.CarritoService;
@@ -34,6 +36,18 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void deleteCarrito(Long id) {
         repository.deleteById(id);
+    }
+
+    @Override
+    public void deleteCarritoProducto(Long id, Long productoId) {
+        CarritoModel carrito = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Carrito no encontrado"));
+
+        List<ItemCarritoModel> productos = carrito.getProductos();
+        productos.removeIf(item -> item.getProductoId().equals(productoId));
+
+        carrito.setProductos(productos);
+        repository.save(carrito);
     }
 
     public CarritoModel addProduct(Long ownerId, Long productId, int cant) {
