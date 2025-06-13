@@ -1,15 +1,19 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
-import FitStore.TpoGrupo10.presentation.dto.UsuarioDto;
+import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
+import FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
 import FitStore.TpoGrupo10.service.UsuarioService;
+import FitStore.TpoGrupo10.models.UsuarioModel;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
-
+import jakarta.validation.Valid;
 
 @RestController
-@RequestMapping("/api/usuarios")
+@RequestMapping("/usuarios")
 public class UsuarioController {
 
     private final UsuarioService usuarioService;
@@ -20,26 +24,35 @@ public class UsuarioController {
         this.mapper = mapper;
     }
 
+    @Operation(summary = "Obtener usuarios paginados")
     @GetMapping
-    public Page<UsuarioDto> getAll(Pageable pageable) {
-        return usuarioService.findAll(pageable).map(mapper::toDto);
+    public Page<UsuarioResponseDto> getAll(@ParameterObject Pageable pageable) {
+        return usuarioService.findAll(pageable).map(mapper::toResponseDto);
     }
 
+    @Operation(summary = "Obtener usuario por ID")
     @GetMapping("/{id}")
-    public UsuarioDto getById(@PathVariable Long id) {
-        return mapper.toDto(usuarioService.findById(id));
+    public UsuarioResponseDto getById(@PathVariable Long id) {
+        UsuarioModel model = usuarioService.findById(id);
+        return mapper.toResponseDto(model);
     }
 
-    @GetMapping("/email/{email}")
-    public UsuarioDto getByEmail(@PathVariable String email) {
-        return mapper.toDto(usuarioService.findByEmail(email));
+    @Operation(summary = "Buscar usuario por email")
+    @GetMapping("/by-email")
+    public UsuarioResponseDto getByEmail(@RequestParam String email) {
+        UsuarioModel model = usuarioService.findByEmail(email);
+        return mapper.toResponseDto(model);
     }
 
+    @Operation(summary = "Crear usuario")
     @PostMapping
-    public UsuarioDto create(@RequestBody UsuarioDto dto) {
-        return mapper.toDto(usuarioService.save(mapper.toModel(dto)));
+    public UsuarioResponseDto create(@RequestBody @Valid UsuarioCreateDto dto) {
+        UsuarioModel model = mapper.toModel(dto);
+        UsuarioModel saved = usuarioService.save(model);
+        return mapper.toResponseDto(saved);
     }
 
+    @Operation(summary = "Eliminar usuario")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
         usuarioService.delete(id);

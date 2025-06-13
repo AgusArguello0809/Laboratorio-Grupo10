@@ -14,3 +14,13 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
+        ddl-auto: update
+
+firebase:
+  credentials:
+    path: classpath:fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json
+  bucket: fitstore-tpo.firebasestorage.app
+
+server:
+  servlet:
+    context-path: /fitstore-api/v1

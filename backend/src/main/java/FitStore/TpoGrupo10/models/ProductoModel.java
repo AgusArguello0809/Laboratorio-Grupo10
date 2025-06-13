@@ -1,5 +1,7 @@
 package FitStore.TpoGrupo10.models;
 
+import java.util.List;
+
 public class ProductoModel {
 
     private Long id;
@@ -7,6 +9,7 @@ public class ProductoModel {
     private String description;
     private int stock;
     private double price;
+    private List<String> images;
 
     private CategoriaModel category;
     private UsuarioModel owner;
@@ -65,5 +68,17 @@ public class ProductoModel {
 
     public void setOwner(UsuarioModel owner) {
         this.owner = owner;
+    }
+
+    public List<String> getImages() { return images; }
+    public void setImages(List<String> images) { this.images = images; }
+
+    public void updateFrom(ProductoModel source) {
+        this.title = source.getTitle();
+        this.description = source.getDescription();
+        this.stock = source.getStock();
+        this.price = source.getPrice();
+        this.category = source.getCategory();
+        this.images = source.getImages();
     }
 }

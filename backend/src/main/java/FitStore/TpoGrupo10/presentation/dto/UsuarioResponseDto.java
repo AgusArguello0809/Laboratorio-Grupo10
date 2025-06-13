@@ -1,12 +1,12 @@
 package FitStore.TpoGrupo10.presentation.dto;
 
-public class UsuarioDto {
+public class UsuarioResponseDto {
+
     private Long id;
     private String username;
     private String name;
     private String lastName;
     private String email;
-    private String password;
 
     public Long getId() {
         return id;
@@ -46,13 +46,5 @@ public class UsuarioDto {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
     }
 }

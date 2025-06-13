@@ -1,7 +1,12 @@
 package FitStore.TpoGrupo10.presentation.dto;
 
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+
 public class AddProductRequestDto {
+    @NotNull
     private Long productId;
+    @Min(1)
     private int cant;
 
     public Long getProductId() {

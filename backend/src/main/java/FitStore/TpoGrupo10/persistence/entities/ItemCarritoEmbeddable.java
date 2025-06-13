@@ -6,8 +6,9 @@ import jakarta.persistence.Embeddable;
 public class ItemCarritoEmbeddable {
 
     private Long productoId;
-    private int cantidad;
-    private double precioUnitario;
+    private Integer cantidad;
+    private Double precioUnitario;
+    private Double subTotal;
 
     public Long getProductoId() {
         return productoId;
@@ -17,19 +18,27 @@ public class ItemCarritoEmbeddable {
         this.productoId = productoId;
     }
 
-    public int getCantidad() {
+    public Integer getCantidad() {
         return cantidad;
     }
 
-    public void setCantidad(int cantidad) {
+    public void setCantidad(Integer cantidad) {
         this.cantidad = cantidad;
     }
 
-    public double getPrecioUnitario() {
+    public Double getPrecioUnitario() {
         return precioUnitario;
     }
 
-    public void setPrecioUnitario(double precioUnitario) {
+    public void setPrecioUnitario(Double precioUnitario) {
         this.precioUnitario = precioUnitario;
+    }
+
+    public Double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(Double subTotal) {
+        this.subTotal = subTotal;
     }
 }

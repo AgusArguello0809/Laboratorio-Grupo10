@@ -3,12 +3,14 @@ package FitStore.TpoGrupo10.presentation.controller;
 import FitStore.TpoGrupo10.presentation.dto.CategoriaDto;
 import FitStore.TpoGrupo10.presentation.mappers.CategoriaPresentationMapper;
 import FitStore.TpoGrupo10.service.CategoriaService;
+import io.swagger.v3.oas.annotations.Operation;
+import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/categorias")
+@RequestMapping("/categorias")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
@@ -19,8 +21,9 @@ public class CategoriaController {
         this.mapper = mapper;
     }
 
+    @Operation(summary = "Obtener categorías paginadas")
     @GetMapping
-    public Page<CategoriaDto> findAll(Pageable pageable) {
+    public Page<CategoriaDto> findAll(@ParameterObject Pageable pageable) {
         return categoriaService.findAll(pageable).map(mapper::toDto);
     }
 }

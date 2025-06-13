@@ -1,36 +1,16 @@
-package FitStore.TpoGrupo10.persistence.entities;
-
-import jakarta.persistence.*;
+package FitStore.TpoGrupo10.presentation.dto;
 
 import java.util.List;
 
-@Entity
-@Table(name = "productos")
-public class ProductoEntity {
+public class ProductoResponseDto {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
     private String title;
-
     private String description;
-
-    @ManyToOne
-    @JoinColumn(name = "category_id")
-    private CategoriaEntity category;
-
     private int stock;
-
     private double price;
-
-    @ManyToOne
-    @JoinColumn(name = "owner_id")
-    private UsuarioEntity owner;
-
-    @ElementCollection(fetch = FetchType.EAGER)
-    @CollectionTable(name = "producto_images", joinColumns = @JoinColumn(name = "producto_id"))
-    @Column(name = "image_url")
+    private Long categoryId;
+    private Long ownerId;
     private List<String> images;
 
     public Long getId() { return id; }
@@ -48,11 +28,11 @@ public class ProductoEntity {
     public double getPrice() { return price; }
     public void setPrice(double price) { this.price = price; }
 
-    public CategoriaEntity getCategory() { return category; }
-    public void setCategory(CategoriaEntity category) { this.category = category; }
+    public Long getCategoryId() { return categoryId; }
+    public void setCategoryId(Long categoryId) { this.categoryId = categoryId; }
 
-    public UsuarioEntity getOwner() { return owner; }
-    public void setOwner(UsuarioEntity owner) { this.owner = owner; }
+    public Long getOwnerId() { return ownerId; }
+    public void setOwnerId(Long ownerId) { this.ownerId = ownerId; }
 
     public List<String> getImages() { return images; }
     public void setImages(List<String> images) { this.images = images; }

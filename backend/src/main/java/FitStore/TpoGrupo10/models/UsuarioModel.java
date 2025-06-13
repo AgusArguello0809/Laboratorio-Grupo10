@@ -1,7 +1,5 @@
 package FitStore.TpoGrupo10.models;
 
-import java.util.List;
-
 public class UsuarioModel {
 
     private Long id;

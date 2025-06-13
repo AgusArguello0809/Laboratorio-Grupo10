@@ -5,6 +5,7 @@ public class ItemCarritoDto {
     private Long productoId;
     private int cantidad;
     private double precioUnitario;
+    private double subTotal;
 
     public Long getProductoId() {
         return productoId;
@@ -28,5 +29,13 @@ public class ItemCarritoDto {
 
     public void setPrecioUnitario(double precioUnitario) {
         this.precioUnitario = precioUnitario;
+    }
+
+    public double getSubTotal() {
+        return subTotal;
+    }
+
+    public void setSubTotal(double subTotal) {
+        this.subTotal = subTotal;
     }
 }

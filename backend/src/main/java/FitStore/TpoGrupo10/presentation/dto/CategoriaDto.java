@@ -2,14 +2,14 @@ package FitStore.TpoGrupo10.presentation.dto;
 
 public class CategoriaDto {
 
-    private String id;
+    private Long id;
     private String nombre;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

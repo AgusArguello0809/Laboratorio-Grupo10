@@ -2,7 +2,6 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.CategoriaModel;
 import FitStore.TpoGrupo10.persistence.daos.CategoriaDao;
-import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
 import FitStore.TpoGrupo10.persistence.mappers.CategoriaMapper;
 import FitStore.TpoGrupo10.persistence.repositories.CategoriaRepository;
 import org.slf4j.Logger;
@@ -34,7 +33,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
     }
 
     @Override
-    public Optional<CategoriaEntity> findById(Long id) {
-        return categoriaDao.findById(id);
+    public Optional<CategoriaModel> findById(Long id) {
+        return categoriaDao.findById(id).map(mapper::toModel);
     }
 }
