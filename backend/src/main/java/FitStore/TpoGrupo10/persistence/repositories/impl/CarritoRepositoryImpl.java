@@ -8,6 +8,8 @@ import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
+import org.springframework.dao.DataAccessException;
+
 
 import java.util.Optional;
 
@@ -37,12 +39,24 @@ public class CarritoRepositoryImpl implements CarritoRepository {
     @Override
     @Transactional
     public CarritoModel save(CarritoModel model) {
-        return mapper.toModel(dao.save(mapper.toEntity(model)));
+        try {
+            return mapper.toModel(dao.save(mapper.toEntity(model)));
+        } catch (DataAccessException e) {
+            LOGGER.error("Error guardando carrito", e);
+            throw new RuntimeException("Error al guardar carrito", e);
+        }
     }
+
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        dao.deleteById(id);
+        try {
+            dao.deleteById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error eliminando carrito con ID {}", id, e);
+            throw new RuntimeException("Error al eliminar carrito", e);
+        }
     }
+
 }

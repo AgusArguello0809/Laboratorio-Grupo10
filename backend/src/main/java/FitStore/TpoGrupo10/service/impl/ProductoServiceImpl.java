@@ -14,6 +14,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,31 +45,26 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel findById(Long id) {
         return productoRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Producto no encontrado con id: " + id));
+                .orElseThrow(() -> new EntityNotFoundException("Producto no encontrado con id: " + id));
     }
 
     @Override
     public ProductoModel save(ProductoModel model, MultipartFile[] images) throws IOException {
-
-        // Validar existencia de la categoría
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada"));
 
-        // Validamr existencia del usuario
         UsuarioModel owner = usuarioRepository.findById(model.getOwner().getId())
-                .orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
+                .orElseThrow(() -> new EntityNotFoundException("Usuario no encontrado"));
 
-        // Subir las imágenes
         if (images == null || images.length == 0) {
-            throw new RuntimeException("Debe subir al menos una imagen.");
+            throw new IllegalArgumentException("Debe subir al menos una imagen.");
         }
         if (images.length > 10) {
-            throw new RuntimeException("No se pueden subir más de 10 imágenes.");
+            throw new IllegalArgumentException("No se pueden subir más de 10 imágenes.");
         }
+
         List<String> imageUrls = subirImagenes(images);
         model.setImages(imageUrls);
-
-        // Asignar las entidades correctas
         model.setCategory(categoria);
         model.setOwner(owner);
 
@@ -79,17 +75,15 @@ public class ProductoServiceImpl implements ProductoService {
     public ProductoModel update(Long id, ProductoModel model, MultipartFile[] images) throws IOException {
         ProductoModel existente = findById(id);
 
-        // Validación de categoría
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
-                .orElseThrow(() -> new RuntimeException("Categoría no encontrada"));
+                .orElseThrow(() -> new EntityNotFoundException("Categoría no encontrada"));
 
         if (images != null) {
             if (images.length > 10) {
-                throw new RuntimeException("No se pueden subir más de 10 imágenes.");
+                throw new IllegalArgumentException("No se pueden subir más de 10 imágenes.");
             }
             if (images.length > 0) {
-                List<String> imageUrls = subirImagenes(images);
-                model.setImages(imageUrls);
+                model.setImages(subirImagenes(images));
             } else {
                 model.setImages(existente.getImages());
             }
@@ -107,7 +101,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void delete(Long id) {
         if (!productoRepository.existsById(id)) {
-            throw new RuntimeException("Producto no encontrado con id: " + id);
+            throw new EntityNotFoundException("Producto no encontrado con id: " + id);
         }
         productoRepository.deleteById(id);
     }
@@ -117,12 +111,12 @@ public class ProductoServiceImpl implements ProductoService {
         ProductoModel existente = findById(id);
 
         if (images == null || images.length == 0) {
-            throw new RuntimeException("Debe subir al menos una imagen.");
+            throw new IllegalArgumentException("Debe subir al menos una imagen.");
         }
 
         int cantidadActual = existente.getImages().size();
         if (cantidadActual + images.length > 10) {
-            throw new RuntimeException("No se pueden superar las 10 imágenes.");
+            throw new IllegalArgumentException("No se pueden superar las 10 imágenes.");
         }
 
         List<String> nuevasImagenes = subirImagenes(images);
@@ -155,7 +149,11 @@ public class ProductoServiceImpl implements ProductoService {
     private List<String> subirImagenes(MultipartFile[] images) throws IOException {
         List<String> urls = new ArrayList<>();
         for (MultipartFile file : images) {
-            urls.add(storageService.uploadFile(file));
+            try {
+                urls.add(storageService.uploadFile(file));
+            } catch (Exception e) {
+                throw new IOException("Error al subir imagen: " + file.getOriginalFilename(), e);
+            }
         }
         return urls;
     }

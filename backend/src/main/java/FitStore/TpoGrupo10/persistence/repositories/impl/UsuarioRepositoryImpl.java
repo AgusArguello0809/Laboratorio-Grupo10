@@ -7,6 +7,7 @@ import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -27,30 +28,54 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Page<UsuarioModel> findAll(Pageable pageable) {
-        LOGGER.debug("Buscando todos los usuarios de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
-        return dao.findAll(pageable).map(mapper::toModel);
+        try {
+            LOGGER.debug("Buscando todos los usuarios de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+            return dao.findAll(pageable).map(mapper::toModel);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error buscando usuarios", e);
+            throw new RuntimeException("Error buscando usuarios", e);
+        }
     }
 
     @Override
     public Optional<UsuarioModel> findById(Long id) {
-        return dao.findById(id).map(mapper::toModel);
+        try {
+            return dao.findById(id).map(mapper::toModel);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error buscando usuario con id {}", id, e);
+            throw new RuntimeException("Error buscando usuario", e);
+        }
     }
 
     @Override
     public Optional<UsuarioModel> findByEmail(String email) {
-        return dao.findByEmail(email).map(mapper::toModel);
+        try {
+            return dao.findByEmail(email).map(mapper::toModel);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error buscando usuario con email {}", email, e);
+            throw new RuntimeException("Error buscando usuario", e);
+        }
     }
 
     @Override
     @Transactional
     public UsuarioModel save(UsuarioModel model) {
-        return mapper.toModel(dao.save(mapper.toEntity(model)));
+        try {
+            return mapper.toModel(dao.save(mapper.toEntity(model)));
+        } catch (DataAccessException e) {
+            LOGGER.error("Error guardando usuario", e);
+            throw new RuntimeException("Error guardando usuario", e);
+        }
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        dao.deleteById(id);
+        try {
+            dao.deleteById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error eliminando usuario con id {}", id, e);
+            throw new RuntimeException("Error eliminando usuario", e);
+        }
     }
-
 }

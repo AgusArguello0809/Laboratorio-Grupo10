@@ -4,10 +4,12 @@ import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotNull;
 
 public class AddProductRequestDto {
-    @NotNull
+
+    @NotNull(message = "El ID del producto es obligatorio")
     private Long productId;
-    @Min(1)
-    private int cant;
+
+    @Min(value = 1, message = "La cantidad debe ser al menos 1")
+    private int cantidad;
 
     public Long getProductId() {
         return productId;
@@ -17,11 +19,11 @@ public class AddProductRequestDto {
         this.productId = productId;
     }
 
-    public int getCant() {
-        return cant;
+    public int getCantidad() {
+        return cantidad;
     }
 
-    public void setCant(int cant) {
-        this.cant = cant;
+    public void setCantidad(int cantidad) {
+        this.cantidad = cantidad;
     }
 }

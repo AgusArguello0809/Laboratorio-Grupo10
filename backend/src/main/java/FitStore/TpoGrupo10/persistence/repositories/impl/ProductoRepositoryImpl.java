@@ -9,6 +9,7 @@ import com.querydsl.core.types.Predicate;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
@@ -28,31 +29,56 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public Page<ProductoModel> findAll(Predicate predicate, Pageable pageable) {
-        LOGGER.debug("Buscando todos los productos de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
-        return productoDao.findAll(predicate, pageable).map(mapper::toModel);
+        try {
+            LOGGER.debug("Buscando todos los productos de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+            return productoDao.findAll(predicate, pageable).map(mapper::toModel);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error buscando productos", e);
+            throw new RuntimeException("Error buscando productos", e);
+        }
     }
 
     @Override
     public Optional<ProductoModel> findById(Long id) {
-        return productoDao.findById(id).map(mapper::toModel);
+        try {
+            return productoDao.findById(id).map(mapper::toModel);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error buscando producto con id {}", id, e);
+            throw new RuntimeException("Error buscando producto", e);
+        }
     }
 
     @Override
     @Transactional
     public ProductoModel save(ProductoModel model) {
-        ProductoEntity entity = mapper.toEntity(model);
-        ProductoEntity saved = productoDao.save(entity);
-        return mapper.toModel(saved);
+        try {
+            ProductoEntity entity = mapper.toEntity(model);
+            ProductoEntity saved = productoDao.save(entity);
+            return mapper.toModel(saved);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error guardando producto", e);
+            throw new RuntimeException("Error guardando producto", e);
+        }
     }
 
     @Override
     @Transactional
     public void deleteById(Long id) {
-        productoDao.deleteById(id);
+        try {
+            productoDao.deleteById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error eliminando producto con id {}", id, e);
+            throw new RuntimeException("Error eliminando producto", e);
+        }
     }
 
     @Override
     public boolean existsById(Long id) {
-        return productoDao.existsById(id);
+        try {
+            return productoDao.existsById(id);
+        } catch (DataAccessException e) {
+            LOGGER.error("Error verificando existencia de producto con id {}", id, e);
+            throw new RuntimeException("Error verificando existencia de producto", e);
+        }
     }
 }

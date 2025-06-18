@@ -19,7 +19,11 @@ public class JwtUtil {
     }
 
     public String extractUsername(String token) {
-        return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+        try {
+            return Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token).getBody().getSubject();
+        } catch (JwtException | IllegalArgumentException e) {
+            return null; // Token inválido o expirado
+        }
     }
 
     public boolean isTokenValid(String token) {

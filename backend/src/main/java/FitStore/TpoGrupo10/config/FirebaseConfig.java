@@ -23,15 +23,19 @@ public class FirebaseConfig {
     }
 
     @Bean
-    public FirebaseApp firebaseApp() throws IOException {
-        Resource resource = resourceLoader.getResource(firebaseProperties.getCredentials().getPath());
-        try (InputStream serviceAccount = resource.getInputStream()) {
-            FirebaseOptions options = FirebaseOptions.builder()
+    public FirebaseApp firebaseApp() {
+        try {
+            Resource resource = resourceLoader.getResource(firebaseProperties.getCredentials().getPath());
+            try (InputStream serviceAccount = resource.getInputStream()) {
+                FirebaseOptions options = FirebaseOptions.builder()
                     .setCredentials(GoogleCredentials.fromStream(serviceAccount))
                     .setStorageBucket(firebaseProperties.getBucket())
                     .build();
 
             return FirebaseApp.initializeApp(options);
+            }
+        } catch (IOException e) {
+            throw new RuntimeException("Error al cargar las credenciales de Firebase", e);
         }
     }
 }

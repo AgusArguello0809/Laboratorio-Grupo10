@@ -10,7 +10,9 @@ import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 
 @RestController
 @RequestMapping("/usuarios")
@@ -27,34 +29,54 @@ public class UsuarioController {
     @Operation(summary = "Obtener usuarios paginados")
     @GetMapping
     public Page<UsuarioResponseDto> getAll(@ParameterObject Pageable pageable) {
-        return usuarioService.findAll(pageable).map(mapper::toResponseDto);
+        try {
+            return usuarioService.findAll(pageable).map(mapper::toResponseDto);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al obtener usuarios", e);
+        }
     }
 
     @Operation(summary = "Obtener usuario por ID")
     @GetMapping("/{id}")
     public UsuarioResponseDto getById(@PathVariable Long id) {
-        UsuarioModel model = usuarioService.findById(id);
-        return mapper.toResponseDto(model);
+        try {
+            UsuarioModel model = usuarioService.findById(id);
+            return mapper.toResponseDto(model);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con id: " + id, e);
+        }
     }
 
     @Operation(summary = "Buscar usuario por email")
     @GetMapping("/by-email")
     public UsuarioResponseDto getByEmail(@RequestParam String email) {
-        UsuarioModel model = usuarioService.findByEmail(email);
-        return mapper.toResponseDto(model);
+        try {
+            UsuarioModel model = usuarioService.findByEmail(email);
+            return mapper.toResponseDto(model);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con email: " + email, e);
+        }
     }
 
     @Operation(summary = "Crear usuario")
     @PostMapping
     public UsuarioResponseDto create(@RequestBody @Valid UsuarioCreateDto dto) {
-        UsuarioModel model = mapper.toModel(dto);
-        UsuarioModel saved = usuarioService.save(model);
-        return mapper.toResponseDto(saved);
+        try {
+            UsuarioModel model = mapper.toModel(dto);
+            UsuarioModel saved = usuarioService.save(model);
+            return mapper.toResponseDto(saved);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al crear usuario", e);
+        }
     }
 
     @Operation(summary = "Eliminar usuario")
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        usuarioService.delete(id);
+        try {
+            usuarioService.delete(id);
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR, "Error al eliminar usuario", e);
+        }
     }
 }
