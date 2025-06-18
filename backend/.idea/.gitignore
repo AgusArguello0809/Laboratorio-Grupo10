@@ -1,4 +1,23 @@
-# Default ignored files
-/shelf/
-/workspace.xml
+# IDEs
+.idea/
+*.iml
+*.iws
+*.ipr
+*.bak
+
+# Build
+/target/
+*.class
+*.jar
+*.war
+
+# Logs
+*.log
+
+# Archivos temporales del sistema
+.DS_Store
+Thumbs.db
+
+# Archivos sensibles
+.env
 src/main/resources/fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json

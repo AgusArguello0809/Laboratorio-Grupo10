@@ -1,6 +1,10 @@
 package FitStore.TpoGrupo10.persistence.entities;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "usuarios")
@@ -15,6 +19,7 @@ public class UsuarioEntity {
     private String lastName;
     private String email;
     private String password;
+    private String rol;
 
     public Long getId() {
         return id;
@@ -62,5 +67,12 @@ public class UsuarioEntity {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+        public String getRol() {
+        return rol;
+    }
+
+    public void setRol(String rol) {
+        this.rol = rol;
     }
 }

@@ -1,0 +1,59 @@
+package FitStore.TpoGrupo10.presentation.mappers;
+
+import FitStore.TpoGrupo10.models.CategoriaModel;
+import FitStore.TpoGrupo10.presentation.dto.CategoriaDto;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-06-17T20:56:42-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class CategoriaPresentationMapperImpl implements CategoriaPresentationMapper {
+
+    @Override
+    public CategoriaModel toModel(CategoriaDto dto) {
+        if ( dto == null ) {
+            return null;
+        }
+
+        CategoriaModel categoriaModel = new CategoriaModel();
+
+        categoriaModel.setId( dto.getId() );
+        categoriaModel.setNombre( dto.getNombre() );
+
+        return categoriaModel;
+    }
+
+    @Override
+    public CategoriaDto toDto(CategoriaModel model) {
+        if ( model == null ) {
+            return null;
+        }
+
+        CategoriaDto categoriaDto = new CategoriaDto();
+
+        categoriaDto.setId( model.getId() );
+        categoriaDto.setNombre( model.getNombre() );
+
+        return categoriaDto;
+    }
+
+    @Override
+    public List<CategoriaDto> toDtoList(List<CategoriaModel> models) {
+        if ( models == null ) {
+            return null;
+        }
+
+        List<CategoriaDto> list = new ArrayList<CategoriaDto>( models.size() );
+        for ( CategoriaModel categoriaModel : models ) {
+            list.add( toDto( categoriaModel ) );
+        }
+
+        return list;
+    }
+}
