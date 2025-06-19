@@ -1,8 +1,11 @@
 package FitStore.TpoGrupo10.security.exception;
 
+
 import FitStore.TpoGrupo10.exceptions.ApiErrorResponse;
 import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.security.access.AccessDeniedException;
@@ -32,6 +35,9 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
         response.setContentType(MediaType.APPLICATION_JSON_VALUE);
 
         ObjectMapper mapper = new ObjectMapper();
+        mapper.registerModule(new JavaTimeModule()); // Soporte para LocalDateTime
+        mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS); // ISO-8601 legible
+
         response.getWriter().write(mapper.writeValueAsString(error));
     }
 }

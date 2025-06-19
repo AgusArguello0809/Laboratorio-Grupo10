@@ -1,5 +1,7 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
+import FitStore.TpoGrupo10.persistence.entities.enums.Role;
+import FitStore.TpoGrupo10.presentation.dto.UpdateRoleDto;
 import FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
 import FitStore.TpoGrupo10.business.service.UsuarioService;
@@ -46,5 +48,12 @@ public class UsuarioController {
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
             usuarioService.delete(id);
+    }
+
+    @Operation(summary = "Cambiar el rol de un usuario")
+    @PatchMapping("/{id}/rol")
+    public void cambiarRol(@PathVariable Long id, @RequestBody UpdateRoleDto dto) {
+        Role nuevoRol = Role.valueOf(dto.getNewRole().toUpperCase());
+        usuarioService.cambiarRol(id, nuevoRol);
     }
 }
