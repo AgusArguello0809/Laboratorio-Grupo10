@@ -36,18 +36,18 @@ public class SecurityConfig {
 
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Swagger
 
-                        .requestMatchers(HttpMethod.GET, "/productos/**", "/categorias/**").permitAll() // públicos
+                        //.requestMatchers(HttpMethod.GET, "/productos/**", "/categorias/**").permitAll() // públicos
 
-                        .requestMatchers("/usuarios/**").hasRole("ADMIN") // gestión de usuarios
+                        //.requestMatchers("/usuarios/**").hasRole("ADMIN") // gestión de usuarios
 
                         .requestMatchers(HttpMethod.POST, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
 
-                        .requestMatchers("/carrito/**").hasAnyRole("CLIENTE", "VENDEDOR", "ADMIN")
+                        //.requestMatchers("/carrito/**").hasAnyRole("CLIENTE", "VENDEDOR", "ADMIN")
 
-                        .anyRequest().authenticated()
+                        .anyRequest().permitAll()
                 );
 
 
