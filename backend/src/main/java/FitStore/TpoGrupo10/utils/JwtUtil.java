@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.security;
+package FitStore.TpoGrupo10.utils;
 
 import io.jsonwebtoken.*;
 import org.springframework.stereotype.Component;

@@ -58,6 +58,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
     }
 
     @Override
+    public Optional<UsuarioModel> findByUsername(String username) {
+        return dao.findByUsername(username).map(mapper::toModel);
+    }
+
+    @Override
     @Transactional
     public UsuarioModel save(UsuarioModel model) {
         try {
@@ -77,5 +82,11 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
             LOGGER.error("Error eliminando usuario con id {}", id, e);
             throw new RuntimeException("Error eliminando usuario", e);
         }
+    }
+
+    @Override
+    public boolean existsById(Long id) {
+        LOGGER.info("Buscando usuario con id: {}", id);
+        return dao.existsById(id);
     }
 }

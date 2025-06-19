@@ -1,5 +1,6 @@
 package FitStore.TpoGrupo10.persistence.entities;
 
+import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -19,7 +20,7 @@ public class UsuarioEntity {
     private String lastName;
     private String email;
     private String password;
-    private String rol;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -68,11 +69,12 @@ public class UsuarioEntity {
     public void setPassword(String password) {
         this.password = password;
     }
-        public String getRol() {
-        return rol;
+
+    public Role getRole() {
+        return role;
     }
 
-    public void setRol(String rol) {
-        this.rol = rol;
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

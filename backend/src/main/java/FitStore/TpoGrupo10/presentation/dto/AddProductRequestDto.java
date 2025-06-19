@@ -9,7 +9,7 @@ public class AddProductRequestDto {
     private Long productId;
 
     @Min(value = 1, message = "La cantidad debe ser al menos 1")
-    private int cantidad;
+    private int cant;
 
     public Long getProductId() {
         return productId;
@@ -19,11 +19,11 @@ public class AddProductRequestDto {
         this.productId = productId;
     }
 
-    public int getCantidad() {
-        return cantidad;
+    public int getCant() {
+        return cant;
     }
 
-    public void setCantidad(int cantidad) {
-        this.cantidad = cantidad;
+    public void setCant(int cant) {
+        this.cant = cant;
     }
 }

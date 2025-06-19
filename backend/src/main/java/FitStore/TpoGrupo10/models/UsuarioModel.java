@@ -1,5 +1,7 @@
 package FitStore.TpoGrupo10.models;
 
+import FitStore.TpoGrupo10.persistence.entities.enums.Role;
+
 public class UsuarioModel {
 
     private Long id;
@@ -8,6 +10,7 @@ public class UsuarioModel {
     private String lastName;
     private String email;
     private String password;
+    private Role role;
 
     public Long getId() {
         return id;
@@ -55,5 +58,13 @@ public class UsuarioModel {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

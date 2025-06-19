@@ -9,7 +9,7 @@ import FitStore.TpoGrupo10.service.CarritoService;
 import FitStore.TpoGrupo10.service.ProductoService;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
+import jakarta.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
@@ -151,37 +151,33 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public CarritoModel checkout(Long id) {
-        try {
-            CarritoModel carrito = repository.findById(id)
-                    .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+        CarritoModel carrito = repository.findById(id)
+                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
 
-            double totalCalculado = 0.0;
+        double totalCalculado = 0.0;
 
-            for (ItemCarritoModel item : carrito.getProductos()) {
-                ProductoModel producto = productoService.findById(item.getProductoId());
+        for (ItemCarritoModel item : carrito.getProductos()) {
+            ProductoModel producto = productoService.findById(item.getProductoId());
 
-                if (producto.getStock() < item.getCantidad()) {
-                    throw new IllegalStateException("Stock insuficiente para el producto con ID: " + item.getProductoId());
-                }
-
-                int nuevoStock = producto.getStock() - item.getCantidad();
-                double precioActualizado = producto.getPrice();
-
-                // Actualizar el producto sin tocar imágenes
-                productoService.actualizarPrecioYStock(producto.getId(), precioActualizado, nuevoStock);
-
-                actualizarPrecioYSubtotal(item, producto);
-                totalCalculado += item.getSubTotal();
+            if (producto.getStock() < item.getCantidad()) {
+                throw new IllegalStateException("Stock insuficiente para el producto con ID: " + item.getProductoId());
             }
 
-            carrito.setTotal(totalCalculado);
-            carrito.setProductos(new ArrayList<>());
-            carrito.setTotal(0);
+            int nuevoStock = producto.getStock() - item.getCantidad();
+            double precioActualizado = producto.getPrice();
 
-            return repository.save(carrito);
-        } catch (IOException e) {
-            throw new RuntimeException("Error durante el checkout: " + e.getMessage(), e);
+            // Actualizar el producto sin tocar imágenes
+            productoService.actualizarPrecioYStock(producto.getId(), precioActualizado, nuevoStock);
+
+            actualizarPrecioYSubtotal(item, producto);
+            totalCalculado += item.getSubTotal();
         }
+
+        carrito.setTotal(totalCalculado);
+        carrito.setProductos(new ArrayList<>());
+        carrito.setTotal(0);
+
+        return repository.save(carrito);
     }
 
     private void recalcularSubtotal(ItemCarritoModel item) {

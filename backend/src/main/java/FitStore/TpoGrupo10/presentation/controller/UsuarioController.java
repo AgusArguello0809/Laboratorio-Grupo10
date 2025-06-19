@@ -1,6 +1,5 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
-import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
 import FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
 import FitStore.TpoGrupo10.service.UsuarioService;
@@ -11,7 +10,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 
 @RestController
@@ -55,18 +53,6 @@ public class UsuarioController {
             return mapper.toResponseDto(model);
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.NOT_FOUND, "Usuario no encontrado con email: " + email, e);
-        }
-    }
-
-    @Operation(summary = "Crear usuario")
-    @PostMapping
-    public UsuarioResponseDto create(@RequestBody @Valid UsuarioCreateDto dto) {
-        try {
-            UsuarioModel model = mapper.toModel(dto);
-            UsuarioModel saved = usuarioService.save(model);
-            return mapper.toResponseDto(saved);
-        } catch (Exception e) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Error al crear usuario", e);
         }
     }
 

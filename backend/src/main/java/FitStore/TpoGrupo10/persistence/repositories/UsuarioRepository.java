@@ -10,6 +10,8 @@ public interface UsuarioRepository {
     Page<UsuarioModel> findAll(Pageable pageable);
     Optional<UsuarioModel> findById(Long id);
     Optional<UsuarioModel> findByEmail(String email);
+    Optional<UsuarioModel> findByUsername(String username);
     UsuarioModel save(UsuarioModel model);
     void deleteById(Long id);
+    boolean existsById(Long id);
 }
