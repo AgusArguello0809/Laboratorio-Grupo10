@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.config;
 
-import FitStore.TpoGrupo10.security.CustomAccessDeniedHandler;
-import FitStore.TpoGrupo10.security.CustomAuthenticationEntryPoint;
+import FitStore.TpoGrupo10.security.exception.CustomAccessDeniedHandler;
+import FitStore.TpoGrupo10.security.exception.CustomAuthenticationEntryPoint;
 import FitStore.TpoGrupo10.security.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -35,16 +35,14 @@ public class SecurityConfig {
                         .requestMatchers("/auth/**").permitAll() // login y registro
 
                         .requestMatchers("/v3/api-docs/**", "/swagger-ui/**", "/swagger-ui.html").permitAll() // Swagger
-
-                        //.requestMatchers(HttpMethod.GET, "/productos/**", "/categorias/**").permitAll() // públicos
-
-                        //.requestMatchers("/usuarios/**").hasRole("ADMIN") // gestión de usuarios
-
+                        .requestMatchers(HttpMethod.GET, "/productos/**", "/categorias/**").permitAll()
                         .requestMatchers(HttpMethod.POST, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.PUT, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.PATCH, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasAnyRole("VENDEDOR", "ADMIN")
 
+
+                        //.requestMatchers("/usuarios/**").hasRole("ADMIN") // gestión de usuarios
                         //.requestMatchers("/carrito/**").hasAnyRole("CLIENTE", "VENDEDOR", "ADMIN")
 
                         .anyRequest().permitAll()

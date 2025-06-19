@@ -50,8 +50,8 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Opcional: loguear la excepción, no interrumpir la cadena de filtros
-            // Por ejemplo: logger.warn("Error en filtro JWT: " + e.getMessage());
+            // Se loguea la excepción, no interrumpir la cadena de filtros
+            logger.warn("Error en filtro JWT: " + e.getMessage());
         }
 
         filterChain.doFilter(request, response);

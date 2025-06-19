@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface ItemCarritoMapper {
+public interface ItemCarritoPersistenceMapper {
     ItemCarritoModel toModel(ItemCarritoEmbeddable embeddable);
     ItemCarritoEmbeddable toEntity(ItemCarritoModel model);
     List<ItemCarritoModel> toModelList(List<ItemCarritoEmbeddable> embeddables);

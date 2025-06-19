@@ -7,7 +7,7 @@ import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface CategoriaMapper {
+public interface CategoriaPersistenceMapper {
 
     CategoriaModel toModel(CategoriaEntity entity);
     CategoriaEntity toEntity(CategoriaModel model);

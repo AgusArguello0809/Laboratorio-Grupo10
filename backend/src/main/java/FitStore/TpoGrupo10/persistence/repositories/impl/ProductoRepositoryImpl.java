@@ -3,7 +3,7 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.persistence.daos.ProductoDao;
 import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
-import FitStore.TpoGrupo10.persistence.mappers.ProductoMapper;
+import FitStore.TpoGrupo10.persistence.mappers.ProductoPersistenceMapper;
 import FitStore.TpoGrupo10.persistence.repositories.ProductoRepository;
 import com.querydsl.core.types.Predicate;
 import jakarta.transaction.Transactional;
@@ -20,9 +20,9 @@ import java.util.Optional;
 public class ProductoRepositoryImpl implements ProductoRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductoRepositoryImpl.class);
     private final ProductoDao productoDao;
-    private final ProductoMapper mapper;
+    private final ProductoPersistenceMapper mapper;
 
-    public ProductoRepositoryImpl(ProductoDao productoDao, ProductoMapper mapper) {
+    public ProductoRepositoryImpl(ProductoDao productoDao, ProductoPersistenceMapper mapper) {
         this.productoDao = productoDao;
         this.mapper = mapper;
     }

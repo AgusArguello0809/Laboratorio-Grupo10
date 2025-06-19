@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
 import FitStore.TpoGrupo10.persistence.daos.CarritoDao;
-import FitStore.TpoGrupo10.persistence.mappers.CarritoMapper;
+import FitStore.TpoGrupo10.persistence.mappers.CarritoPersistenceMapper;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -18,9 +18,9 @@ public class CarritoRepositoryImpl implements CarritoRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CarritoRepositoryImpl.class);
     private final CarritoDao dao;
-    private final CarritoMapper mapper;
+    private final CarritoPersistenceMapper mapper;
 
-    public CarritoRepositoryImpl(CarritoDao dao, CarritoMapper mapper) {
+    public CarritoRepositoryImpl(CarritoDao dao, CarritoPersistenceMapper mapper) {
         this.dao = dao;
         this.mapper = mapper;
     }

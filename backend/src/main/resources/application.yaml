@@ -26,4 +26,4 @@ server:
     context-path: /fitstore-api/v1
 
 jwt:
-  secret: claveSuperSecreta123
+  secret: unaClaveSecretaConAlMenos32Caracteres!!

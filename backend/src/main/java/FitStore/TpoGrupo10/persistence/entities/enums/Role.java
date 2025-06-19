@@ -1,5 +1,8 @@
 package FitStore.TpoGrupo10.persistence.entities.enums;
 
 public enum Role {
-    ADMIN, VENDEDOR, CLIENTE, INVITADO
+    ADMIN,
+    // TODO: Eliminar VENDEDOR
+    VENDEDOR,
+    CLIENTE, INVITADO
 }

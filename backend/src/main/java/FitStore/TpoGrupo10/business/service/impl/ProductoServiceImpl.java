@@ -61,6 +61,11 @@ public class ProductoServiceImpl implements ProductoService {
         if (images.length > 10) {
             throw new BusinessException("No se pueden subir más de 10 imágenes.", ErrorCode.IMAGENES_EXCEDIDAS);
         }
+        for (MultipartFile image : images) {
+            if (image == null || image.isEmpty()) {
+                throw new BusinessException("No se permiten imágenes vacías.", ErrorCode.IMAGEN_VACIA);
+            }
+        }
 
         List<String> imageUrls = subirImagenes(images);
         model.setImages(imageUrls);

@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.CategoriaModel;
 import FitStore.TpoGrupo10.persistence.daos.CategoriaDao;
-import FitStore.TpoGrupo10.persistence.mappers.CategoriaMapper;
+import FitStore.TpoGrupo10.persistence.mappers.CategoriaPersistenceMapper;
 import FitStore.TpoGrupo10.persistence.repositories.CategoriaRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +19,9 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CategoriaRepositoryImpl.class);
     private final CategoriaDao categoriaDao;
-    private final CategoriaMapper mapper;
+    private final CategoriaPersistenceMapper mapper;
 
-    public CategoriaRepositoryImpl(CategoriaDao categoriaDao, CategoriaMapper mapper) {
+    public CategoriaRepositoryImpl(CategoriaDao categoriaDao, CategoriaPersistenceMapper mapper) {
         this.categoriaDao = categoriaDao;
         this.mapper = mapper;
     }

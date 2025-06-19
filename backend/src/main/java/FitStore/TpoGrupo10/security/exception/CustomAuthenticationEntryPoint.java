@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.security;
+package FitStore.TpoGrupo10.security.exception;
 
 import FitStore.TpoGrupo10.exceptions.ApiErrorResponse;
 import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;

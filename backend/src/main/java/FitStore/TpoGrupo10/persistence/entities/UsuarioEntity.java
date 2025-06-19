@@ -1,11 +1,7 @@
 package FitStore.TpoGrupo10.persistence.entities;
 
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "usuarios")
@@ -20,6 +16,7 @@ public class UsuarioEntity {
     private String lastName;
     private String email;
     private String password;
+    @Enumerated(EnumType.STRING)
     private Role role;
 
     public Long getId() {

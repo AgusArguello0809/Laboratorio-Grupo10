@@ -7,15 +7,18 @@ import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
 import FitStore.TpoGrupo10.business.service.UsuarioService;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
     private final UsuarioRepository repository;
+    private final PasswordEncoder passwordEncoder;
 
-    public UsuarioServiceImpl(UsuarioRepository repository) {
+    public UsuarioServiceImpl(UsuarioRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -37,6 +40,8 @@ public class UsuarioServiceImpl implements UsuarioService {
 
     @Override
     public UsuarioModel save(UsuarioModel model) {
+        model.setPassword(passwordEncoder.encode(model.getPassword()));
+        System.out.println(passwordEncoder.matches("messi123", "$2a$10$rn.mOfk2tno.TYY1C6TksO7roj2XLentdhCOGDCDSVMHUn7zGYtre")); // debería dar true si es la contraseña original
         return repository.save(model);
     }
 

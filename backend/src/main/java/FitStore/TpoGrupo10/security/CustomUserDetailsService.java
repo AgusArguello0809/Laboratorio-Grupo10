@@ -30,6 +30,9 @@ public class CustomUserDetailsService implements UserDetailsService {
         UsuarioModel usuario = usuarioRepository.findByUsername(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con username: " + username));
 
+        System.out.println("Buscando usuario con username: " + username);
+        System.out.println("Usuario encontrado: " + usuario.getUsername() + ", password (hash) = " + usuario.getPassword());
+
         return new User(usuario.getUsername(), usuario.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRole().name())));
     }
 }

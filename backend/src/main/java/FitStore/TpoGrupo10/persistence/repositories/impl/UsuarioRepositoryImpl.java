@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.persistence.repositories.impl;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.daos.UsuarioDao;
-import FitStore.TpoGrupo10.persistence.mappers.UsuarioMapper;
+import FitStore.TpoGrupo10.persistence.mappers.UsuarioPersistenceMapper;
 import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
 import jakarta.transaction.Transactional;
 import org.slf4j.Logger;
@@ -19,9 +19,9 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UsuarioRepositoryImpl.class);
     private final UsuarioDao dao;
-    private final UsuarioMapper mapper;
+    private final UsuarioPersistenceMapper mapper;
 
-    public UsuarioRepositoryImpl(UsuarioDao dao, UsuarioMapper mapper) {
+    public UsuarioRepositoryImpl(UsuarioDao dao, UsuarioPersistenceMapper mapper) {
         this.dao = dao;
         this.mapper = mapper;
     }

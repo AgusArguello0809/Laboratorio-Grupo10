@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import java.util.List;
 
 @Mapper(componentModel = "spring")
-public interface UsuarioMapper {
+public interface UsuarioPersistenceMapper {
     UsuarioModel toModel(UsuarioEntity entity);
     UsuarioEntity toEntity(UsuarioModel model);
     List<UsuarioModel> toModelList(List<UsuarioEntity> entities);
