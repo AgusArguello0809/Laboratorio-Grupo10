@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.security.exception;
 
 
 import FitStore.TpoGrupo10.exceptions.ApiErrorResponse;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -28,7 +28,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
                 HttpStatus.FORBIDDEN,
                 "No tienes permiso para acceder a este recurso.",
                 request.getRequestURI(),
-                ErrorCode.ACCESS_DENIED
+                ErrorCodeEnum.ACCESS_DENIED
         );
 
         response.setStatus(HttpStatus.FORBIDDEN.value());

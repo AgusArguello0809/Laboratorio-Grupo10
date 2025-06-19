@@ -1,17 +1,17 @@
 package FitStore.TpoGrupo10.business.exception;
 
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 
 public class BusinessException extends RuntimeException {
 
-    private final ErrorCode code;
+    private final ErrorCodeEnum code;
 
-    public BusinessException(String message, ErrorCode code) {
+    public BusinessException(String message, ErrorCodeEnum code) {
         super(message);
         this.code = code;
     }
 
-    public ErrorCode getCode() {
+    public ErrorCodeEnum getCode() {
         return code;
     }
 }

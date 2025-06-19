@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.business.service.impl;
 
 import FitStore.TpoGrupo10.business.exception.BusinessException;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
@@ -32,13 +32,13 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioModel findById(Long id) {
         return repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado con ID: " + id, ErrorCode.USUARIO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage() + ", id: " + id, ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
     }
 
     @Override
     public UsuarioModel findByEmail(String email) {
         return repository.findByEmail(email)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado con email: " + email, ErrorCode.USUARIO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage() + ", email: " + email, ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
     }
 
     @Override
@@ -51,16 +51,16 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public void delete(Long id) {
         if (!repository.existsById(id)) {
-            throw new BusinessException("Usuario no encontrado con ID: " + id, ErrorCode.USUARIO_NO_ENCONTRADO);
+            throw new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage() + ", id: " + id, ErrorCodeEnum.USUARIO_NO_ENCONTRADO);
         }
         repository.deleteById(id);
     }
 
     @Override
-    public void cambiarRol(Long id, Role nuevoRol) {
+    public void cambiarRol(Long id, Role newRole) {
         UsuarioModel usuario = repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
-        usuario.setRole(nuevoRol);
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
+        usuario.setRole(newRole);
         repository.save(usuario);
     }
 }

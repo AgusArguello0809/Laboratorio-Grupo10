@@ -20,7 +20,7 @@ public class ProductoUpdateDto {
     @NotNull
     private Long categoryId;
 
-    // No incluimos ownerId acá a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
+    // No se incluye el ownerId a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
 
     public String getTitle() {
         return title;

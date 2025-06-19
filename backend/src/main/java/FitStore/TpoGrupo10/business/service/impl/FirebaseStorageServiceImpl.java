@@ -2,23 +2,21 @@ package FitStore.TpoGrupo10.business.service.impl;
 
 import FitStore.TpoGrupo10.business.exception.BusinessException;
 import FitStore.TpoGrupo10.business.service.FirebaseStorageService;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.UUID;
 
 @Service
 public class FirebaseStorageServiceImpl implements FirebaseStorageService {
 
     @Override
-    public String uploadFile(MultipartFile file) throws IOException {
+    public String uploadFile(MultipartFile file) {
         try {
-            String fileName = UUID.randomUUID().toString() + "-" + file.getOriginalFilename();
+            String fileName = UUID.randomUUID() + "-" + file.getOriginalFilename();
 
             Bucket bucket = StorageClient.getInstance().bucket();
             Blob blob = bucket.create(fileName, file.getBytes(), file.getContentType());
@@ -33,7 +31,7 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         } catch (Exception e) {
             throw new BusinessException(
                     "Error al subir archivo a Firebase Storage: " + e.getMessage(),
-                    ErrorCode.ERROR_SUBIDA_ARCHIVO
+                    ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO
             );
         }
     }

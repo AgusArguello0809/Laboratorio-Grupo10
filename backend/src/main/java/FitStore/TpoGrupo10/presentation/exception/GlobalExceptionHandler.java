@@ -1,10 +1,9 @@
 package FitStore.TpoGrupo10.presentation.exception;
 
 import FitStore.TpoGrupo10.exceptions.ApiErrorResponse;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import FitStore.TpoGrupo10.business.exception.BusinessException;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,7 +28,7 @@ public class GlobalExceptionHandler {
                 .map(field -> field.getField() + ": " + field.getDefaultMessage())
                 .collect(Collectors.joining(" | "));
 
-        return buildResponse(HttpStatus.BAD_REQUEST, errors, request, ErrorCode.VALIDATION_ERROR);
+        return buildResponse(HttpStatus.BAD_REQUEST, errors, request, ErrorCodeEnum.VALIDATION_ERROR);
     }
 
     @ExceptionHandler(BusinessException.class)
@@ -39,18 +38,11 @@ public class GlobalExceptionHandler {
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request, ex.getCode());
     }
 
-    @ExceptionHandler(EntityNotFoundException.class)
-    public ResponseEntity<ApiErrorResponse> handleEntityNotFound(
-            EntityNotFoundException ex, HttpServletRequest request) {
-
-        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request, ErrorCode.ENTITY_NOT_FOUND);
-    }
-
     @ExceptionHandler(UsernameNotFoundException.class)
     public ResponseEntity<ApiErrorResponse> handleUserNotFound(
             UsernameNotFoundException ex, HttpServletRequest request) {
 
-        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request, ErrorCode.USER_NOT_FOUND);
+        return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request, ErrorCodeEnum.USUARIO_NO_ENCONTRADO);
     }
 
     @ExceptionHandler(Exception.class)
@@ -58,7 +50,7 @@ public class GlobalExceptionHandler {
             Exception ex, HttpServletRequest request) {
 
         logger.error("Error interno en el servidor", ex);
-        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, "Error interno en el servidor", request, ErrorCode.INTERNAL_ERROR);
+        return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCodeEnum.ACCESS_DENIED.getMessage(), request, ErrorCodeEnum.INTERNAL_ERROR);
     }
 
     @ExceptionHandler(JsonProcessingException.class)
@@ -70,15 +62,15 @@ public class GlobalExceptionHandler {
 
         ApiErrorResponse errorResponse = new ApiErrorResponse(
                 HttpStatus.BAD_REQUEST,
-                "Error al procesar el JSON recibido.",
+                ErrorCodeEnum.JSON_MALFORMADO.getMessage(),
                 request.getRequestURI(),
-                ErrorCode.JSON_MALFORMADO
+                ErrorCodeEnum.JSON_MALFORMADO
         );
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errorResponse);
     }
 
-    private ResponseEntity<ApiErrorResponse> buildResponse(HttpStatus status, String message, HttpServletRequest request, ErrorCode code) {
+    private ResponseEntity<ApiErrorResponse> buildResponse(HttpStatus status, String message, HttpServletRequest request, ErrorCodeEnum code) {
         ApiErrorResponse response = new ApiErrorResponse(status, message, request.getRequestURI(), code);
         return new ResponseEntity<>(response, status);
     }

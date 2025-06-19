@@ -73,7 +73,7 @@ public class CarritoController {
             return mapper.toDto(model);
     }
 
-    @Operation(summary = "Eliminar cualquier carrito (ADVERTENCIA: SOLO EL ADMIN PUEDE USARLO. EL USO INDEBIDO POR EL PERSONAL ESTA INAUTORIZADO)")
+    @Operation(summary = "Eliminar cualquier carrito", description = "ADVERTENCIA: SOLO EL ADMIN PUEDE USARLO. EL USO INDEBIDO POR EL PERSONAL ESTA INAUTORIZADO")
     @DeleteMapping("/admin/{id}")
     @PreAuthorize("hasRole('ADMIN')")
     public void deleteCarritoComoAdmin(@PathVariable Long id) {

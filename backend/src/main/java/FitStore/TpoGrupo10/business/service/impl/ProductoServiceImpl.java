@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.business.service.impl;
 
 import FitStore.TpoGrupo10.business.exception.BusinessException;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import FitStore.TpoGrupo10.models.CategoriaModel;
 import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.models.UsuarioModel;
@@ -45,26 +45,26 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel findById(Long id) {
         return productoRepository.findById(id)
-                .orElseThrow(() -> new BusinessException("Producto no encontrado con id: " + id, ErrorCode.PRODUCTO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO.getMessage() + ", id: " + id, ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO));
     }
 
     @Override
     public ProductoModel save(ProductoModel model, String ownerUsername, MultipartFile[] images) {
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
-                .orElseThrow(() -> new BusinessException("Categoría no encontrada", ErrorCode.CATEGORIA_NO_ENCONTRADA));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA.getMessage(), ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA));
 
         UsuarioModel owner = usuarioRepository.findByUsername(ownerUsername)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
 
         if (images == null || images.length == 0) {
-            throw new BusinessException("Debe subir al menos una imagen.", ErrorCode.IMAGENES_OBLIGATORIAS);
+            throw new BusinessException(ErrorCodeEnum.IMAGENES_OBLIGATORIAS.getMessage(), ErrorCodeEnum.IMAGENES_OBLIGATORIAS);
         }
         if (images.length > 10) {
-            throw new BusinessException("No se pueden subir más de 10 imágenes.", ErrorCode.IMAGENES_EXCEDIDAS);
+            throw new BusinessException(ErrorCodeEnum.IMAGENES_EXCEDIDAS.getMessage(), ErrorCodeEnum.IMAGENES_EXCEDIDAS);
         }
         for (MultipartFile image : images) {
             if (image == null || image.isEmpty()) {
-                throw new BusinessException("No se permiten imágenes vacías.", ErrorCode.IMAGEN_VACIA);
+                throw new BusinessException(ErrorCodeEnum.IMAGEN_VACIA.getMessage(), ErrorCodeEnum.IMAGEN_VACIA);
             }
         }
 
@@ -82,11 +82,11 @@ public class ProductoServiceImpl implements ProductoService {
         validarPropietario(existente);
 
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
-                .orElseThrow(() -> new BusinessException("Categoria no encontrada", ErrorCode.CATEGORIA_NO_ENCONTRADA));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA.getMessage(), ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA));
 
         if (images != null) {
             if (images.length > 10) {
-                throw new BusinessException("No se pueden subir más de 10 imagenes.", ErrorCode.IMAGENES_EXCEDIDAS);
+                throw new BusinessException(ErrorCodeEnum.IMAGENES_EXCEDIDAS.getMessage(), ErrorCodeEnum.IMAGENES_EXCEDIDAS);
             }
             if (images.length > 0) {
                 model.setImages(subirImagenes(images));
@@ -107,7 +107,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public void delete(Long id) {
         if (!productoRepository.existsById(id)) {
-            throw new BusinessException("Producto no encontrado con id: " + id, ErrorCode.PRODUCTO_NO_ENCONTRADO);
+            throw new BusinessException(ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO.getMessage() + ", id: " + id, ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO);
         } else {
             validarPropietario(findById(id));
         }
@@ -119,12 +119,12 @@ public class ProductoServiceImpl implements ProductoService {
         ProductoModel existente = findById(id);
         validarPropietario(existente);
         if (images == null || images.length == 0) {
-            throw new BusinessException("Debe subir al menos una imagen.", ErrorCode.IMAGENES_OBLIGATORIAS);
+            throw new BusinessException(ErrorCodeEnum.IMAGENES_OBLIGATORIAS.getMessage(), ErrorCodeEnum.IMAGENES_OBLIGATORIAS);
         }
 
         int cantidadActual = existente.getImages().size();
         if (cantidadActual + images.length > 10) {
-            throw new BusinessException("No se pueden superar las 10 imagenes.", ErrorCode.IMAGENES_EXCEDIDAS);
+            throw new BusinessException(ErrorCodeEnum.IMAGENES_EXCEDIDAS.getMessage(), ErrorCodeEnum.IMAGENES_EXCEDIDAS);
         }
 
         List<String> nuevasImagenes = subirImagenes(images);
@@ -160,7 +160,7 @@ public class ProductoServiceImpl implements ProductoService {
             try {
                 urls.add(storageService.uploadFile(file));
             } catch (Exception e) {
-                throw new BusinessException("Error al subir imagen: " + file.getOriginalFilename(), ErrorCode.ERROR_SUBIDA_ARCHIVO);
+                throw new BusinessException(ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO.getMessage() + ": " + file.getOriginalFilename(), ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO);
             }
         }
         return urls;
@@ -174,7 +174,7 @@ public class ProductoServiceImpl implements ProductoService {
     private void validarPropietario(ProductoModel producto) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if (!producto.getOwner().getUsername().equals(username) && !isAdmin()) {
-            throw new BusinessException("No tiene permisos sobre este producto.", ErrorCode.ACCESS_DENIED);
+            throw new BusinessException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
         }
     }
 }

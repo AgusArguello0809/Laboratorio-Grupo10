@@ -1,6 +1,6 @@
 package FitStore.TpoGrupo10.business.service.impl;
 
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import FitStore.TpoGrupo10.models.CarritoModel;
 import FitStore.TpoGrupo10.models.ItemCarritoModel;
 import FitStore.TpoGrupo10.models.ProductoModel;
@@ -31,7 +31,7 @@ public class CarritoServiceImpl implements CarritoService {
     private UsuarioModel getAuthenticatedUser() {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         return usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
     }
 
     @Override
@@ -39,10 +39,10 @@ public class CarritoServiceImpl implements CarritoService {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
 
         UsuarioModel usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
 
         return repository.findByOwnerId(usuario.getId())
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado para el usuario", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
     }
 
     @Override
@@ -53,7 +53,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void deleteCarrito(Long id) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
         repository.deleteById(id);
@@ -62,7 +62,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void deleteProductoCarrito(Long id, Long productoId) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
 
@@ -74,7 +74,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public CarritoModel incrementarCantidad(Long carritoId, Long productoId) {
         CarritoModel carrito = repository.findById(carritoId)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
 
@@ -84,7 +84,7 @@ public class CarritoServiceImpl implements CarritoService {
             if (item.getProductoId().equals(productoId)) {
                 int nuevaCantidad = item.getCantidad() + 1;
                 if (producto.getStock() < nuevaCantidad) {
-                    throw new BusinessException("Stock insuficiente", ErrorCode.STOCK_INSUFICIENTE);
+                    throw new BusinessException(ErrorCodeEnum.STOCK_INSUFICIENTE.getMessage(), ErrorCodeEnum.STOCK_INSUFICIENTE);
                 }
                 item.setCantidad(nuevaCantidad);
                 recalcularSubtotal(item);
@@ -99,7 +99,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public CarritoModel disminuirCantidad(Long carritoId, Long productoId) {
         CarritoModel carrito = repository.findById(carritoId)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
 
@@ -118,7 +118,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void vaciarCarrito(Long id) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
 
@@ -152,7 +152,7 @@ public class CarritoServiceImpl implements CarritoService {
         }
 
         if (producto.getStock() < cantidadTotal) {
-            throw new BusinessException("Stock insuficiente para el producto con ID: " + productId, ErrorCode.STOCK_INSUFICIENTE);
+            throw new BusinessException(ErrorCodeEnum.STOCK_INSUFICIENTE.getMessage() + "  para el producto con ID: " + productId, ErrorCodeEnum.STOCK_INSUFICIENTE);
         }
 
         if (itemExistente.isPresent()) {
@@ -176,7 +176,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public CarritoModel checkout(Long id) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
 
@@ -184,7 +184,7 @@ public class CarritoServiceImpl implements CarritoService {
             ProductoModel producto = productoService.findById(item.getProductoId());
 
             if (producto.getStock() < item.getCantidad()) {
-                throw new BusinessException("Stock insuficiente para el producto con ID: " + item.getProductoId(), ErrorCode.STOCK_INSUFICIENTE);
+                throw new BusinessException(ErrorCodeEnum.STOCK_INSUFICIENTE.getMessage() + " para el producto con ID: " + item.getProductoId(), ErrorCodeEnum.STOCK_INSUFICIENTE);
             }
 
             productoService.actualizarPrecioYStock(
@@ -208,7 +208,7 @@ public class CarritoServiceImpl implements CarritoService {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
         if (!esAdmin && !Objects.equals(carrito.getOwner().getId(), actual.getId())) {
-            throw new BusinessException("No autorizado para acceder al carrito", ErrorCode.ACCESS_DENIED);
+            throw new BusinessException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
         }
     }
 

@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.security.exception;
 
 
 import FitStore.TpoGrupo10.exceptions.ApiErrorResponse;
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -25,9 +25,9 @@ public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint 
 
         ApiErrorResponse error = new ApiErrorResponse(
                 HttpStatus.UNAUTHORIZED,
-                "No estás autenticado para acceder a este recurso.",
+                ErrorCodeEnum.UNAUTHORIZED.getMessage(),
                 request.getRequestURI(),
-                ErrorCode.UNAUTHORIZED
+                ErrorCodeEnum.UNAUTHORIZED
         );
 
         response.setStatus(HttpStatus.UNAUTHORIZED.value());
