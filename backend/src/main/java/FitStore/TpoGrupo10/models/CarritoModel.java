@@ -3,7 +3,6 @@ package FitStore.TpoGrupo10.models;
 import java.util.List;
 
 public class CarritoModel {
-
     private Long id;
     private UsuarioModel owner;
     private List<ItemCarritoModel> productos;
