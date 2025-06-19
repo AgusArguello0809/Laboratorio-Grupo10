@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface ProductoService {
     Page<ProductoModel> findAll(Predicate predicate, Pageable pageable);
-    ProductoModel save(ProductoModel model, MultipartFile[] images);
+    ProductoModel save(ProductoModel model, String ownerUsername, MultipartFile[] images);
     ProductoModel update(Long id, ProductoModel model, MultipartFile[] images);
     ProductoModel findById(Long id);
     void delete(Long id);

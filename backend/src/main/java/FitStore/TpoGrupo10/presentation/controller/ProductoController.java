@@ -17,6 +17,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.querydsl.binding.QuerydslPredicate;
 import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -59,7 +61,12 @@ public class ProductoController {
             @RequestPart("images") MultipartFile[] images) throws JsonProcessingException {
             ProductoCreateDto dto = objectMapper.readValue(data, ProductoCreateDto.class);
             ProductoModel model = mapper.toModel(dto);
-            ProductoModel saved = productoService.save(model, images);
+
+            // Tomar el username desde el token (SecurityContext)
+            Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+            String username = auth.getName();
+
+            ProductoModel saved = productoService.save(model, username, images);
             return mapper.toResponseDto(saved);
     }
 

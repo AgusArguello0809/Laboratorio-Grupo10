@@ -20,9 +20,6 @@ public class ProductoCreateDto {
     @NotNull
     private Long categoryId;
 
-    @NotNull
-    private Long ownerId;  // TODO: Este campo debe ser eliminado cuando se integre JWT. El ownerId será tomado desde el SecurityContext.
-
     public String getTitle() {
         return title;
     }
@@ -63,12 +60,5 @@ public class ProductoCreateDto {
         this.categoryId = categoryId;
     }
 
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
-    }
 }
 

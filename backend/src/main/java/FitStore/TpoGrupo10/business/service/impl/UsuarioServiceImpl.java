@@ -41,7 +41,6 @@ public class UsuarioServiceImpl implements UsuarioService {
     @Override
     public UsuarioModel save(UsuarioModel model) {
         model.setPassword(passwordEncoder.encode(model.getPassword()));
-        System.out.println(passwordEncoder.matches("messi123", "$2a$10$rn.mOfk2tno.TYY1C6TksO7roj2XLentdhCOGDCDSVMHUn7zGYtre")); // debería dar true si es la contraseña original
         return repository.save(model);
     }
 

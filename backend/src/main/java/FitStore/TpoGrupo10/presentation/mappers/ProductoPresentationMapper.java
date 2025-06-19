@@ -15,7 +15,6 @@ import java.util.List;
 public interface ProductoPresentationMapper {
 
     @Mapping(source = "categoryId", target = "category.id")
-    @Mapping(source = "ownerId", target = "owner.id")
     ProductoModel toModel(ProductoCreateDto dto);
 
     @Mapping(source = "categoryId", target = "category.id")

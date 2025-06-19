@@ -5,7 +5,6 @@ import java.util.List;
 public class CarritoDto {
 
     private Long id;
-    private Long ownerId;
     private List<ItemCarritoDto> productos;
     private double total;
 
@@ -15,14 +14,6 @@ public class CarritoDto {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Long getOwnerId() {
-        return ownerId;
-    }
-
-    public void setOwnerId(Long ownerId) {
-        this.ownerId = ownerId;
     }
 
     public List<ItemCarritoDto> getProductos() {

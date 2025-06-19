@@ -8,10 +8,11 @@ import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
 import FitStore.TpoGrupo10.business.service.CarritoService;
 import FitStore.TpoGrupo10.business.service.ProductoService;
+import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import FitStore.TpoGrupo10.business.exception.BusinessException;
 
-import java.io.IOException;
 import java.util.*;
 
 @Service
@@ -19,15 +20,29 @@ public class CarritoServiceImpl implements CarritoService {
 
     private final CarritoRepository repository;
     private final ProductoService productoService;
+    private final UsuarioRepository usuarioRepository;
 
-    public CarritoServiceImpl(CarritoRepository repository, ProductoService productoService) {
+    public CarritoServiceImpl(CarritoRepository repository, ProductoService productoService, UsuarioRepository usuarioRepository) {
         this.repository = repository;
         this.productoService = productoService;
+        this.usuarioRepository = usuarioRepository;
+    }
+
+    private UsuarioModel getAuthenticatedUser() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        return usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
     }
 
     @Override
-    public Optional<CarritoModel> getCarritoByOwnerId(Long ownerId) {
-        return repository.findByOwnerId(ownerId);
+    public CarritoModel getCarritoByOwnerId() {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+
+        UsuarioModel usuario = usuarioRepository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
+
+        return repository.findByOwnerId(usuario.getId())
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado para el usuario", ErrorCode.CARRITO_NO_ENCONTRADO));
     }
 
     @Override
@@ -37,19 +52,22 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public void deleteCarrito(Long id) {
+        CarritoModel carrito = repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+
+        verificarAutorizacion(carrito);
         repository.deleteById(id);
     }
 
     @Override
-    public void deleteCarritoProducto(Long id, Long productoId) {
+    public void deleteProductoCarrito(Long id, Long productoId) {
         CarritoModel carrito = repository.findById(id)
                 .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
-        List<ItemCarritoModel> productos = carrito.getProductos();
-        productos.removeIf(item -> item.getProductoId().equals(productoId));
+        verificarAutorizacion(carrito);
 
-        carrito.setProductos(productos);
-        carrito.setTotal(calcularTotal(productos));
+        carrito.getProductos().removeIf(item -> item.getProductoId().equals(productoId));
+        carrito.setTotal(calcularTotal(carrito.getProductos()));
         repository.save(carrito);
     }
 
@@ -57,6 +75,8 @@ public class CarritoServiceImpl implements CarritoService {
     public CarritoModel incrementarCantidad(Long carritoId, Long productoId) {
         CarritoModel carrito = repository.findById(carritoId)
                 .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+
+        verificarAutorizacion(carrito);
 
         ProductoModel producto = productoService.findById(productoId);
 
@@ -81,6 +101,8 @@ public class CarritoServiceImpl implements CarritoService {
         CarritoModel carrito = repository.findById(carritoId)
                 .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
+        verificarAutorizacion(carrito);
+
         for (ItemCarritoModel item : carrito.getProductos()) {
             if (item.getProductoId().equals(productoId)) {
                 item.setCantidad(item.getCantidad() - 1);
@@ -98,32 +120,33 @@ public class CarritoServiceImpl implements CarritoService {
         CarritoModel carrito = repository.findById(id)
                 .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
+        verificarAutorizacion(carrito);
+
         carrito.setProductos(new ArrayList<>());
         carrito.setTotal(0);
         repository.save(carrito);
     }
 
     @Override
-    public CarritoModel agregarProducto(Long ownerId, Long productId, int cant) {
-        CarritoModel carrito = repository.findByOwnerId(ownerId)
+    public CarritoModel agregarProducto(Long productId, int cant) {
+        UsuarioModel usuario = getAuthenticatedUser();
+
+        CarritoModel carrito = repository.findByOwnerId(usuario.getId())
                 .orElseGet(() -> {
                     CarritoModel nuevo = new CarritoModel();
-                    UsuarioModel usuario = new UsuarioModel();
-                    usuario.setId(ownerId);
                     nuevo.setOwner(usuario);
                     nuevo.setProductos(new ArrayList<>());
                     return nuevo;
                 });
 
-        List<ItemCarritoModel> productos = carrito.getProductos();
         ProductoModel producto = productoService.findById(productId);
+        List<ItemCarritoModel> productos = carrito.getProductos();
 
         Optional<ItemCarritoModel> itemExistente = productos.stream()
                 .filter(p -> Objects.equals(productId, p.getProductoId()))
                 .findFirst();
 
         int cantidadTotal = cant;
-
         if (itemExistente.isPresent()) {
             cantidadTotal += itemExistente.get().getCantidad();
         }
@@ -147,39 +170,46 @@ public class CarritoServiceImpl implements CarritoService {
 
         carrito.setProductos(productos);
         carrito.setTotal(calcularTotal(productos));
-
         return repository.save(carrito);
     }
 
     @Override
     public CarritoModel checkout(Long id) {
-            CarritoModel carrito = repository.findById(id)
-                    .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
+        CarritoModel carrito = repository.findById(id)
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
-            double totalCalculado = 0.0;
+        verificarAutorizacion(carrito);
 
-            for (ItemCarritoModel item : carrito.getProductos()) {
-                ProductoModel producto = productoService.findById(item.getProductoId());
+        for (ItemCarritoModel item : carrito.getProductos()) {
+            ProductoModel producto = productoService.findById(item.getProductoId());
 
-                if (producto.getStock() < item.getCantidad()) {
-                    throw new BusinessException("Stock insuficiente para el producto con ID: " + item.getProductoId(), ErrorCode.STOCK_INSUFICIENTE);
-                }
-
-                int nuevoStock = producto.getStock() - item.getCantidad();
-                double precioActualizado = producto.getPrice();
-
-                productoService.actualizarPrecioYStock(producto.getId(), precioActualizado, nuevoStock);
-
-                actualizarPrecioYSubtotal(item, producto);
-                totalCalculado += item.getSubTotal();
+            if (producto.getStock() < item.getCantidad()) {
+                throw new BusinessException("Stock insuficiente para el producto con ID: " + item.getProductoId(), ErrorCode.STOCK_INSUFICIENTE);
             }
 
-            carrito.setTotal(totalCalculado);
-            carrito.setProductos(new ArrayList<>());
-            carrito.setTotal(0);
+            productoService.actualizarPrecioYStock(
+                    producto.getId(),
+                    producto.getPrice(),
+                    producto.getStock() - item.getCantidad()
+            );
 
+            actualizarPrecioYSubtotal(item, producto);
+        }
 
+        carrito.setTotal(0);
+        carrito.setProductos(new ArrayList<>());
         return repository.save(carrito);
+    }
+
+    private void verificarAutorizacion(CarritoModel carrito) {
+        UsuarioModel actual = getAuthenticatedUser();
+        boolean esAdmin = SecurityContextHolder.getContext().getAuthentication()
+                .getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!esAdmin && !Objects.equals(carrito.getOwner().getId(), actual.getId())) {
+            throw new BusinessException("No autorizado para acceder al carrito", ErrorCode.ACCESS_DENIED);
+        }
     }
 
     private void recalcularSubtotal(ItemCarritoModel item) {
@@ -187,9 +217,7 @@ public class CarritoServiceImpl implements CarritoService {
     }
 
     private double calcularTotal(List<ItemCarritoModel> productos) {
-        return productos.stream()
-                .mapToDouble(ItemCarritoModel::getSubTotal)
-                .sum();
+        return productos.stream().mapToDouble(ItemCarritoModel::getSubTotal).sum();
     }
 
     private void actualizarPrecioYSubtotal(ItemCarritoModel item, ProductoModel producto) {

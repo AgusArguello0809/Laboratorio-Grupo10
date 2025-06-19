@@ -13,6 +13,7 @@ import FitStore.TpoGrupo10.business.service.ProductoService;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
@@ -48,11 +49,11 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public ProductoModel save(ProductoModel model, MultipartFile[] images) {
+    public ProductoModel save(ProductoModel model, String ownerUsername, MultipartFile[] images) {
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
                 .orElseThrow(() -> new BusinessException("Categoría no encontrada", ErrorCode.CATEGORIA_NO_ENCONTRADA));
 
-        UsuarioModel owner = usuarioRepository.findById(model.getOwner().getId())
+        UsuarioModel owner = usuarioRepository.findByUsername(ownerUsername)
                 .orElseThrow(() -> new BusinessException("Usuario no encontrado", ErrorCode.USUARIO_NO_ENCONTRADO));
 
         if (images == null || images.length == 0) {
@@ -78,13 +79,14 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel update(Long id, ProductoModel model, MultipartFile[] images) {
         ProductoModel existente = findById(id);
+        validarPropietario(existente);
 
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
-                .orElseThrow(() -> new BusinessException("Categoría no encontrada", ErrorCode.CATEGORIA_NO_ENCONTRADA));
+                .orElseThrow(() -> new BusinessException("Categoria no encontrada", ErrorCode.CATEGORIA_NO_ENCONTRADA));
 
         if (images != null) {
             if (images.length > 10) {
-                throw new BusinessException("No se pueden subir más de 10 imágenes.", ErrorCode.IMAGENES_EXCEDIDAS);
+                throw new BusinessException("No se pueden subir más de 10 imagenes.", ErrorCode.IMAGENES_EXCEDIDAS);
             }
             if (images.length > 0) {
                 model.setImages(subirImagenes(images));
@@ -106,6 +108,8 @@ public class ProductoServiceImpl implements ProductoService {
     public void delete(Long id) {
         if (!productoRepository.existsById(id)) {
             throw new BusinessException("Producto no encontrado con id: " + id, ErrorCode.PRODUCTO_NO_ENCONTRADO);
+        } else {
+            validarPropietario(findById(id));
         }
         productoRepository.deleteById(id);
     }
@@ -113,14 +117,14 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel agregarImagenes(Long id, MultipartFile[] images) {
         ProductoModel existente = findById(id);
-
+        validarPropietario(existente);
         if (images == null || images.length == 0) {
             throw new BusinessException("Debe subir al menos una imagen.", ErrorCode.IMAGENES_OBLIGATORIAS);
         }
 
         int cantidadActual = existente.getImages().size();
         if (cantidadActual + images.length > 10) {
-            throw new BusinessException("No se pueden superar las 10 imágenes.", ErrorCode.IMAGENES_EXCEDIDAS);
+            throw new BusinessException("No se pueden superar las 10 imagenes.", ErrorCode.IMAGENES_EXCEDIDAS);
         }
 
         List<String> nuevasImagenes = subirImagenes(images);
@@ -134,7 +138,7 @@ public class ProductoServiceImpl implements ProductoService {
     @Override
     public ProductoModel eliminarImagenes(Long id, List<String> imagesToRemove) {
         ProductoModel existente = findById(id);
-
+        validarPropietario(existente);
         List<String> imagenesActuales = new ArrayList<>(existente.getImages());
         imagenesActuales.removeAll(imagesToRemove);
         existente.setImages(imagenesActuales);
@@ -160,5 +164,17 @@ public class ProductoServiceImpl implements ProductoService {
             }
         }
         return urls;
+    }
+
+    private boolean isAdmin() {
+        return SecurityContextHolder.getContext().getAuthentication().getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+    }
+
+    private void validarPropietario(ProductoModel producto) {
+        String username = SecurityContextHolder.getContext().getAuthentication().getName();
+        if (!producto.getOwner().getUsername().equals(username) && !isAdmin()) {
+            throw new BusinessException("No tiene permisos sobre este producto.", ErrorCode.ACCESS_DENIED);
+        }
     }
 }
