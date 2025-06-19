@@ -28,12 +28,16 @@ public class GlobalExceptionHandler {
                 .map(field -> field.getField() + ": " + field.getDefaultMessage())
                 .collect(Collectors.joining(" | "));
 
+        logger.error("Validación fallida en '{}': {}", request.getRequestURI(), errors);
+
         return buildResponse(HttpStatus.BAD_REQUEST, errors, request, ErrorCodeEnum.VALIDATION_ERROR);
     }
 
     @ExceptionHandler(BusinessException.class)
     public ResponseEntity<ApiErrorResponse> handleBusinessException(
             BusinessException ex, HttpServletRequest request) {
+
+        logger.error("BusinessException en '{}': {} ({})", request.getRequestURI(), ex.getMessage(), ex.getCode());
 
         return buildResponse(HttpStatus.BAD_REQUEST, ex.getMessage(), request, ex.getCode());
     }
@@ -42,6 +46,8 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleUserNotFound(
             UsernameNotFoundException ex, HttpServletRequest request) {
 
+        logger.error("Usuario no encontrado en '{}': {}", request.getRequestURI(), ex.getMessage());
+
         return buildResponse(HttpStatus.NOT_FOUND, ex.getMessage(), request, ErrorCodeEnum.USUARIO_NO_ENCONTRADO);
     }
 
@@ -49,7 +55,9 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiErrorResponse> handleGenericException(
             Exception ex, HttpServletRequest request) {
 
-        logger.error("Error interno en el servidor", ex);
+        logger.error("Error interno en '{}': {}", request.getRequestURI(), ex.getMessage(), ex);
+
+
         return buildResponse(HttpStatus.INTERNAL_SERVER_ERROR, ErrorCodeEnum.ACCESS_DENIED.getMessage(), request, ErrorCodeEnum.INTERNAL_ERROR);
     }
 
@@ -58,7 +66,7 @@ public class GlobalExceptionHandler {
             JsonProcessingException ex,
             HttpServletRequest request) {
 
-        logger.error("Error procesando JSON", ex);
+        logger.error("Error procesando JSON en '{}': {}", request.getRequestURI(), ex.getMessage(), ex);
 
         ApiErrorResponse errorResponse = new ApiErrorResponse(
                 HttpStatus.BAD_REQUEST,
