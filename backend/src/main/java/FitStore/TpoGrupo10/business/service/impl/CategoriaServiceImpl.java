@@ -1,8 +1,8 @@
-package FitStore.TpoGrupo10.service.impl;
+package FitStore.TpoGrupo10.business.service.impl;
 
 import FitStore.TpoGrupo10.models.CategoriaModel;
 import FitStore.TpoGrupo10.persistence.repositories.CategoriaRepository;
-import FitStore.TpoGrupo10.service.CategoriaService;
+import FitStore.TpoGrupo10.business.service.CategoriaService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

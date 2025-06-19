@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.service;
+package FitStore.TpoGrupo10.business.service;
 
 import org.springframework.web.multipart.MultipartFile;
 

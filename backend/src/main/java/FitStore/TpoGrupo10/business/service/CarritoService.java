@@ -1,8 +1,7 @@
-package FitStore.TpoGrupo10.service;
+package FitStore.TpoGrupo10.business.service;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
 
-import java.io.IOException;
 import java.util.Optional;
 
 public interface CarritoService {
@@ -14,5 +13,5 @@ public interface CarritoService {
     CarritoModel incrementarCantidad(Long carritoId, Long productoId);
     CarritoModel disminuirCantidad(Long carritoId, Long productoId);
     void vaciarCarrito(Long id);
-    CarritoModel checkout(Long id) throws IOException;
+    CarritoModel checkout(Long id);
 }

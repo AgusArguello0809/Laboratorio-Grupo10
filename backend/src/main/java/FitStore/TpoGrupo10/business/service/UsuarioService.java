@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.service;
+package FitStore.TpoGrupo10.business.service;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import org.springframework.data.domain.Page;

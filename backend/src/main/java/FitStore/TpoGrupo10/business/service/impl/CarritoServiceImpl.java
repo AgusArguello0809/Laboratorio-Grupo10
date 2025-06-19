@@ -1,20 +1,22 @@
-package FitStore.TpoGrupo10.service.impl;
+package FitStore.TpoGrupo10.business.service.impl;
 
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
 import FitStore.TpoGrupo10.models.CarritoModel;
 import FitStore.TpoGrupo10.models.ItemCarritoModel;
 import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
-import FitStore.TpoGrupo10.service.CarritoService;
-import FitStore.TpoGrupo10.service.ProductoService;
+import FitStore.TpoGrupo10.business.service.CarritoService;
+import FitStore.TpoGrupo10.business.service.ProductoService;
 import org.springframework.stereotype.Service;
+import FitStore.TpoGrupo10.business.exception.BusinessException;
 
-import jakarta.persistence.EntityNotFoundException;
 import java.io.IOException;
 import java.util.*;
 
 @Service
 public class CarritoServiceImpl implements CarritoService {
+
     private final CarritoRepository repository;
     private final ProductoService productoService;
 
@@ -41,7 +43,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void deleteCarritoProducto(Long id, Long productoId) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
         List<ItemCarritoModel> productos = carrito.getProductos();
         productos.removeIf(item -> item.getProductoId().equals(productoId));
@@ -54,7 +56,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public CarritoModel incrementarCantidad(Long carritoId, Long productoId) {
         CarritoModel carrito = repository.findById(carritoId)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
         ProductoModel producto = productoService.findById(productoId);
 
@@ -62,7 +64,7 @@ public class CarritoServiceImpl implements CarritoService {
             if (item.getProductoId().equals(productoId)) {
                 int nuevaCantidad = item.getCantidad() + 1;
                 if (producto.getStock() < nuevaCantidad) {
-                    throw new IllegalStateException("Stock insuficiente");
+                    throw new BusinessException("Stock insuficiente", ErrorCode.STOCK_INSUFICIENTE);
                 }
                 item.setCantidad(nuevaCantidad);
                 recalcularSubtotal(item);
@@ -77,7 +79,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public CarritoModel disminuirCantidad(Long carritoId, Long productoId) {
         CarritoModel carrito = repository.findById(carritoId)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
         for (ItemCarritoModel item : carrito.getProductos()) {
             if (item.getProductoId().equals(productoId)) {
@@ -94,7 +96,7 @@ public class CarritoServiceImpl implements CarritoService {
     @Override
     public void vaciarCarrito(Long id) {
         CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+                .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
         carrito.setProductos(new ArrayList<>());
         carrito.setTotal(0);
@@ -127,7 +129,7 @@ public class CarritoServiceImpl implements CarritoService {
         }
 
         if (producto.getStock() < cantidadTotal) {
-            throw new IllegalStateException("Stock insuficiente para el producto con ID: " + productId);
+            throw new BusinessException("Stock insuficiente para el producto con ID: " + productId, ErrorCode.STOCK_INSUFICIENTE);
         }
 
         if (itemExistente.isPresent()) {
@@ -151,31 +153,31 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public CarritoModel checkout(Long id) {
-        CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("Carrito no encontrado"));
+            CarritoModel carrito = repository.findById(id)
+                    .orElseThrow(() -> new BusinessException("Carrito no encontrado", ErrorCode.CARRITO_NO_ENCONTRADO));
 
-        double totalCalculado = 0.0;
+            double totalCalculado = 0.0;
 
-        for (ItemCarritoModel item : carrito.getProductos()) {
-            ProductoModel producto = productoService.findById(item.getProductoId());
+            for (ItemCarritoModel item : carrito.getProductos()) {
+                ProductoModel producto = productoService.findById(item.getProductoId());
 
-            if (producto.getStock() < item.getCantidad()) {
-                throw new IllegalStateException("Stock insuficiente para el producto con ID: " + item.getProductoId());
+                if (producto.getStock() < item.getCantidad()) {
+                    throw new BusinessException("Stock insuficiente para el producto con ID: " + item.getProductoId(), ErrorCode.STOCK_INSUFICIENTE);
+                }
+
+                int nuevoStock = producto.getStock() - item.getCantidad();
+                double precioActualizado = producto.getPrice();
+
+                productoService.actualizarPrecioYStock(producto.getId(), precioActualizado, nuevoStock);
+
+                actualizarPrecioYSubtotal(item, producto);
+                totalCalculado += item.getSubTotal();
             }
 
-            int nuevoStock = producto.getStock() - item.getCantidad();
-            double precioActualizado = producto.getPrice();
+            carrito.setTotal(totalCalculado);
+            carrito.setProductos(new ArrayList<>());
+            carrito.setTotal(0);
 
-            // Actualizar el producto sin tocar imágenes
-            productoService.actualizarPrecioYStock(producto.getId(), precioActualizado, nuevoStock);
-
-            actualizarPrecioYSubtotal(item, producto);
-            totalCalculado += item.getSubTotal();
-        }
-
-        carrito.setTotal(totalCalculado);
-        carrito.setProductos(new ArrayList<>());
-        carrito.setTotal(0);
 
         return repository.save(carrito);
     }

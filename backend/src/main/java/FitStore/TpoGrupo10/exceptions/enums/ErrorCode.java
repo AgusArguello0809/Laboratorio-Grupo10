@@ -1,0 +1,23 @@
+package FitStore.TpoGrupo10.exceptions.enums;
+
+public enum ErrorCode {
+
+    // Errores generales de negocio
+    VALIDATION_ERROR,
+    ACCESS_DENIED,
+    USER_NOT_FOUND,
+    ENTITY_NOT_FOUND,
+    INTERNAL_ERROR,
+    UNAUTHORIZED,
+
+    // Casos específicos de negocio
+    STOCK_INSUFICIENTE,
+    IMAGENES_EXCEDIDAS,
+    PRODUCTO_NO_ENCONTRADO,
+    CATEGORIA_NO_ENCONTRADA,
+    CARRITO_NO_ENCONTRADO,
+    USUARIO_NO_ENCONTRADO,
+    IMAGENES_OBLIGATORIAS,
+    ERROR_SUBIDA_ARCHIVO,
+    JSON_MALFORMADO
+}

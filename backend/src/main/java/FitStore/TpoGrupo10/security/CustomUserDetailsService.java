@@ -23,8 +23,12 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        if (username == null || username.trim().isEmpty()) {
+            throw new UsernameNotFoundException("El nombre de usuario no puede estar vacío.");
+        }
+
         UsuarioModel usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado con username: " + username));
 
         return new User(usuario.getUsername(), usuario.getPassword(), List.of(new SimpleGrantedAuthority("ROLE_" + usuario.getRole().name())));
     }

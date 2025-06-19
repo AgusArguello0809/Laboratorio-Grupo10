@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.presentation.controller;
 
 import FitStore.TpoGrupo10.presentation.dto.CategoriaDto;
 import FitStore.TpoGrupo10.presentation.mappers.CategoriaPresentationMapper;
-import FitStore.TpoGrupo10.service.CategoriaService;
+import FitStore.TpoGrupo10.business.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;
 import org.springdoc.core.annotations.ParameterObject;
 import org.springframework.data.domain.Page;

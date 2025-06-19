@@ -24,3 +24,6 @@ firebase:
 server:
   servlet:
     context-path: /fitstore-api/v1
+
+jwt:
+  secret: claveSuperSecreta123

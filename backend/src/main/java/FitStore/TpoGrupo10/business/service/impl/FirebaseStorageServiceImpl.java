@@ -1,6 +1,8 @@
-package FitStore.TpoGrupo10.service.impl;
+package FitStore.TpoGrupo10.business.service.impl;
 
-import FitStore.TpoGrupo10.service.FirebaseStorageService;
+import FitStore.TpoGrupo10.business.exception.BusinessException;
+import FitStore.TpoGrupo10.business.service.FirebaseStorageService;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCode;
 import com.google.cloud.storage.Blob;
 import com.google.cloud.storage.Bucket;
 import com.google.firebase.cloud.StorageClient;
@@ -28,10 +30,11 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
 
             return String.format("https://storage.googleapis.com/%s/%s", bucket.getName(), fileName);
 
-        } catch (IOException e) {
-            throw e; // Propagamos IOException como está declarado
         } catch (Exception e) {
-            throw new RuntimeException("Error al subir archivo a Firebase Storage: " + e.getMessage(), e);
+            throw new BusinessException(
+                    "Error al subir archivo a Firebase Storage: " + e.getMessage(),
+                    ErrorCode.ERROR_SUBIDA_ARCHIVO
+            );
         }
     }
 }
