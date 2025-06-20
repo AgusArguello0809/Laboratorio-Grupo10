@@ -9,7 +9,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-import org.springframework.dao.DataAccessException;
 
 
 import java.util.Optional;
@@ -28,24 +27,14 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public Page<CategoriaModel> findAll(Pageable pageable) {
-        try {
-            LOGGER.debug("Buscando todas las categorias de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
-            return categoriaDao.findAll(pageable).map(mapper::toModel);
-        } catch (DataAccessException e) {
-            LOGGER.error("Error al buscar categorias", e);
-            throw new RuntimeException("Error al buscar categorias", e);
-        }
+        LOGGER.debug("Buscando todas las categorias de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+        return categoriaDao.findAll(pageable).map(mapper::toModel);
     }
 
 
     @Override
     public Optional<CategoriaModel> findById(Long id) {
-        try {
-            return categoriaDao.findById(id).map(mapper::toModel);
-        } catch (DataAccessException e) {
-            LOGGER.error("Error al buscar categoria con id {}", id, e);
-            throw new RuntimeException("Error al buscar categoria", e);
-        }
+        return categoriaDao.findById(id).map(mapper::toModel);
     }
 
 }
