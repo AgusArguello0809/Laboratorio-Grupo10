@@ -3,6 +3,7 @@ package FitStore.TpoGrupo10.persistence.entities;
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 import jakarta.persistence.*;
 
+// TODO: Tests unitarios
 @Entity
 @Table(name = "usuarios")
 public class UsuarioEntity {
@@ -73,5 +74,15 @@ public class UsuarioEntity {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioEntity{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

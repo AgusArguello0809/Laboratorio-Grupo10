@@ -13,6 +13,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
+// TODO: Tests unitarios
 @Repository
 public class CategoriaRepositoryImpl implements CategoriaRepository {
 
@@ -34,6 +35,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public Optional<CategoriaModel> findById(Long id) {
+        LOGGER.debug("Buscando Categoria con id: {}", id);
         return categoriaDao.findById(id).map(mapper::toModel);
     }
 

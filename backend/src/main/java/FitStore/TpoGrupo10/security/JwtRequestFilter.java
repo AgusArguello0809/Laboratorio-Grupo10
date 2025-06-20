@@ -14,6 +14,7 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
+// TODO: Tests unitarios
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 
@@ -50,7 +51,7 @@ public class JwtRequestFilter extends OncePerRequestFilter {
                 }
             }
         } catch (Exception e) {
-            // Se loguea la excepción, no interrumpir la cadena de filtros
+            // Se loguea la excepción para no interrumpir la cadena de filtros
             logger.warn("Error en filtro JWT: " + e.getMessage());
         }
 

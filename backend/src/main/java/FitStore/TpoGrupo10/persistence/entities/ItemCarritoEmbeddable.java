@@ -2,6 +2,7 @@ package FitStore.TpoGrupo10.persistence.entities;
 
 import jakarta.persistence.Embeddable;
 
+// TODO: Tests unitarios
 @Embeddable
 public class ItemCarritoEmbeddable {
 
@@ -40,5 +41,15 @@ public class ItemCarritoEmbeddable {
 
     public void setSubTotal(Double subTotal) {
         this.subTotal = subTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemCarritoEmbeddable{" +
+                "productoId=" + productoId +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                ", subTotal=" + subTotal +
+                '}';
     }
 }

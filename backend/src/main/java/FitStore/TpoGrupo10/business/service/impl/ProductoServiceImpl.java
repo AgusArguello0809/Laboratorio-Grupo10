@@ -10,6 +10,7 @@ import FitStore.TpoGrupo10.persistence.repositories.ProductoRepository;
 import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
 import FitStore.TpoGrupo10.business.service.FirebaseStorageService;
 import FitStore.TpoGrupo10.business.service.ProductoService;
+import FitStore.TpoGrupo10.security.exception.SecurityException;
 import com.querydsl.core.types.Predicate;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,6 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
+// TODO: Tests unitarios
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
@@ -160,7 +162,7 @@ public class ProductoServiceImpl implements ProductoService {
             try {
                 urls.add(storageService.uploadFile(file));
             } catch (Exception e) {
-                throw new BusinessException(ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO.getMessage() + ": " + file.getOriginalFilename(), ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO);
+                throw new BusinessException(ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO.getMessage() + ": " + file.getOriginalFilename(), ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO, e);
             }
         }
         return urls;
@@ -174,7 +176,7 @@ public class ProductoServiceImpl implements ProductoService {
     private void validarPropietario(ProductoModel producto) {
         String username = SecurityContextHolder.getContext().getAuthentication().getName();
         if (!producto.getOwner().getUsername().equals(username) && !isAdmin()) {
-            throw new BusinessException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
+            throw new SecurityException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
         }
     }
 }

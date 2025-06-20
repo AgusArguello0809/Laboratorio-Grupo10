@@ -12,4 +12,5 @@ public interface ProductoPersistenceMapper {
     ProductoModel toModel(ProductoEntity entity);
     ProductoEntity toEntity(ProductoModel model);
     List<ProductoModel> toModelList(List<ProductoEntity> entities);
+    List<ProductoEntity> toEntityList(List<ProductoModel> models);
 }

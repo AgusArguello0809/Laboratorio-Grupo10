@@ -2,6 +2,7 @@ package FitStore.TpoGrupo10.models;
 
 import java.util.List;
 
+// TODO: Tests unitarios
 public class ProductoModel {
 
     private Long id;
@@ -80,5 +81,18 @@ public class ProductoModel {
         this.price = source.getPrice();
         this.category = source.getCategory();
         this.images = source.getImages();
+    }
+
+    @Override
+    public String toString() {
+        return "ProductoModel{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", stock=" + stock +
+                ", price=" + price +
+                ", category=" + (category != null ? category.getNombre() : null) +
+                ", ownerId=" + (owner != null ? owner.getId() : null) +
+                ", images=" + (images != null ? images.size() : 0) + " images" +
+                '}';
     }
 }

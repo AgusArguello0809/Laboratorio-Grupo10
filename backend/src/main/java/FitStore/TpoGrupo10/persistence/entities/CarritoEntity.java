@@ -3,6 +3,7 @@ package FitStore.TpoGrupo10.persistence.entities;
 import jakarta.persistence.*;
 import java.util.List;
 
+// TODO: Tests unitarios
 @Entity
 public class CarritoEntity {
 
@@ -49,5 +50,15 @@ public class CarritoEntity {
 
     public void setTotal(double total) {
         this.total = total;
+    }
+
+    @Override
+    public String toString() {
+        return "CarritoEntity{" +
+                "id=" + id +
+                ", ownerId=" + (owner != null ? owner.getId() : null) +
+                ", productos=" + (productos != null ? productos.size() : 0) + " items" +
+                ", total=" + total +
+                '}';
     }
 }

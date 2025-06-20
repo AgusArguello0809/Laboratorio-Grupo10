@@ -12,4 +12,5 @@ public interface CategoriaPersistenceMapper {
     CategoriaModel toModel(CategoriaEntity entity);
     CategoriaEntity toEntity(CategoriaModel model);
     List<CategoriaModel> toModelList(List<CategoriaEntity> entities);
+    List<CategoriaEntity> toEntityList(List<CategoriaModel> models);
 }

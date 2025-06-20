@@ -2,7 +2,7 @@ package FitStore.TpoGrupo10.presentation.mappers;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
-import FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;
+import FitStore.TpoGrupo10.presentation.dto.response.UsuarioResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -17,5 +17,6 @@ public interface UsuarioPresentationMapper {
     @Mapping(source = "id", target = "id")
     UsuarioResponseDto toResponseDto(UsuarioModel model);
 
-    List<UsuarioResponseDto> toResponseDtoList(List<UsuarioModel> modelList);
+    List<UsuarioResponseDto> toResponseDtoList(List<UsuarioModel> models);
+    List<UsuarioModel> toModelList(List<UsuarioCreateDto> dtos);
 }

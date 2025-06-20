@@ -26,7 +26,7 @@ public class CustomAccessDeniedHandler implements AccessDeniedHandler {
 
         ApiErrorResponse error = new ApiErrorResponse(
                 HttpStatus.FORBIDDEN,
-                "No tienes permiso para acceder a este recurso.",
+                ErrorCodeEnum.ACCESS_DENIED.getMessage(),
                 request.getRequestURI(),
                 ErrorCodeEnum.ACCESS_DENIED
         );

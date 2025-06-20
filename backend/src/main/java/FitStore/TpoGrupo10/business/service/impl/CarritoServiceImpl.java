@@ -9,6 +9,7 @@ import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
 import FitStore.TpoGrupo10.business.service.CarritoService;
 import FitStore.TpoGrupo10.business.service.ProductoService;
 import FitStore.TpoGrupo10.persistence.repositories.UsuarioRepository;
+import FitStore.TpoGrupo10.security.exception.SecurityException;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import FitStore.TpoGrupo10.business.exception.BusinessException;
@@ -57,7 +58,7 @@ public class CarritoServiceImpl implements CarritoService {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
         if (!esAdmin) {
-            throw new BusinessException("Solo un administrador puede eliminar carritos", ErrorCodeEnum.ACCESS_DENIED);
+            throw new SecurityException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
         }
         repository.deleteById(id);
     }
@@ -211,7 +212,7 @@ public class CarritoServiceImpl implements CarritoService {
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
 
         if (!esAdmin && !Objects.equals(carrito.getOwner().getId(), actual.getId())) {
-            throw new BusinessException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
+            throw new SecurityException(ErrorCodeEnum.ACCESS_DENIED.getMessage(), ErrorCodeEnum.ACCESS_DENIED);
         }
     }
 

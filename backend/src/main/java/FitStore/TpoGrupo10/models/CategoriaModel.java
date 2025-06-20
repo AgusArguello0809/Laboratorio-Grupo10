@@ -1,5 +1,6 @@
 package FitStore.TpoGrupo10.models;
 
+// TODO: Tests unitarios
 public class CategoriaModel {
 
     private Long id;
@@ -19,5 +20,13 @@ public class CategoriaModel {
 
     public void setNombre(String nombre) {
         this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return "CategoriaModel{" +
+                "id=" + id +
+                ", nombre='" + nombre + '\'' +
+                '}';
     }
 }

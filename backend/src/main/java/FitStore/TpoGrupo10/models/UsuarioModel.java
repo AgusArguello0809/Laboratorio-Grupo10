@@ -2,6 +2,7 @@ package FitStore.TpoGrupo10.models;
 
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 
+// TODO: Tests unitarios
 public class UsuarioModel {
 
     private Long id;
@@ -66,5 +67,15 @@ public class UsuarioModel {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    @Override
+    public String toString() {
+        return "UsuarioModel{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", email='" + email + '\'' +
+                ", role=" + role +
+                '}';
     }
 }

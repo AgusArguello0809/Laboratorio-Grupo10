@@ -1,6 +1,5 @@
 package FitStore.TpoGrupo10.exceptions;
 
-import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import org.springframework.http.HttpStatus;
 
 import java.time.LocalDateTime;
@@ -10,15 +9,15 @@ public class ApiErrorResponse {
     private String error;
     private String message;
     private String path;
-    private ErrorCodeEnum code;
+    private String code;
     private LocalDateTime timestamp;
 
-    public ApiErrorResponse(HttpStatus status, String message, String path, ErrorCodeEnum code) {
+    public ApiErrorResponse(HttpStatus status, String message, String path, ErrorCode code) {
         this.status = status.value();
         this.error = status.getReasonPhrase();
         this.message = message;
         this.path = path;
-        this.code = code;
+        this.code = code.getCodeName();
         this.timestamp = LocalDateTime.now();
     }
 
@@ -38,7 +37,7 @@ public class ApiErrorResponse {
         return path;
     }
 
-    public ErrorCodeEnum getCode() {
+    public String getCode() {
         return code;
     }
 
@@ -62,8 +61,8 @@ public class ApiErrorResponse {
         this.path = path;
     }
 
-    public void setCode(ErrorCodeEnum code) {
-        this.code = code;
+    public void setCode(ErrorCode code) {
+        this.code = code.getCodeName();
     }
 
     public void setTimestamp(LocalDateTime timestamp) {

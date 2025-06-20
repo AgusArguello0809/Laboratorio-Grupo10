@@ -3,7 +3,7 @@ package FitStore.TpoGrupo10.presentation.controller;
 import FitStore.TpoGrupo10.config.customizer.ProductoEntityCustomizer;
 import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
 import FitStore.TpoGrupo10.presentation.dto.ProductoCreateDto;
-import FitStore.TpoGrupo10.presentation.dto.ProductoResponseDto;
+import FitStore.TpoGrupo10.presentation.dto.response.ProductoResponseDto;
 import FitStore.TpoGrupo10.presentation.dto.ProductoUpdateDto;
 import FitStore.TpoGrupo10.presentation.mappers.ProductoPresentationMapper;
 import FitStore.TpoGrupo10.business.service.ProductoService;
@@ -21,8 +21,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-
-import java.io.IOException;
 import java.util.List;
 
 @RestController
@@ -39,7 +37,7 @@ public class ProductoController {
         this.objectMapper = objectMapper;
     }
 
-    @Operation(summary = "Obtener productos con filtros", description = "Devuelve una lista paginada de productos, permite filtrar por QueryDSL.")
+    @Operation(summary = "Obtener productos con filtros", description = "Devuelve una lista paginada y ordenada de productos, permite filtrar por QueryDSL.")
     @GetMapping
     public Page<ProductoResponseDto> getAll(
             @QuerydslPredicate(root = ProductoEntity.class, bindings = ProductoEntityCustomizer.class) Predicate predicate,
@@ -54,7 +52,7 @@ public class ProductoController {
             return mapper.toResponseDto(model);
     }
 
-    @Operation(summary = "Crear producto", description = "Crea un nuevo producto. Requiere enviar los datos y las imágenes.")
+    @Operation(summary = "Crear producto", description = "Crea un nuevo producto. Requiere enviar los datos y las imagenes.")
     @PostMapping(consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ProductoResponseDto save(
             @RequestPart("data") String data,
@@ -70,7 +68,7 @@ public class ProductoController {
             return mapper.toResponseDto(saved);
     }
 
-    @Operation(summary = "Actualizar producto", description = "Actualiza un producto existente. Las imágenes son opcionales.")
+    @Operation(summary = "Actualizar producto", description = "Actualiza un producto existente. Las imagenes son opcionales.")
     @PutMapping(value = "/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ProductoResponseDto update(
             @PathVariable Long id,
@@ -82,7 +80,7 @@ public class ProductoController {
             return mapper.toResponseDto(updated);
     }
 
-    @Operation(summary = "Agregar imágenes al producto", description = "Permite agregar nuevas imágenes a un producto existente (máximo 10 en total).")
+    @Operation(summary = "Agregar imagenes al producto", description = "Permite agregar nuevas imagenes a un producto existente (maximo 10 en total).")
     @PatchMapping(value = "/{id}/imagenes/agregar", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
     public ProductoResponseDto agregarImagenes(
             @PathVariable Long id,
@@ -91,7 +89,7 @@ public class ProductoController {
             return mapper.toResponseDto(actualizado);
     }
 
-    @Operation(summary = "Eliminar imágenes del producto", description = "Permite eliminar imágenes específicas del producto.")
+    @Operation(summary = "Eliminar imagenes del producto", description = "Permite eliminar imagenes especificas del producto.")
     @PatchMapping("/{id}/imagenes/eliminar")
     public ProductoResponseDto eliminarImagenes(
             @PathVariable Long id,

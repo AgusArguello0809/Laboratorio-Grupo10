@@ -40,4 +40,14 @@ public class CarritoModel {
     public void setTotal(double total) {
         this.total = total;
     }
+
+    @Override
+    public String toString() {
+        return "CarritoModel{" +
+                "id=" + id +
+                ", owner=" + (owner != null ? owner.getId() : null) +
+                ", productos=" + (productos != null ? productos.size() : 0) + " items" +
+                ", total=" + total +
+                '}';
+    }
 }

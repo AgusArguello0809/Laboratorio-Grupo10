@@ -2,26 +2,32 @@ package FitStore.TpoGrupo10.presentation.dto;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
 
 public class UsuarioCreateDto {
 
-    @NotBlank
-    @Size(min = 4)
+    @NotNull(message = "El usuario no puede ser nulo")
+    @NotBlank(message = "El usuario no puede ser vacio")
+    @Size(min = 8, max = 32,message = "El usuario debe tener entre 8 y 32 caracteres")
     private String username;
 
-    @NotBlank
+    @NotNull(message = "El nombre no puede ser nulo")
+    @NotBlank(message = "El nombre no puede ser vacio")
     private String name;
 
-    @NotBlank
+    @NotNull(message = "El apellido no puede ser nulo")
+    @NotBlank(message = "El apellido no puede ser vacio")
     private String lastName;
 
-    @NotBlank
+    @NotNull(message = "El email no puede ser nulo")
+    @NotBlank(message = "El email no puede estar vacio")
     @Email
     private String email;
 
-    @NotBlank
-    @Size(min = 6)
+    @NotNull(message = "La password no puede ser nula")
+    @NotBlank(message = "La password no puede ser vacia")
+    @Size(min = 8, max = 32, message = "La password debe tener entre 8 y 32 caracteres")
     private String password;
 
     public String getUsername() {

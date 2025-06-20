@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import static FitStore.TpoGrupo10.persistence.entities.enums.Role.CLIENTE;
 
+// TODO: Tests unitarios
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 

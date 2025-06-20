@@ -3,7 +3,7 @@ package FitStore.TpoGrupo10.presentation.mappers;
 import FitStore.TpoGrupo10.models.ProductoModel;
 import FitStore.TpoGrupo10.presentation.dto.ProductoCreateDto;
 import FitStore.TpoGrupo10.presentation.dto.ProductoUpdateDto;
-import FitStore.TpoGrupo10.presentation.dto.ProductoResponseDto;
+import FitStore.TpoGrupo10.presentation.dto.response.ProductoResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.ReportingPolicy;
@@ -26,5 +26,6 @@ public interface ProductoPresentationMapper {
     @Mapping(source = "images", target = "images")
     ProductoResponseDto toResponseDto(ProductoModel model);
 
-    List<ProductoResponseDto> toResponseDtoList(List<ProductoModel> modelList);
+    List<ProductoResponseDto> toResponseDtoList(List<ProductoModel> models);
+    List<ProductoModel> toModelList(List<ProductoCreateDto> dtos);
 }

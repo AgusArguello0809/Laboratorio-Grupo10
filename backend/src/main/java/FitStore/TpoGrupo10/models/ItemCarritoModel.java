@@ -1,5 +1,6 @@
 package FitStore.TpoGrupo10.models;
 
+// TODO: Tests unitarios
 public class ItemCarritoModel {
 
     private Long productoId;
@@ -37,5 +38,15 @@ public class ItemCarritoModel {
 
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemCarritoModel{" +
+                "productoId=" + productoId +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                ", subTotal=" + subTotal +
+                '}';
     }
 }

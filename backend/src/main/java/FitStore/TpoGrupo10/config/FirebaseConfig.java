@@ -1,5 +1,7 @@
 package FitStore.TpoGrupo10.config;
 
+import FitStore.TpoGrupo10.exceptions.FitstoreException;
+import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.FirebaseOptions;
@@ -35,7 +37,7 @@ public class FirebaseConfig {
             return FirebaseApp.initializeApp(options);
             }
         } catch (IOException e) {
-            throw new RuntimeException("Error al cargar las credenciales de Firebase", e);
+            throw new FitstoreException(ErrorCodeEnum.CONFIG_ERROR.getMessage(), ErrorCodeEnum.CONFIG_ERROR, e);
         }
     }
 }

@@ -1,10 +1,10 @@
-package FitStore.TpoGrupo10.presentation.controller;
+package FitStore.TpoGrupo10.presentation.controller.usuario;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
 import FitStore.TpoGrupo10.presentation.dto.AuthRequestDto;
-import FitStore.TpoGrupo10.presentation.dto.AuthResponseDto;
+import FitStore.TpoGrupo10.presentation.dto.response.AuthResponseDto;
 import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
-import FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;
+import FitStore.TpoGrupo10.presentation.dto.response.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
 import FitStore.TpoGrupo10.security.CustomUserDetailsService;
 import FitStore.TpoGrupo10.business.service.UsuarioService;

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
+// TODO: Tests unitarios
 @Entity
 @Table(name = "productos")
 public class ProductoEntity {
@@ -56,4 +57,17 @@ public class ProductoEntity {
 
     public List<String> getImages() { return images; }
     public void setImages(List<String> images) { this.images = images; }
+
+    @Override
+    public String toString() {
+        return "ProductoEntity{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", stock=" + stock +
+                ", price=" + price +
+                ", category=" + (category != null ? category.getNombre() : null) +
+                ", ownerId=" + (owner != null ? owner.getId() : null) +
+                ", images=" + (images != null ? images.size() : 0) + " images" +
+                '}';
+    }
 }

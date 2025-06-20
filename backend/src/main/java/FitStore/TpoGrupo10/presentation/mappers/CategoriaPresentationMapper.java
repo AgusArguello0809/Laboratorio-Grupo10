@@ -12,4 +12,5 @@ public interface CategoriaPresentationMapper {
     CategoriaModel toModel(CategoriaDto dto);
     CategoriaDto toDto(CategoriaModel model);
     List<CategoriaDto> toDtoList(List<CategoriaModel> models);
+    List<CategoriaModel> toModelList(List<CategoriaDto> dtos);
 }

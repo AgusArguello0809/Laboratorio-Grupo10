@@ -11,4 +11,5 @@ public interface UsuarioPersistenceMapper {
     UsuarioModel toModel(UsuarioEntity entity);
     UsuarioEntity toEntity(UsuarioModel model);
     List<UsuarioModel> toModelList(List<UsuarioEntity> entities);
+    List<UsuarioEntity> toEntityList(List<UsuarioModel> models);
 }

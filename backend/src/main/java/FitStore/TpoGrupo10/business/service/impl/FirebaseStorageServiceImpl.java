@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
+// TODO: Tests unitarios
 @Service
 public class FirebaseStorageServiceImpl implements FirebaseStorageService {
 
@@ -31,7 +32,8 @@ public class FirebaseStorageServiceImpl implements FirebaseStorageService {
         } catch (Exception e) {
             throw new BusinessException(
                     "Error al subir archivo a Firebase Storage: " + e.getMessage(),
-                    ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO
+                    ErrorCodeEnum.ERROR_SUBIDA_ARCHIVO,
+                    e
             );
         }
     }
