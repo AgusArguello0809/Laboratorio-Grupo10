@@ -36,10 +36,7 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public CarritoModel getCarritoByOwnerId() {
-        String username = SecurityContextHolder.getContext().getAuthentication().getName();
-
-        UsuarioModel usuario = usuarioRepository.findByUsername(username)
-                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
+        UsuarioModel usuario = getAuthenticatedUser();
 
         return repository.findByOwnerId(usuario.getId())
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
@@ -52,10 +49,16 @@ public class CarritoServiceImpl implements CarritoService {
 
     @Override
     public void deleteCarrito(Long id) {
-        CarritoModel carrito = repository.findById(id)
-                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
+        repository.findById(id).orElseThrow(() ->
+                        new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
-        verificarAutorizacion(carrito);
+        boolean esAdmin = SecurityContextHolder.getContext().getAuthentication()
+                .getAuthorities().stream()
+                .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
+
+        if (!esAdmin) {
+            throw new BusinessException("Solo un administrador puede eliminar carritos", ErrorCodeEnum.ACCESS_DENIED);
+        }
         repository.deleteById(id);
     }
 
