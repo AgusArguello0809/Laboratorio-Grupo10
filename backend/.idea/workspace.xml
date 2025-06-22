@@ -5,7 +5,172 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7ddbec6e-2c66-4e94-8ba5-f8eb5ff90d6c" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/compiler.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/test/java/FitStore/TpoGrupo10/unit/security/JwtRequestFilterTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/test/java/FitStore/TpoGrupo10/unit/security/JwtRequestFilterTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/TPOGrupo10-1.0.0.jar" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/App.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/exception/BusinessException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/CarritoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/CategoriaService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/FirebaseStorageService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/ProductoService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/UsuarioService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/impl/CarritoServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/impl/CategoriaServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/impl/FirebaseStorageServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/impl/ProductoServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/business/service/impl/UsuarioServiceImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/FirebaseConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/FirebaseProperties$Credentials.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/FirebaseProperties.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/OpenApiConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/SecurityConfig.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/customizer/ProductoEntityCustomizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/config/customizer/basecustomizer/BaseStringIgnoreCaseCustomizer.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/exceptions/ApiErrorResponse.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/exceptions/ErrorCode.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/exceptions/FitstoreException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/exceptions/enums/ErrorCodeEnum.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/models/CarritoModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/models/CategoriaModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/models/ItemCarritoModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/models/ProductoModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/models/UsuarioModel.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/daos/CarritoDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/daos/CategoriaDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/daos/ProductoDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/daos/UsuarioDao.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/CarritoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/CategoriaEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/ItemCarritoEmbeddable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/ProductoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/QCarritoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/QCategoriaEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/QItemCarritoEmbeddable.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/QProductoEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/UsuarioEntity.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/entities/enums/Role.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoPersistenceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoPersistenceMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaPersistenceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaPersistenceMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoPersistenceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoPersistenceMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoPersistenceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoPersistenceMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioPersistenceMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioPersistenceMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/CarritoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/CategoriaRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/ProductoRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/UsuarioRepository.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CarritoRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CategoriaRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/ProductoRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/UsuarioRepositoryImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/controller/CarritoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/controller/CategoriaController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/controller/ProductoController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/controller/usuario/AuthController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/controller/usuario/UsuarioController.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/AddProductRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/AuthRequestDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/CarritoDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/CategoriaDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/ItemCarritoDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoCreateDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoUpdateDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/UpdateRoleDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/UsuarioCreateDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/response/AuthResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/response/ProductoResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/dto/response/UsuarioResponseDto.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/exception/GlobalExceptionHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapper.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/security/CustomUserDetailsService.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/security/JwtRequestFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/security/exception/CustomAccessDeniedHandler.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/security/exception/CustomAuthenticationEntryPoint.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/security/exception/SecurityException.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/FitStore/TpoGrupo10/utils/JwtUtil.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/application.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/classes/fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QCarritoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QCategoriaEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QItemCarritoEmbeddable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QProductoEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoPersistenceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaPersistenceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoPersistenceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoPersistenceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioPersistenceMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.TpoGrupo10ApplicationTests.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.business.service.impl.CarritoServiceImplTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.config.FirebaseConfigTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.models.CarritoModelTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.models.CategoriaModelTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.models.ItemCarritoModelTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.models.ProductoModelTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.models.UsuarioModelTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.persistence.entities.CarritoEntityTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.persistence.repositories.impl.CarritoRepositoryImplTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.presentation.exception.GlobalExceptionHandlerTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.security.CustomUserDetailsServiceTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.security.JwtRequestFilterTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/FitStore.TpoGrupo10.unit.utils.JwtUtilTest.txt" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.TpoGrupo10ApplicationTests.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.business.service.impl.CarritoServiceImplTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.config.FirebaseConfigTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.models.CarritoModelTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.models.CategoriaModelTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.models.ItemCarritoModelTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.models.ProductoModelTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.models.UsuarioModelTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.persistence.entities.CarritoEntityTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.persistence.repositories.impl.CarritoRepositoryImplTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.presentation.exception.GlobalExceptionHandlerTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.security.CustomUserDetailsServiceTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.security.JwtRequestFilterTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-FitStore.TpoGrupo10.unit.utils.JwtUtilTest.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/business/service/impl/CarritoServiceImplTest$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/business/service/impl/CarritoServiceImplTest$2.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/business/service/impl/CarritoServiceImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/config/FirebaseConfigTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/models/CarritoModelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/models/CategoriaModelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/models/ItemCarritoModelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/models/ProductoModelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/models/UsuarioModelTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/persistence/entities/CarritoEntityTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/persistence/repositories/impl/CarritoRepositoryImplTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/presentation/exception/GlobalExceptionHandlerTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/security/CustomUserDetailsServiceTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/security/JwtRequestFilterTest$TestableJwtRequestFilter.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/security/JwtRequestFilterTest.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/target/test-classes/FitStore/TpoGrupo10/unit/utils/JwtUtilTest.class" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,29 +212,29 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RequestMappingsPanelOrder0&quot;: &quot;0&quot;,
-    &quot;RequestMappingsPanelOrder1&quot;: &quot;1&quot;,
-    &quot;RequestMappingsPanelWidth0&quot;: &quot;75&quot;,
-    &quot;RequestMappingsPanelWidth1&quot;: &quot;75&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
-    &quot;Spring Boot.App.executor&quot;: &quot;Debug&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/taiel/Desktop/TPO APP/Laboratorio-Grupo10/backend&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;SDKs&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.15&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.48045978&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;MavenSettings&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "Spring Boot.App.executor": "Debug",
+    "git-widget-placeholder": "main",
+    "last_opened_file_path": "C:/Users/taiel/Desktop/TPO APP/Laboratorio-Grupo10/backend",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.48045978",
+    "settings.editor.selected.configurable": "MavenSettings",
+    "vue.rearranger.settings.migration": "true"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\resources" />
@@ -92,6 +257,7 @@
       <updated>1750333493156</updated>
       <workItem from="1750333494488" duration="15869000" />
       <workItem from="1750624066304" duration="112000" />
+      <workItem from="1750624229241" duration="6791000" />
     </task>
     <servers />
   </component>

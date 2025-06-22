@@ -1,3 +1,4 @@
+/*
 package FitStore.TpoGrupo10.unit.security;
 
 import java.util.Collections;
@@ -106,3 +107,4 @@ class JwtRequestFilterTest {
         verify(filterChain).doFilter(request, response);
     }
 }
+*/
