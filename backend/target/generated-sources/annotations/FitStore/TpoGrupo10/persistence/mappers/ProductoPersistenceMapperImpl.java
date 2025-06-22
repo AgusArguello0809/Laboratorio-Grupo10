@@ -1,0 +1,157 @@
+package FitStore.TpoGrupo10.persistence.mappers;
+
+import FitStore.TpoGrupo10.models.CategoriaModel;
+import FitStore.TpoGrupo10.models.ProductoModel;
+import FitStore.TpoGrupo10.models.UsuarioModel;
+import FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;
+import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
+import FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;
+import java.util.ArrayList;
+import java.util.List;
+import javax.annotation.processing.Generated;
+import org.springframework.stereotype.Component;
+
+@Generated(
+    value = "org.mapstruct.ap.MappingProcessor",
+    date = "2025-06-22T13:01:50-0400",
+    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
+)
+@Component
+public class ProductoPersistenceMapperImpl implements ProductoPersistenceMapper {
+
+    @Override
+    public ProductoModel toModel(ProductoEntity entity) {
+        if ( entity == null ) {
+            return null;
+        }
+
+        ProductoModel productoModel = new ProductoModel();
+
+        productoModel.setId( entity.getId() );
+        productoModel.setTitle( entity.getTitle() );
+        productoModel.setDescription( entity.getDescription() );
+        productoModel.setStock( entity.getStock() );
+        productoModel.setPrice( entity.getPrice() );
+        productoModel.setCategory( categoriaEntityToCategoriaModel( entity.getCategory() ) );
+        productoModel.setOwner( usuarioEntityToUsuarioModel( entity.getOwner() ) );
+        List<String> list = entity.getImages();
+        if ( list != null ) {
+            productoModel.setImages( new ArrayList<String>( list ) );
+        }
+
+        return productoModel;
+    }
+
+    @Override
+    public ProductoEntity toEntity(ProductoModel model) {
+        if ( model == null ) {
+            return null;
+        }
+
+        ProductoEntity productoEntity = new ProductoEntity();
+
+        productoEntity.setId( model.getId() );
+        productoEntity.setTitle( model.getTitle() );
+        productoEntity.setDescription( model.getDescription() );
+        productoEntity.setStock( model.getStock() );
+        productoEntity.setPrice( model.getPrice() );
+        productoEntity.setCategory( categoriaModelToCategoriaEntity( model.getCategory() ) );
+        productoEntity.setOwner( usuarioModelToUsuarioEntity( model.getOwner() ) );
+        List<String> list = model.getImages();
+        if ( list != null ) {
+            productoEntity.setImages( new ArrayList<String>( list ) );
+        }
+
+        return productoEntity;
+    }
+
+    @Override
+    public List<ProductoModel> toModelList(List<ProductoEntity> entities) {
+        if ( entities == null ) {
+            return null;
+        }
+
+        List<ProductoModel> list = new ArrayList<ProductoModel>( entities.size() );
+        for ( ProductoEntity productoEntity : entities ) {
+            list.add( toModel( productoEntity ) );
+        }
+
+        return list;
+    }
+
+    @Override
+    public List<ProductoEntity> toEntityList(List<ProductoModel> models) {
+        if ( models == null ) {
+            return null;
+        }
+
+        List<ProductoEntity> list = new ArrayList<ProductoEntity>( models.size() );
+        for ( ProductoModel productoModel : models ) {
+            list.add( toEntity( productoModel ) );
+        }
+
+        return list;
+    }
+
+    protected CategoriaModel categoriaEntityToCategoriaModel(CategoriaEntity categoriaEntity) {
+        if ( categoriaEntity == null ) {
+            return null;
+        }
+
+        CategoriaModel categoriaModel = new CategoriaModel();
+
+        categoriaModel.setId( categoriaEntity.getId() );
+        categoriaModel.setNombre( categoriaEntity.getNombre() );
+
+        return categoriaModel;
+    }
+
+    protected UsuarioModel usuarioEntityToUsuarioModel(UsuarioEntity usuarioEntity) {
+        if ( usuarioEntity == null ) {
+            return null;
+        }
+
+        UsuarioModel usuarioModel = new UsuarioModel();
+
+        usuarioModel.setId( usuarioEntity.getId() );
+        usuarioModel.setUsername( usuarioEntity.getUsername() );
+        usuarioModel.setName( usuarioEntity.getName() );
+        usuarioModel.setLastName( usuarioEntity.getLastName() );
+        usuarioModel.setEmail( usuarioEntity.getEmail() );
+        usuarioModel.setPassword( usuarioEntity.getPassword() );
+        usuarioModel.setRole( usuarioEntity.getRole() );
+
+        return usuarioModel;
+    }
+
+    protected CategoriaEntity categoriaModelToCategoriaEntity(CategoriaModel categoriaModel) {
+        if ( categoriaModel == null ) {
+            return null;
+        }
+
+        CategoriaEntity categoriaEntity = new CategoriaEntity();
+
+        categoriaEntity.setId( categoriaModel.getId() );
+        categoriaEntity.setNombre( categoriaModel.getNombre() );
+
+        return categoriaEntity;
+    }
+
+    protected UsuarioEntity usuarioModelToUsuarioEntity(UsuarioModel usuarioModel) {
+        if ( usuarioModel == null ) {
+            return null;
+        }
+
+        UsuarioEntity usuarioEntity = new UsuarioEntity();
+
+        usuarioEntity.setId( usuarioModel.getId() );
+        usuarioEntity.setUsername( usuarioModel.getUsername() );
+        usuarioEntity.setName( usuarioModel.getName() );
+        usuarioEntity.setLastName( usuarioModel.getLastName() );
+        usuarioEntity.setEmail( usuarioModel.getEmail() );
+        usuarioEntity.setPassword( usuarioModel.getPassword() );
+        usuarioEntity.setRole( usuarioModel.getRole() );
+
+        return usuarioEntity;
+    }
+}
