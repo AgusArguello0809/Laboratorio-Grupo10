@@ -1,4 +1,0 @@
--------------------------------------------------------------------------------
-Test set: FitStore.TpoGrupo10.unit.persistence.repositories.impl.CarritoRepositoryImplTest
--------------------------------------------------------------------------------
-Tests run: 6, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.270 s -- in FitStore.TpoGrupo10.unit.persistence.repositories.impl.CarritoRepositoryImplTest
