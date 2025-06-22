@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: FitStore.TpoGrupo10.unit.models.ProductoModelTest
+-------------------------------------------------------------------------------
+Tests run: 3, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 0.084 s -- in FitStore.TpoGrupo10.unit.models.ProductoModelTest

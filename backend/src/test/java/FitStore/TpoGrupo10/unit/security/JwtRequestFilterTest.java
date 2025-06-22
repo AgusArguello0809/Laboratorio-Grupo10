@@ -10,6 +10,7 @@ import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.verifyNoInteractions;
 import static org.mockito.Mockito.when;
 import org.mockito.MockitoAnnotations;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -86,14 +87,21 @@ class JwtRequestFilterTest {
 
     @Test
     void doFilterInternal_conTokenInvalido_noAutentica() throws Exception {
+        SecurityContextHolder.clearContext();
+
         String token = "invalid.token.jwt";
+        String username = "agus";
+        UserDetails userDetails = new User(username, "password", Collections.emptyList());
+
         when(request.getHeader("Authorization")).thenReturn("Bearer " + token);
-        when(jwtUtil.extractUsername(token)).thenReturn("agus");
+        when(jwtUtil.extractUsername(token)).thenReturn(username);
+        when(userDetailsService.loadUserByUsername(username)).thenReturn(userDetails); // <- FALTABA
         when(jwtUtil.isTokenValid(token)).thenReturn(false);
 
         jwtRequestFilter.callDoFilterInternal(request, response, filterChain);
 
         verify(jwtUtil).extractUsername(token);
+        verify(userDetailsService).loadUserByUsername(username);
         verify(jwtUtil).isTokenValid(token);
         verify(filterChain).doFilter(request, response);
     }
