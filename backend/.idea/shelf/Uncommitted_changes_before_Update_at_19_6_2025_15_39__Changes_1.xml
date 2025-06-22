@@ -1,0 +1,364 @@
+<changelist name="Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1" date="1750358417522" recycled="true" deleted="true">
+  <option name="PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/shelved.patch" />
+  <option name="DESCRIPTION" value="Uncommitted changes before Update at 19/6/2025 15:39 [Changes]" />
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseConfig.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseConfig.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/FirebaseConfig.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoCreateDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoCreateDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoCreateDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/ProductoRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/ProductoRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QCategoriaEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QCategoriaEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/QCategoriaEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoPresentationMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseProperties$Credentials.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseProperties$Credentials.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/FirebaseProperties$Credentials.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QProductoEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QProductoEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/QProductoEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/CategoriaEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/CategoriaEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/CarritoDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/CarritoDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoPresentationMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaPresentationMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/ProductoController.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/ProductoController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoPresentationMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/LoginRequestDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/LoginRequestDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/LoginRequestDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/test-classes/FitStore/TpoGrupo10/TpoGrupo10ApplicationTests.class" />
+    <option name="AFTER_PATH" value="target/test-classes/FitStore/TpoGrupo10/TpoGrupo10ApplicationTests.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/TpoGrupo10ApplicationTests.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/UsuarioController.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/UsuarioController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/CategoriaDao.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/CategoriaDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CarritoRepositoryImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CarritoRepositoryImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoRepositoryImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/ProductoEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/ProductoEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/CategoriaController.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/CategoriaController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/models/ItemCarritoModel.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/models/ItemCarritoModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/CarritoController.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/controller/CarritoController.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoController.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/models/CategoriaModel.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/models/CategoriaModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QCarritoEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QCarritoEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/QCarritoEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoPresentationMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoPresentationMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/security/CustomUserDetailsService.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/security/CustomUserDetailsService.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CustomUserDetailsService.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaPresentationMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/ProductoDao.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/ProductoDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/UsuarioResponseDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/UsuarioResponseDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioResponseDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QItemCarritoEmbeddable.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QItemCarritoEmbeddable.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/QItemCarritoEmbeddable.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/models/ProductoModel.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/models/ProductoModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/models/UsuarioModel.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/models/UsuarioModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/CarritoDao.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/CarritoDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoResponseDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoResponseDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoResponseDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoUpdateDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ProductoUpdateDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoUpdateDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/customizer/basecustomizer/BaseStringIgnoreCaseCustomizer.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/customizer/basecustomizer/BaseStringIgnoreCaseCustomizer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/BaseStringIgnoreCaseCustomizer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/UsuarioCreateDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/UsuarioCreateDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioCreateDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/CarritoEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/CarritoEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/CategoriaRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/CategoriaRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioPresentationMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/UsuarioDao.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/daos/UsuarioDao.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioDao.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/CategoriaDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/CategoriaDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/ItemCarritoEmbeddable.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/ItemCarritoEmbeddable.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoEmbeddable.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/AddProductRequestDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/AddProductRequestDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/AddProductRequestDto.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/CarritoRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/CarritoRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/customizer/ProductoEntityCustomizer.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/customizer/ProductoEntityCustomizer.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoEntityCustomizer.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CategoriaRepositoryImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/CategoriaRepositoryImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CategoriaRepositoryImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoPresentationMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/UsuarioRepositoryImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/UsuarioRepositoryImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioRepositoryImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoMapperImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/QUsuarioEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapper.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapper.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioPresentationMapper.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseProperties.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/FirebaseProperties.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/FirebaseProperties.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/config/OpenApiConfig.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/config/OpenApiConfig.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/OpenApiConfig.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/security/JwtRequestFilter.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/security/JwtRequestFilter.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/JwtRequestFilter.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/App.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/App.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/App.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/ProductoRepositoryImpl.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/impl/ProductoRepositoryImpl.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ProductoRepositoryImpl.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/UsuarioRepository.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/repositories/UsuarioRepository.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioRepository.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/models/CarritoModel.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/models/CarritoModel.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/CarritoModel.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/UsuarioEntity.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/persistence/entities/UsuarioEntity.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/UsuarioEntity.class" />
+  </binary>
+  <binary>
+    <option name="BEFORE_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ItemCarritoDto.class" />
+    <option name="AFTER_PATH" value="target/classes/FitStore/TpoGrupo10/presentation/dto/ItemCarritoDto.class" />
+    <option name="SHELVED_PATH" value="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_19_6_2025_15_39_[Changes]1/ItemCarritoDto.class" />
+  </binary>
+</changelist>
