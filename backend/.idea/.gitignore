@@ -6,7 +6,7 @@
 *.bak
 
 # Build
-/target/
+backend/target/
 *.class
 *.jar
 *.war
