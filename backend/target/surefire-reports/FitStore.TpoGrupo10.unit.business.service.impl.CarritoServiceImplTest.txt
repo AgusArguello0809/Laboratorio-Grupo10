@@ -1,0 +1,4 @@
+-------------------------------------------------------------------------------
+Test set: FitStore.TpoGrupo10.unit.business.service.impl.CarritoServiceImplTest
+-------------------------------------------------------------------------------
+Tests run: 10, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 1.464 s -- in FitStore.TpoGrupo10.unit.business.service.impl.CarritoServiceImplTest
