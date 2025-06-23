@@ -1,23 +1,57 @@
-# IDEs
-.idea/
+####################################
+# FRONTEND (tpo-frontend/)
+####################################
+
+# Dependencias
+/tpo-frontend/node_modules/
+
+# Build y distribución
+/tpo-frontend/dist/
+/tpo-frontend/build/
+
+# Archivos de entorno
+/tpo-frontend/.env
+/tpo-frontend/.env.local
+/tpo-frontend/.env.production
+
+# Archivos de cobertura
+/tpo-frontend/coverage/
+
+####################################
+# BACKEND (backend/)
+####################################
+
+# IDEs (IntelliJ, VS Code)
+/backend/.idea/
 *.iml
 *.iws
 *.ipr
 *.bak
+.vscode/
 
-# Build
-backend/target/
+# Compilados y construcción
+/backend/target/
+/backend/build/
 *.class
 *.jar
 *.war
 
-# Logs
-*.log
+# Archivos de entorno y secretos
+/backend/.env
+/backend/src/main/resources/*.json
 
-# Archivos temporales del sistema
+# Archivos de cobertura y testing
+/backend/coverage/
+/backend/test-output/
+/backend/.surefire/
+
+# Archivos de log
+/backend/*.log
+/backend/**/*.log
+
+####################################
+# SISTEMA OPERATIVO / GENERALES
+####################################
+
 .DS_Store
 Thumbs.db
-
-# Archivos sensibles
-.env
-src/main/resources/fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json

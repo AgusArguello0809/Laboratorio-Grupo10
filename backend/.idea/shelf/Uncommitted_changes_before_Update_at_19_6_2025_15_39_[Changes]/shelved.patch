@@ -1,0 +1,558 @@
+Index: target/classes/application.yaml
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>spring:\r\n  application:\r\n    name: TPOGrupo10\r\n\r\n  datasource:\r\n    url: jdbc:mysql://localhost:3306/fitstore?useSSL=false&serverTimezone=UTC\r\n    username: root\r\n    password:\r\n\r\n  jpa:\r\n    hibernate:\r\n      ddl-auto: update\r\n    show-sql: true\r\n    properties:\r\n      hibernate:\r\n        dialect: org.hibernate.dialect.MySQL8Dialect\r\n        ddl-auto: update\r\n\r\nfirebase:\r\n  credentials:\r\n    path: classpath:fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json\r\n  bucket: fitstore-tpo.firebasestorage.app\r\n\r\nserver:\r\n  servlet:\r\n    context-path: /fitstore-api/v1
+===================================================================
+diff --git a/target/classes/application.yaml b/target/classes/application.yaml
+--- a/target/classes/application.yaml	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/classes/application.yaml	(date 1750356986190)
+@@ -3,7 +3,7 @@
+     name: TPOGrupo10
+ 
+   datasource:
+-    url: jdbc:mysql://localhost:3306/fitstore?useSSL=false&serverTimezone=UTC
++    url: jdbc:mysql://localhost:3307/fitstore?useSSL=false&serverTimezone=UTC
+     username: root
+     password:
+ 
+@@ -23,4 +23,7 @@
+ 
+ server:
+   servlet:
+-    context-path: /fitstore-api/v1
+\ No newline at end of file
++    context-path: /fitstore-api/v1
++
++jwt:
++  secret: claveSuperSecreta123
+\ No newline at end of file
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:41-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class UsuarioMapperImpl implements UsuarioMapper {\r\n\r\n    @Override\r\n    public UsuarioModel toModel(UsuarioEntity entity) {\r\n        if ( entity == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setId( entity.getId() );\r\n        usuarioModel.setUsername( entity.getUsername() );\r\n        usuarioModel.setName( entity.getName() );\r\n        usuarioModel.setLastName( entity.getLastName() );\r\n        usuarioModel.setEmail( entity.getEmail() );\r\n        usuarioModel.setPassword( entity.getPassword() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    @Override\r\n    public UsuarioEntity toEntity(UsuarioModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioEntity usuarioEntity = new UsuarioEntity();\r\n\r\n        usuarioEntity.setId( model.getId() );\r\n        usuarioEntity.setUsername( model.getUsername() );\r\n        usuarioEntity.setName( model.getName() );\r\n        usuarioEntity.setLastName( model.getLastName() );\r\n        usuarioEntity.setEmail( model.getEmail() );\r\n        usuarioEntity.setPassword( model.getPassword() );\r\n\r\n        return usuarioEntity;\r\n    }\r\n\r\n    @Override\r\n    public List<UsuarioModel> toModelList(List<UsuarioEntity> entities) {\r\n        if ( entities == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<UsuarioModel> list = new ArrayList<UsuarioModel>( entities.size() );\r\n        for ( UsuarioEntity usuarioEntity : entities ) {\r\n            list.add( toModel( usuarioEntity ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/UsuarioMapperImpl.java	(date 1750357000383)
+@@ -9,8 +9,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:41-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class UsuarioMapperImpl implements UsuarioMapper {
+@@ -29,6 +29,7 @@
+         usuarioModel.setLastName( entity.getLastName() );
+         usuarioModel.setEmail( entity.getEmail() );
+         usuarioModel.setPassword( entity.getPassword() );
++        usuarioModel.setRole( entity.getRole() );
+ 
+         return usuarioModel;
+     }
+@@ -47,6 +48,7 @@
+         usuarioEntity.setLastName( model.getLastName() );
+         usuarioEntity.setEmail( model.getEmail() );
+         usuarioEntity.setPassword( model.getPassword() );
++        usuarioEntity.setRole( model.getRole() );
+ 
+         return usuarioEntity;
+     }
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CategoriaModel;\r\nimport FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class CategoriaMapperImpl implements CategoriaMapper {\r\n\r\n    @Override\r\n    public CategoriaModel toModel(CategoriaEntity entity) {\r\n        if ( entity == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaModel categoriaModel = new CategoriaModel();\r\n\r\n        categoriaModel.setId( entity.getId() );\r\n        categoriaModel.setNombre( entity.getNombre() );\r\n\r\n        return categoriaModel;\r\n    }\r\n\r\n    @Override\r\n    public CategoriaEntity toEntity(CategoriaModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaEntity categoriaEntity = new CategoriaEntity();\r\n\r\n        categoriaEntity.setId( model.getId() );\r\n        categoriaEntity.setNombre( model.getNombre() );\r\n\r\n        return categoriaEntity;\r\n    }\r\n\r\n    @Override\r\n    public List<CategoriaModel> toModelList(List<CategoriaEntity> entities) {\r\n        if ( entities == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<CategoriaModel> list = new ArrayList<CategoriaModel>( entities.size() );\r\n        for ( CategoriaEntity categoriaEntity : entities ) {\r\n            list.add( toModel( categoriaEntity ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CategoriaMapperImpl.java	(date 1750357000283)
+@@ -9,8 +9,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class CategoriaMapperImpl implements CategoriaMapper {
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CarritoModel;\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.persistence.entities.CarritoEntity;\r\nimport FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.beans.factory.annotation.Autowired;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class CarritoMapperImpl implements CarritoMapper {\r\n\r\n    @Autowired\r\n    private ItemCarritoMapper itemCarritoMapper;\r\n\r\n    @Override\r\n    public CarritoModel toModel(CarritoEntity entity) {\r\n        if ( entity == null ) {\r\n            return null;\r\n        }\r\n\r\n        CarritoModel carritoModel = new CarritoModel();\r\n\r\n        carritoModel.setProductos( itemCarritoMapper.toModelList( entity.getProductos() ) );\r\n        carritoModel.setId( entity.getId() );\r\n        carritoModel.setOwner( usuarioEntityToUsuarioModel( entity.getOwner() ) );\r\n        carritoModel.setTotal( entity.getTotal() );\r\n\r\n        return carritoModel;\r\n    }\r\n\r\n    @Override\r\n    public CarritoEntity toEntity(CarritoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        CarritoEntity carritoEntity = new CarritoEntity();\r\n\r\n        carritoEntity.setProductos( itemCarritoMapper.toEntityList( model.getProductos() ) );\r\n        carritoEntity.setId( model.getId() );\r\n        carritoEntity.setOwner( usuarioModelToUsuarioEntity( model.getOwner() ) );\r\n        carritoEntity.setTotal( model.getTotal() );\r\n\r\n        return carritoEntity;\r\n    }\r\n\r\n    protected UsuarioModel usuarioEntityToUsuarioModel(UsuarioEntity usuarioEntity) {\r\n        if ( usuarioEntity == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setId( usuarioEntity.getId() );\r\n        usuarioModel.setUsername( usuarioEntity.getUsername() );\r\n        usuarioModel.setName( usuarioEntity.getName() );\r\n        usuarioModel.setLastName( usuarioEntity.getLastName() );\r\n        usuarioModel.setEmail( usuarioEntity.getEmail() );\r\n        usuarioModel.setPassword( usuarioEntity.getPassword() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    protected UsuarioEntity usuarioModelToUsuarioEntity(UsuarioModel usuarioModel) {\r\n        if ( usuarioModel == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioEntity usuarioEntity = new UsuarioEntity();\r\n\r\n        usuarioEntity.setId( usuarioModel.getId() );\r\n        usuarioEntity.setUsername( usuarioModel.getUsername() );\r\n        usuarioEntity.setName( usuarioModel.getName() );\r\n        usuarioEntity.setLastName( usuarioModel.getLastName() );\r\n        usuarioEntity.setEmail( usuarioModel.getEmail() );\r\n        usuarioEntity.setPassword( usuarioModel.getPassword() );\r\n\r\n        return usuarioEntity;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/CarritoMapperImpl.java	(date 1750357000251)
+@@ -10,8 +10,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class CarritoMapperImpl implements CarritoMapper {
+@@ -64,6 +64,7 @@
+         usuarioModel.setLastName( usuarioEntity.getLastName() );
+         usuarioModel.setEmail( usuarioEntity.getEmail() );
+         usuarioModel.setPassword( usuarioEntity.getPassword() );
++        usuarioModel.setRole( usuarioEntity.getRole() );
+ 
+         return usuarioModel;
+     }
+@@ -81,6 +82,7 @@
+         usuarioEntity.setLastName( usuarioModel.getLastName() );
+         usuarioEntity.setEmail( usuarioModel.getEmail() );
+         usuarioEntity.setPassword( usuarioModel.getPassword() );
++        usuarioEntity.setRole( usuarioModel.getRole() );
+ 
+         return usuarioEntity;
+     }
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CategoriaModel;\r\nimport FitStore.TpoGrupo10.models.ProductoModel;\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.persistence.entities.CategoriaEntity;\r\nimport FitStore.TpoGrupo10.persistence.entities.ProductoEntity;\r\nimport FitStore.TpoGrupo10.persistence.entities.UsuarioEntity;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class ProductoMapperImpl implements ProductoMapper {\r\n\r\n    @Override\r\n    public ProductoModel toModel(ProductoEntity entity) {\r\n        if ( entity == null ) {\r\n            return null;\r\n        }\r\n\r\n        ProductoModel productoModel = new ProductoModel();\r\n\r\n        productoModel.setId( entity.getId() );\r\n        productoModel.setTitle( entity.getTitle() );\r\n        productoModel.setDescription( entity.getDescription() );\r\n        productoModel.setStock( entity.getStock() );\r\n        productoModel.setPrice( entity.getPrice() );\r\n        productoModel.setCategory( categoriaEntityToCategoriaModel( entity.getCategory() ) );\r\n        productoModel.setOwner( usuarioEntityToUsuarioModel( entity.getOwner() ) );\r\n        List<String> list = entity.getImages();\r\n        if ( list != null ) {\r\n            productoModel.setImages( new ArrayList<String>( list ) );\r\n        }\r\n\r\n        return productoModel;\r\n    }\r\n\r\n    @Override\r\n    public ProductoEntity toEntity(ProductoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        ProductoEntity productoEntity = new ProductoEntity();\r\n\r\n        productoEntity.setId( model.getId() );\r\n        productoEntity.setTitle( model.getTitle() );\r\n        productoEntity.setDescription( model.getDescription() );\r\n        productoEntity.setStock( model.getStock() );\r\n        productoEntity.setPrice( model.getPrice() );\r\n        productoEntity.setCategory( categoriaModelToCategoriaEntity( model.getCategory() ) );\r\n        productoEntity.setOwner( usuarioModelToUsuarioEntity( model.getOwner() ) );\r\n        List<String> list = model.getImages();\r\n        if ( list != null ) {\r\n            productoEntity.setImages( new ArrayList<String>( list ) );\r\n        }\r\n\r\n        return productoEntity;\r\n    }\r\n\r\n    @Override\r\n    public List<ProductoModel> toModelList(List<ProductoEntity> entities) {\r\n        if ( entities == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ProductoModel> list = new ArrayList<ProductoModel>( entities.size() );\r\n        for ( ProductoEntity productoEntity : entities ) {\r\n            list.add( toModel( productoEntity ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n\r\n    protected CategoriaModel categoriaEntityToCategoriaModel(CategoriaEntity categoriaEntity) {\r\n        if ( categoriaEntity == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaModel categoriaModel = new CategoriaModel();\r\n\r\n        categoriaModel.setId( categoriaEntity.getId() );\r\n        categoriaModel.setNombre( categoriaEntity.getNombre() );\r\n\r\n        return categoriaModel;\r\n    }\r\n\r\n    protected UsuarioModel usuarioEntityToUsuarioModel(UsuarioEntity usuarioEntity) {\r\n        if ( usuarioEntity == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setId( usuarioEntity.getId() );\r\n        usuarioModel.setUsername( usuarioEntity.getUsername() );\r\n        usuarioModel.setName( usuarioEntity.getName() );\r\n        usuarioModel.setLastName( usuarioEntity.getLastName() );\r\n        usuarioModel.setEmail( usuarioEntity.getEmail() );\r\n        usuarioModel.setPassword( usuarioEntity.getPassword() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    protected CategoriaEntity categoriaModelToCategoriaEntity(CategoriaModel categoriaModel) {\r\n        if ( categoriaModel == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaEntity categoriaEntity = new CategoriaEntity();\r\n\r\n        categoriaEntity.setId( categoriaModel.getId() );\r\n        categoriaEntity.setNombre( categoriaModel.getNombre() );\r\n\r\n        return categoriaEntity;\r\n    }\r\n\r\n    protected UsuarioEntity usuarioModelToUsuarioEntity(UsuarioModel usuarioModel) {\r\n        if ( usuarioModel == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioEntity usuarioEntity = new UsuarioEntity();\r\n\r\n        usuarioEntity.setId( usuarioModel.getId() );\r\n        usuarioEntity.setUsername( usuarioModel.getUsername() );\r\n        usuarioEntity.setName( usuarioModel.getName() );\r\n        usuarioEntity.setLastName( usuarioModel.getLastName() );\r\n        usuarioEntity.setEmail( usuarioModel.getEmail() );\r\n        usuarioEntity.setPassword( usuarioModel.getPassword() );\r\n\r\n        return usuarioEntity;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ProductoMapperImpl.java	(date 1750356999725)
+@@ -13,8 +13,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:39-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class ProductoMapperImpl implements ProductoMapper {
+@@ -105,6 +105,7 @@
+         usuarioModel.setLastName( usuarioEntity.getLastName() );
+         usuarioModel.setEmail( usuarioEntity.getEmail() );
+         usuarioModel.setPassword( usuarioEntity.getPassword() );
++        usuarioModel.setRole( usuarioEntity.getRole() );
+ 
+         return usuarioModel;
+     }
+@@ -135,6 +136,7 @@
+         usuarioEntity.setLastName( usuarioModel.getLastName() );
+         usuarioEntity.setEmail( usuarioModel.getEmail() );
+         usuarioEntity.setPassword( usuarioModel.getPassword() );
++        usuarioEntity.setRole( usuarioModel.getRole() );
+ 
+         return usuarioEntity;
+     }
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.ItemCarritoModel;\r\nimport FitStore.TpoGrupo10.persistence.entities.ItemCarritoEmbeddable;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class ItemCarritoMapperImpl implements ItemCarritoMapper {\r\n\r\n    @Override\r\n    public ItemCarritoModel toModel(ItemCarritoEmbeddable embeddable) {\r\n        if ( embeddable == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoModel itemCarritoModel = new ItemCarritoModel();\r\n\r\n        itemCarritoModel.setProductoId( embeddable.getProductoId() );\r\n        if ( embeddable.getCantidad() != null ) {\r\n            itemCarritoModel.setCantidad( embeddable.getCantidad() );\r\n        }\r\n        if ( embeddable.getPrecioUnitario() != null ) {\r\n            itemCarritoModel.setPrecioUnitario( embeddable.getPrecioUnitario() );\r\n        }\r\n        if ( embeddable.getSubTotal() != null ) {\r\n            itemCarritoModel.setSubTotal( embeddable.getSubTotal() );\r\n        }\r\n\r\n        return itemCarritoModel;\r\n    }\r\n\r\n    @Override\r\n    public ItemCarritoEmbeddable toEntity(ItemCarritoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoEmbeddable itemCarritoEmbeddable = new ItemCarritoEmbeddable();\r\n\r\n        itemCarritoEmbeddable.setProductoId( model.getProductoId() );\r\n        itemCarritoEmbeddable.setCantidad( model.getCantidad() );\r\n        itemCarritoEmbeddable.setPrecioUnitario( model.getPrecioUnitario() );\r\n        itemCarritoEmbeddable.setSubTotal( model.getSubTotal() );\r\n\r\n        return itemCarritoEmbeddable;\r\n    }\r\n\r\n    @Override\r\n    public List<ItemCarritoModel> toModelList(List<ItemCarritoEmbeddable> embeddables) {\r\n        if ( embeddables == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoModel> list = new ArrayList<ItemCarritoModel>( embeddables.size() );\r\n        for ( ItemCarritoEmbeddable itemCarritoEmbeddable : embeddables ) {\r\n            list.add( toModel( itemCarritoEmbeddable ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n\r\n    @Override\r\n    public List<ItemCarritoEmbeddable> toEntityList(List<ItemCarritoModel> models) {\r\n        if ( models == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoEmbeddable> list = new ArrayList<ItemCarritoEmbeddable>( models.size() );\r\n        for ( ItemCarritoModel itemCarritoModel : models ) {\r\n            list.add( toEntity( itemCarritoModel ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/mappers/ItemCarritoMapperImpl.java	(date 1750357000095)
+@@ -9,8 +9,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class ItemCarritoMapperImpl implements ItemCarritoMapper {
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.presentation.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CategoriaModel;\r\nimport FitStore.TpoGrupo10.models.ProductoModel;\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.presentation.dto.ProductoCreateDto;\r\nimport FitStore.TpoGrupo10.presentation.dto.ProductoResponseDto;\r\nimport FitStore.TpoGrupo10.presentation.dto.ProductoUpdateDto;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class ProductoPresentationMapperImpl implements ProductoPresentationMapper {\r\n\r\n    @Override\r\n    public ProductoModel toModel(ProductoCreateDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        ProductoModel productoModel = new ProductoModel();\r\n\r\n        productoModel.setCategory( productoCreateDtoToCategoriaModel( dto ) );\r\n        productoModel.setOwner( productoCreateDtoToUsuarioModel( dto ) );\r\n        productoModel.setTitle( dto.getTitle() );\r\n        productoModel.setDescription( dto.getDescription() );\r\n        productoModel.setStock( dto.getStock() );\r\n        productoModel.setPrice( dto.getPrice() );\r\n\r\n        return productoModel;\r\n    }\r\n\r\n    @Override\r\n    public ProductoModel toModel(ProductoUpdateDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        ProductoModel productoModel = new ProductoModel();\r\n\r\n        productoModel.setCategory( productoUpdateDtoToCategoriaModel( dto ) );\r\n        productoModel.setTitle( dto.getTitle() );\r\n        productoModel.setDescription( dto.getDescription() );\r\n        productoModel.setStock( dto.getStock() );\r\n        productoModel.setPrice( dto.getPrice() );\r\n\r\n        return productoModel;\r\n    }\r\n\r\n    @Override\r\n    public ProductoResponseDto toResponseDto(ProductoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        ProductoResponseDto productoResponseDto = new ProductoResponseDto();\r\n\r\n        productoResponseDto.setId( model.getId() );\r\n        productoResponseDto.setCategoryId( modelCategoryId( model ) );\r\n        productoResponseDto.setOwnerId( modelOwnerId( model ) );\r\n        List<String> list = model.getImages();\r\n        if ( list != null ) {\r\n            productoResponseDto.setImages( new ArrayList<String>( list ) );\r\n        }\r\n        productoResponseDto.setTitle( model.getTitle() );\r\n        productoResponseDto.setDescription( model.getDescription() );\r\n        productoResponseDto.setStock( model.getStock() );\r\n        productoResponseDto.setPrice( model.getPrice() );\r\n\r\n        return productoResponseDto;\r\n    }\r\n\r\n    @Override\r\n    public List<ProductoResponseDto> toResponseDtoList(List<ProductoModel> modelList) {\r\n        if ( modelList == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ProductoResponseDto> list = new ArrayList<ProductoResponseDto>( modelList.size() );\r\n        for ( ProductoModel productoModel : modelList ) {\r\n            list.add( toResponseDto( productoModel ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n\r\n    protected CategoriaModel productoCreateDtoToCategoriaModel(ProductoCreateDto productoCreateDto) {\r\n        if ( productoCreateDto == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaModel categoriaModel = new CategoriaModel();\r\n\r\n        categoriaModel.setId( productoCreateDto.getCategoryId() );\r\n\r\n        return categoriaModel;\r\n    }\r\n\r\n    protected UsuarioModel productoCreateDtoToUsuarioModel(ProductoCreateDto productoCreateDto) {\r\n        if ( productoCreateDto == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setId( productoCreateDto.getOwnerId() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    protected CategoriaModel productoUpdateDtoToCategoriaModel(ProductoUpdateDto productoUpdateDto) {\r\n        if ( productoUpdateDto == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaModel categoriaModel = new CategoriaModel();\r\n\r\n        categoriaModel.setId( productoUpdateDto.getCategoryId() );\r\n\r\n        return categoriaModel;\r\n    }\r\n\r\n    private Long modelCategoryId(ProductoModel productoModel) {\r\n        if ( productoModel == null ) {\r\n            return null;\r\n        }\r\n        CategoriaModel category = productoModel.getCategory();\r\n        if ( category == null ) {\r\n            return null;\r\n        }\r\n        Long id = category.getId();\r\n        if ( id == null ) {\r\n            return null;\r\n        }\r\n        return id;\r\n    }\r\n\r\n    private Long modelOwnerId(ProductoModel productoModel) {\r\n        if ( productoModel == null ) {\r\n            return null;\r\n        }\r\n        UsuarioModel owner = productoModel.getOwner();\r\n        if ( owner == null ) {\r\n            return null;\r\n        }\r\n        Long id = owner.getId();\r\n        if ( id == null ) {\r\n            return null;\r\n        }\r\n        return id;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ProductoPresentationMapperImpl.java	(date 1750357000176)
+@@ -13,8 +13,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class ProductoPresentationMapperImpl implements ProductoPresentationMapper {
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.presentation.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.ItemCarritoModel;\r\nimport FitStore.TpoGrupo10.presentation.dto.ItemCarritoDto;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class ItemCarritoPresentationMapperImpl implements ItemCarritoPresentationMapper {\r\n\r\n    @Override\r\n    public ItemCarritoDto toDto(ItemCarritoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoDto itemCarritoDto = new ItemCarritoDto();\r\n\r\n        itemCarritoDto.setProductoId( model.getProductoId() );\r\n        itemCarritoDto.setCantidad( model.getCantidad() );\r\n        itemCarritoDto.setPrecioUnitario( model.getPrecioUnitario() );\r\n        itemCarritoDto.setSubTotal( model.getSubTotal() );\r\n\r\n        return itemCarritoDto;\r\n    }\r\n\r\n    @Override\r\n    public ItemCarritoModel toModel(ItemCarritoDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoModel itemCarritoModel = new ItemCarritoModel();\r\n\r\n        itemCarritoModel.setProductoId( dto.getProductoId() );\r\n        itemCarritoModel.setCantidad( dto.getCantidad() );\r\n        itemCarritoModel.setPrecioUnitario( dto.getPrecioUnitario() );\r\n        itemCarritoModel.setSubTotal( dto.getSubTotal() );\r\n\r\n        return itemCarritoModel;\r\n    }\r\n\r\n    @Override\r\n    public List<ItemCarritoDto> toDtoList(List<ItemCarritoModel> models) {\r\n        if ( models == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoDto> list = new ArrayList<ItemCarritoDto>( models.size() );\r\n        for ( ItemCarritoModel itemCarritoModel : models ) {\r\n            list.add( toDto( itemCarritoModel ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n\r\n    @Override\r\n    public List<ItemCarritoModel> toModelList(List<ItemCarritoDto> dtos) {\r\n        if ( dtos == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoModel> list = new ArrayList<ItemCarritoModel>( dtos.size() );\r\n        for ( ItemCarritoDto itemCarritoDto : dtos ) {\r\n            list.add( toModel( itemCarritoDto ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/ItemCarritoPresentationMapperImpl.java	(date 1750356999862)
+@@ -9,8 +9,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:39-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class ItemCarritoPresentationMapperImpl implements ItemCarritoPresentationMapper {
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>FitStore\\TpoGrupo10\\persistence\\entities\\QUsuarioEntity.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\CategoriaEntity.class\r\nFitStore\\TpoGrupo10\\presentation\\controller\\CarritoController.class\r\nFitStore\\TpoGrupo10\\service\\CarritoService.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\QProductoEntity.class\r\nFitStore\\TpoGrupo10\\models\\ItemCarritoModel.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\CarritoPresentationMapper.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\CarritoMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\daos\\ProductoDao.class\r\nFitStore\\TpoGrupo10\\persistence\\repositories\\CategoriaRepository.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\UsuarioCreateDto.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\UsuarioEntity.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\CategoriaMapper.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\QCategoriaEntity.class\r\nFitStore\\TpoGrupo10\\persistence\\repositories\\CarritoRepository.class\r\nFitStore\\TpoGrupo10\\config\\customizer\\ProductoEntityCustomizer.class\r\nFitStore\\TpoGrupo10\\presentation\\controller\\ProductoController.class\r\nFitStore\\TpoGrupo10\\security\\AuthRequest.class\r\nFitStore\\TpoGrupo10\\persistence\\repositories\\impl\\CategoriaRepositoryImpl.class\r\nFitStore\\TpoGrupo10\\config\\FirebaseProperties.class\r\nFitStore\\TpoGrupo10\\presentation\\controller\\CategoriaController.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\ProductoPresentationMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\CarritoEntity.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\QItemCarritoEmbeddable.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\UsuarioPresentationMapper.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\ItemCarritoMapperImpl.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\ItemCarritoPresentationMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\ProductoMapperImpl.class\r\nFitStore\\TpoGrupo10\\service\\impl\\FirebaseStorageServiceImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\ItemCarritoEmbeddable.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\QCarritoEntity.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\ProductoResponseDto.class\r\nFitStore\\TpoGrupo10\\service\\FirebaseStorageService.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\CategoriaMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\CarritoMapper.class\r\nFitStore\\TpoGrupo10\\models\\UsuarioModel.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\ItemCarritoDto.class\r\nFitStore\\TpoGrupo10\\persistence\\entities\\ProductoEntity.class\r\nFitStore\\TpoGrupo10\\persistence\\repositories\\impl\\ProductoRepositoryImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\ProductoMapper.class\r\nFitStore\\TpoGrupo10\\service\\ProductoService.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\ProductoPresentationMapper.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\CarritoPresentationMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\repositories\\ProductoRepository.class\r\nFitStore\\TpoGrupo10\\models\\CarritoModel.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\AddProductRequestDto.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\ProductoDto.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\UsuarioResponseDto.class\r\nFitStore\\TpoGrupo10\\service\\CategoriaService.class\r\nFitStore\\TpoGrupo10\\persistence\\daos\\CategoriaDao.class\r\nFitStore\\TpoGrupo10\\models\\CategoriaModel.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\UsuarioMapperImpl.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\CategoriaPresentationMapperImpl.class\r\nFitStore\\TpoGrupo10\\persistence\\daos\\CarritoDao.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\CarritoDto.class\r\nFitStore\\TpoGrupo10\\models\\ProductoModel.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\UsuarioPresentationMapperImpl.class\r\nFitStore\\TpoGrupo10\\service\\impl\\CarritoServiceImpl.class\r\nFitStore\\TpoGrupo10\\presentation\\mappers\\CategoriaPresentationMapper.class\r\nFitStore\\TpoGrupo10\\persistence\\mappers\\ItemCarritoMapper.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\ProductoCreateDto.class\r\nFitStore\\TpoGrupo10\\config\\FirebaseProperties$Credentials.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\LoginRequestDto.class\r\nFitStore\\TpoGrupo10\\config\\FirebaseConfig.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\CategoriaDto.class\r\nFitStore\\TpoGrupo10\\presentation\\dto\\ProductoUpdateDto.class\r\n
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst	(date 1750356670885)
+@@ -1,66 +1,94 @@
+ FitStore\TpoGrupo10\persistence\entities\QUsuarioEntity.class
++FitStore\TpoGrupo10\persistence\repositories\impl\UsuarioRepositoryImpl.class
+ FitStore\TpoGrupo10\persistence\entities\CategoriaEntity.class
+ FitStore\TpoGrupo10\presentation\controller\CarritoController.class
+-FitStore\TpoGrupo10\service\CarritoService.class
+ FitStore\TpoGrupo10\persistence\entities\QProductoEntity.class
+ FitStore\TpoGrupo10\models\ItemCarritoModel.class
++FitStore\TpoGrupo10\persistence\daos\UsuarioDao.class
++FitStore\TpoGrupo10\business\service\FirebaseStorageService.class
+ FitStore\TpoGrupo10\presentation\mappers\CarritoPresentationMapper.class
++FitStore\TpoGrupo10\persistence\repositories\impl\CarritoRepositoryImpl.class
+ FitStore\TpoGrupo10\persistence\mappers\CarritoMapperImpl.class
++FitStore\TpoGrupo10\business\service\impl\FirebaseStorageServiceImpl.class
+ FitStore\TpoGrupo10\persistence\daos\ProductoDao.class
+ FitStore\TpoGrupo10\persistence\repositories\CategoriaRepository.class
+ FitStore\TpoGrupo10\presentation\dto\UsuarioCreateDto.class
++FitStore\TpoGrupo10\config\SecurityConfig.class
+ FitStore\TpoGrupo10\persistence\entities\UsuarioEntity.class
+ FitStore\TpoGrupo10\persistence\mappers\CategoriaMapper.class
++FitStore\TpoGrupo10\presentation\dto\AuthRequestDto.class
+ FitStore\TpoGrupo10\persistence\entities\QCategoriaEntity.class
+ FitStore\TpoGrupo10\persistence\repositories\CarritoRepository.class
+ FitStore\TpoGrupo10\config\customizer\ProductoEntityCustomizer.class
+ FitStore\TpoGrupo10\presentation\controller\ProductoController.class
+-FitStore\TpoGrupo10\security\AuthRequest.class
++FitStore\TpoGrupo10\utils\JwtUtil.class
++FitStore\TpoGrupo10\exceptions\ApiErrorResponse.class
+ FitStore\TpoGrupo10\persistence\repositories\impl\CategoriaRepositoryImpl.class
+ FitStore\TpoGrupo10\config\FirebaseProperties.class
+ FitStore\TpoGrupo10\presentation\controller\CategoriaController.class
+ FitStore\TpoGrupo10\presentation\mappers\ProductoPresentationMapperImpl.class
++FitStore\TpoGrupo10\business\service\CarritoService.class
++FitStore\TpoGrupo10\presentation\dto\AuthResponseDto.class
+ FitStore\TpoGrupo10\persistence\entities\CarritoEntity.class
+ FitStore\TpoGrupo10\persistence\entities\QItemCarritoEmbeddable.class
++FitStore\TpoGrupo10\business\service\impl\UsuarioServiceImpl.class
++FitStore\TpoGrupo10\config\JwtConfig.class
++FitStore\TpoGrupo10\persistence\repositories\UsuarioRepository.class
+ FitStore\TpoGrupo10\presentation\mappers\UsuarioPresentationMapper.class
+ FitStore\TpoGrupo10\persistence\mappers\ItemCarritoMapperImpl.class
+ FitStore\TpoGrupo10\presentation\mappers\ItemCarritoPresentationMapperImpl.class
++FitStore\TpoGrupo10\business\service\impl\CarritoServiceImpl.class
+ FitStore\TpoGrupo10\persistence\mappers\ProductoMapperImpl.class
+-FitStore\TpoGrupo10\service\impl\FirebaseStorageServiceImpl.class
++FitStore\TpoGrupo10\business\service\ProductoService.class
++FitStore\TpoGrupo10\config\OpenApiConfig.class
+ FitStore\TpoGrupo10\persistence\entities\ItemCarritoEmbeddable.class
+ FitStore\TpoGrupo10\persistence\entities\QCarritoEntity.class
+ FitStore\TpoGrupo10\presentation\dto\ProductoResponseDto.class
+-FitStore\TpoGrupo10\service\FirebaseStorageService.class
++FitStore\TpoGrupo10\security\CustomUserDetailsService.class
+ FitStore\TpoGrupo10\persistence\mappers\CategoriaMapperImpl.class
+ FitStore\TpoGrupo10\persistence\mappers\CarritoMapper.class
++FitStore\TpoGrupo10\presentation\mappers\ItemCarritoPresentationMapper.class
+ FitStore\TpoGrupo10\models\UsuarioModel.class
+ FitStore\TpoGrupo10\presentation\dto\ItemCarritoDto.class
++FitStore\TpoGrupo10\business\service\UsuarioService.class
++FitStore\TpoGrupo10\presentation\controller\UsuarioController.class
+ FitStore\TpoGrupo10\persistence\entities\ProductoEntity.class
++FitStore\TpoGrupo10\exceptions\enums\ErrorCode.class
+ FitStore\TpoGrupo10\persistence\repositories\impl\ProductoRepositoryImpl.class
+ FitStore\TpoGrupo10\persistence\mappers\ProductoMapper.class
+-FitStore\TpoGrupo10\service\ProductoService.class
++FitStore\TpoGrupo10\business\service\impl\ProductoServiceImpl.class
++FitStore\TpoGrupo10\security\JwtRequestFilter.class
+ FitStore\TpoGrupo10\presentation\mappers\ProductoPresentationMapper.class
+ FitStore\TpoGrupo10\presentation\mappers\CarritoPresentationMapperImpl.class
+ FitStore\TpoGrupo10\persistence\repositories\ProductoRepository.class
+ FitStore\TpoGrupo10\models\CarritoModel.class
+ FitStore\TpoGrupo10\presentation\dto\AddProductRequestDto.class
++FitStore\TpoGrupo10\business\service\CategoriaService.class
++FitStore\TpoGrupo10\App.class
+ FitStore\TpoGrupo10\presentation\dto\ProductoDto.class
+ FitStore\TpoGrupo10\presentation\dto\UsuarioResponseDto.class
+-FitStore\TpoGrupo10\service\CategoriaService.class
+ FitStore\TpoGrupo10\persistence\daos\CategoriaDao.class
++FitStore\TpoGrupo10\persistence\entities\enums\Role.class
+ FitStore\TpoGrupo10\models\CategoriaModel.class
+ FitStore\TpoGrupo10\persistence\mappers\UsuarioMapperImpl.class
++FitStore\TpoGrupo10\business\service\impl\CategoriaServiceImpl.class
+ FitStore\TpoGrupo10\presentation\mappers\CategoriaPresentationMapperImpl.class
+ FitStore\TpoGrupo10\persistence\daos\CarritoDao.class
+ FitStore\TpoGrupo10\presentation\dto\CarritoDto.class
+ FitStore\TpoGrupo10\models\ProductoModel.class
+ FitStore\TpoGrupo10\presentation\mappers\UsuarioPresentationMapperImpl.class
+-FitStore\TpoGrupo10\service\impl\CarritoServiceImpl.class
++FitStore\TpoGrupo10\presentation\exception\GlobalExceptionHandler.class
++FitStore\TpoGrupo10\security\CustomAccessDeniedHandler.class
++FitStore\TpoGrupo10\security\CustomAuthenticationEntryPoint.class
+ FitStore\TpoGrupo10\presentation\mappers\CategoriaPresentationMapper.class
+ FitStore\TpoGrupo10\persistence\mappers\ItemCarritoMapper.class
++FitStore\TpoGrupo10\persistence\mappers\UsuarioMapper.class
+ FitStore\TpoGrupo10\presentation\dto\ProductoCreateDto.class
+ FitStore\TpoGrupo10\config\FirebaseProperties$Credentials.class
++FitStore\TpoGrupo10\config\customizer\basecustomizer\BaseStringIgnoreCaseCustomizer.class
+ FitStore\TpoGrupo10\presentation\dto\LoginRequestDto.class
+ FitStore\TpoGrupo10\config\FirebaseConfig.class
++FitStore\TpoGrupo10\business\exception\BusinessException.class
+ FitStore\TpoGrupo10\presentation\dto\CategoriaDto.class
+ FitStore\TpoGrupo10\presentation\dto\ProductoUpdateDto.class
++FitStore\TpoGrupo10\presentation\controller\AuthController.class
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.presentation.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;\r\nimport FitStore.TpoGrupo10.presentation.dto.UsuarioResponseDto;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class UsuarioPresentationMapperImpl implements UsuarioPresentationMapper {\r\n\r\n    @Override\r\n    public UsuarioModel toModel(UsuarioCreateDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setUsername( dto.getUsername() );\r\n        usuarioModel.setName( dto.getName() );\r\n        usuarioModel.setLastName( dto.getLastName() );\r\n        usuarioModel.setEmail( dto.getEmail() );\r\n        usuarioModel.setPassword( dto.getPassword() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    @Override\r\n    public UsuarioResponseDto toResponseDto(UsuarioModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioResponseDto usuarioResponseDto = new UsuarioResponseDto();\r\n\r\n        usuarioResponseDto.setId( model.getId() );\r\n        usuarioResponseDto.setUsername( model.getUsername() );\r\n        usuarioResponseDto.setName( model.getName() );\r\n        usuarioResponseDto.setLastName( model.getLastName() );\r\n        usuarioResponseDto.setEmail( model.getEmail() );\r\n\r\n        return usuarioResponseDto;\r\n    }\r\n\r\n    @Override\r\n    public List<UsuarioResponseDto> toResponseDtoList(List<UsuarioModel> modelList) {\r\n        if ( modelList == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<UsuarioResponseDto> list = new ArrayList<UsuarioResponseDto>( modelList.size() );\r\n        for ( UsuarioModel usuarioModel : modelList ) {\r\n            list.add( toResponseDto( usuarioModel ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/UsuarioPresentationMapperImpl.java	(date 1750357000335)
+@@ -10,8 +10,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:40-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class UsuarioPresentationMapperImpl implements UsuarioPresentationMapper {
+@@ -29,6 +29,7 @@
+         usuarioModel.setLastName( dto.getLastName() );
+         usuarioModel.setEmail( dto.getEmail() );
+         usuarioModel.setPassword( dto.getPassword() );
++        usuarioModel.setRole( dto.getRole() );
+ 
+         return usuarioModel;
+     }
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.persistence.entities;\r\n\r\nimport static com.querydsl.core.types.PathMetadataFactory.*;\r\n\r\nimport com.querydsl.core.types.dsl.*;\r\n\r\nimport com.querydsl.core.types.PathMetadata;\r\nimport javax.annotation.processing.Generated;\r\nimport com.querydsl.core.types.Path;\r\n\r\n\r\n/**\r\n * QUsuarioEntity is a Querydsl query type for UsuarioEntity\r\n */\r\n@Generated(\"com.querydsl.codegen.DefaultEntitySerializer\")\r\npublic class QUsuarioEntity extends EntityPathBase<UsuarioEntity> {\r\n\r\n    private static final long serialVersionUID = 1793764462L;\r\n\r\n    public static final QUsuarioEntity usuarioEntity = new QUsuarioEntity(\"usuarioEntity\");\r\n\r\n    public final StringPath email = createString(\"email\");\r\n\r\n    public final NumberPath<Long> id = createNumber(\"id\", Long.class);\r\n\r\n    public final StringPath lastName = createString(\"lastName\");\r\n\r\n    public final StringPath name = createString(\"name\");\r\n\r\n    public final StringPath password = createString(\"password\");\r\n\r\n    public final StringPath rol = createString(\"rol\");\r\n\r\n    public final StringPath username = createString(\"username\");\r\n\r\n    public QUsuarioEntity(String variable) {\r\n        super(UsuarioEntity.class, forVariable(variable));\r\n    }\r\n\r\n    public QUsuarioEntity(Path<? extends UsuarioEntity> path) {\r\n        super(path.getType(), path.getMetadata());\r\n    }\r\n\r\n    public QUsuarioEntity(PathMetadata metadata) {\r\n        super(UsuarioEntity.class, metadata);\r\n    }\r\n\r\n}\r\n\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/persistence/entities/QUsuarioEntity.java	(date 1750357002421)
+@@ -29,7 +29,7 @@
+ 
+     public final StringPath password = createString("password");
+ 
+-    public final StringPath rol = createString("rol");
++    public final EnumPath<FitStore.TpoGrupo10.persistence.entities.enums.Role> role = createEnum("role", FitStore.TpoGrupo10.persistence.entities.enums.Role.class);
+ 
+     public final StringPath username = createString("username");
+ 
+Index: target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>C:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\impl\\CarritoRepositoryImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\impl\\CategoriaRepositoryImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\impl\\CarritoServiceImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\impl\\ProductoServiceImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\mappers\\ProductoPresentationMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\AuthRequest.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\SecurityConfig.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\LoginRequestDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\JwtUtil.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\CarritoService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\ItemCarritoDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\UsuarioResponseDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\daos\\CarritoDao.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\ProductoService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\models\\UsuarioModel.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\config\\FirebaseProperties.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\impl\\UsuarioRepositoryImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\config\\customizer\\basecustomizer\\BaseStringIgnoreCaseCustomizer.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\models\\CarritoModel.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\ProductoResponseDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\mappers\\CarritoPresentationMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\mappers\\CategoriaPresentationMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\impl\\FirebaseStorageServiceImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\App.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\CustomUserDetailsService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\mappers\\ItemCarritoMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\ProductoCreateDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\CategoriaService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\CarritoRepository.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\AddProductRequestDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\AuthResponse.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\UsuarioCreateDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\daos\\ProductoDao.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\ProductoDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\controller\\UsuarioController.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\daos\\UsuarioDao.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\impl\\UsuarioServiceImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\config\\customizer\\ProductoEntityCustomizer.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\impl\\CategoriaServiceImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\config\\OpenApiConfig.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\entities\\CarritoEntity.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\mappers\\ItemCarritoPresentationMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\models\\ProductoModel.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\mappers\\ProductoMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\UsuarioService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\mappers\\CarritoMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\CategoriaDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\controller\\ProductoController.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\entities\\CategoriaEntity.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\mappers\\UsuarioPresentationMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\impl\\ProductoRepositoryImpl.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\ProductoUpdateDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\dto\\CarritoDto.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\models\\ItemCarritoModel.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\entities\\UsuarioEntity.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\ProductoRepository.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\mappers\\CategoriaMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\mappers\\UsuarioMapper.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\UsuarioRepository.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\models\\CategoriaModel.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\repositories\\CategoriaRepository.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\JwtRequestFilter.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\config\\FirebaseConfig.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\security\\AuthController.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\daos\\CategoriaDao.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\controller\\CarritoController.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\service\\FirebaseStorageService.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\entities\\ItemCarritoEmbeddable.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\persistence\\entities\\ProductoEntity.java\r\nC:\\Users\\LATITUDE\\Documents\\facultdad\\APIS 2025\\Laboratorio-Grupo10\\backend\\src\\main\\java\\FitStore\\TpoGrupo10\\presentation\\controller\\CategoriaController.java\r\n
+===================================================================
+diff --git a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst
+--- a/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst	(date 1750356656827)
+@@ -1,70 +1,78 @@
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\CarritoRepositoryImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\CategoriaRepositoryImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\impl\CarritoServiceImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\impl\ProductoServiceImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\ProductoPresentationMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\AuthRequest.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\SecurityConfig.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\LoginRequestDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\JwtUtil.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\CarritoService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ItemCarritoDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\UsuarioResponseDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\CarritoDao.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\ProductoService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\UsuarioModel.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\FirebaseProperties.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\UsuarioRepositoryImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\customizer\basecustomizer\BaseStringIgnoreCaseCustomizer.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\CarritoModel.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoResponseDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\CarritoPresentationMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\CategoriaPresentationMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\impl\FirebaseStorageServiceImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\App.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\CustomUserDetailsService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\ItemCarritoMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoCreateDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\CategoriaService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\CarritoRepository.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\AddProductRequestDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\AuthResponse.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\UsuarioCreateDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\ProductoDao.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\UsuarioController.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\UsuarioDao.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\impl\UsuarioServiceImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\customizer\ProductoEntityCustomizer.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\impl\CategoriaServiceImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\OpenApiConfig.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\CarritoEntity.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\ItemCarritoPresentationMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\ProductoModel.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\ProductoMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\UsuarioService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\CarritoMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\CategoriaDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\ProductoController.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\CategoriaEntity.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\UsuarioPresentationMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\ProductoRepositoryImpl.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoUpdateDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\CarritoDto.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\ItemCarritoModel.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\UsuarioEntity.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\ProductoRepository.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\CategoriaMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\UsuarioMapper.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\UsuarioRepository.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\CategoriaModel.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\CategoriaRepository.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\JwtRequestFilter.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\FirebaseConfig.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\AuthController.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\CategoriaDao.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\CarritoController.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\service\FirebaseStorageService.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\ItemCarritoEmbeddable.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\ProductoEntity.java
+-C:\Users\LATITUDE\Documents\facultdad\APIS 2025\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\CategoriaController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\CategoriaMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\customizer\ProductoEntityCustomizer.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\CarritoPresentationMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\UsuarioDao.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\CategoriaRepositoryImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\JwtRequestFilter.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\CategoriaPresentationMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\ProductoController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\enums\Role.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\CustomAuthenticationEntryPoint.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\CarritoRepositoryImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\UsuarioCreateDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\impl\FirebaseStorageServiceImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\UsuarioService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\impl\UsuarioServiceImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\impl\CategoriaServiceImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\CarritoModel.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\ItemCarritoModel.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\JwtConfig.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\AuthController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\CustomAccessDeniedHandler.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\exception\BusinessException.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\CarritoRepository.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\UsuarioResponseDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\FirebaseConfig.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\exceptions\ApiErrorResponse.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\AddProductRequestDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\CategoriaModel.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\customizer\basecustomizer\BaseStringIgnoreCaseCustomizer.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\ItemCarritoPresentationMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\UsuarioRepositoryImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ItemCarritoDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\CarritoDao.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\UsuarioController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\LoginRequestDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoUpdateDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\CarritoService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\ProductoDao.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\UsuarioModel.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\AuthResponseDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\App.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\FirebaseStorageService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\ProductoRepository.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\CarritoEntity.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\ProductoEntity.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\CategoriaRepository.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\exception\GlobalExceptionHandler.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\impl\CarritoServiceImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\UsuarioEntity.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\UsuarioPresentationMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\OpenApiConfig.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\ItemCarritoMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\ProductoMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\models\ProductoModel.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\CarritoController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\exceptions\enums\ErrorCode.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\CarritoMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\mappers\ProductoPresentationMapper.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\daos\CategoriaDao.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\security\CustomUserDetailsService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\ProductoService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\CategoriaEntity.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\CarritoDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\UsuarioRepository.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\CategoriaService.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\utils\JwtUtil.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\AuthRequestDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\repositories\impl\ProductoRepositoryImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\CategoriaDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\FirebaseProperties.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoCreateDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\controller\CategoriaController.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\business\service\impl\ProductoServiceImpl.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\config\SecurityConfig.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\presentation\dto\ProductoResponseDto.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\entities\ItemCarritoEmbeddable.java
++C:\Users\taiel\Desktop\TPO APP\Laboratorio-Grupo10\backend\src\main\java\FitStore\TpoGrupo10\persistence\mappers\UsuarioMapper.java
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.presentation.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CategoriaModel;\r\nimport FitStore.TpoGrupo10.presentation.dto.CategoriaDto;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:42-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class CategoriaPresentationMapperImpl implements CategoriaPresentationMapper {\r\n\r\n    @Override\r\n    public CategoriaModel toModel(CategoriaDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaModel categoriaModel = new CategoriaModel();\r\n\r\n        categoriaModel.setId( dto.getId() );\r\n        categoriaModel.setNombre( dto.getNombre() );\r\n\r\n        return categoriaModel;\r\n    }\r\n\r\n    @Override\r\n    public CategoriaDto toDto(CategoriaModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        CategoriaDto categoriaDto = new CategoriaDto();\r\n\r\n        categoriaDto.setId( model.getId() );\r\n        categoriaDto.setNombre( model.getNombre() );\r\n\r\n        return categoriaDto;\r\n    }\r\n\r\n    @Override\r\n    public List<CategoriaDto> toDtoList(List<CategoriaModel> models) {\r\n        if ( models == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<CategoriaDto> list = new ArrayList<CategoriaDto>( models.size() );\r\n        for ( CategoriaModel categoriaModel : models ) {\r\n            list.add( toDto( categoriaModel ) );\r\n        }\r\n\r\n        return list;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CategoriaPresentationMapperImpl.java	(date 1750356999799)
+@@ -9,8 +9,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:42-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:39-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class CategoriaPresentationMapperImpl implements CategoriaPresentationMapper {
+Index: target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package FitStore.TpoGrupo10.presentation.mappers;\r\n\r\nimport FitStore.TpoGrupo10.models.CarritoModel;\r\nimport FitStore.TpoGrupo10.models.ItemCarritoModel;\r\nimport FitStore.TpoGrupo10.models.UsuarioModel;\r\nimport FitStore.TpoGrupo10.presentation.dto.CarritoDto;\r\nimport FitStore.TpoGrupo10.presentation.dto.ItemCarritoDto;\r\nimport java.util.ArrayList;\r\nimport java.util.List;\r\nimport javax.annotation.processing.Generated;\r\nimport org.springframework.stereotype.Component;\r\n\r\n@Generated(\r\n    value = \"org.mapstruct.ap.MappingProcessor\",\r\n    date = \"2025-06-17T20:56:41-0400\",\r\n    comments = \"version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)\"\r\n)\r\n@Component\r\npublic class CarritoPresentationMapperImpl implements CarritoPresentationMapper {\r\n\r\n    @Override\r\n    public CarritoDto toDto(CarritoModel model) {\r\n        if ( model == null ) {\r\n            return null;\r\n        }\r\n\r\n        CarritoDto carritoDto = new CarritoDto();\r\n\r\n        carritoDto.setProductos( itemCarritoModelListToItemCarritoDtoList( model.getProductos() ) );\r\n        carritoDto.setOwnerId( modelOwnerId( model ) );\r\n        carritoDto.setId( model.getId() );\r\n        carritoDto.setTotal( model.getTotal() );\r\n\r\n        return carritoDto;\r\n    }\r\n\r\n    @Override\r\n    public CarritoModel toModel(CarritoDto dto) {\r\n        if ( dto == null ) {\r\n            return null;\r\n        }\r\n\r\n        CarritoModel carritoModel = new CarritoModel();\r\n\r\n        carritoModel.setOwner( carritoDtoToUsuarioModel( dto ) );\r\n        carritoModel.setProductos( itemCarritoDtoListToItemCarritoModelList( dto.getProductos() ) );\r\n        carritoModel.setId( dto.getId() );\r\n        carritoModel.setTotal( dto.getTotal() );\r\n\r\n        return carritoModel;\r\n    }\r\n\r\n    protected ItemCarritoDto itemCarritoModelToItemCarritoDto(ItemCarritoModel itemCarritoModel) {\r\n        if ( itemCarritoModel == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoDto itemCarritoDto = new ItemCarritoDto();\r\n\r\n        itemCarritoDto.setProductoId( itemCarritoModel.getProductoId() );\r\n        itemCarritoDto.setCantidad( itemCarritoModel.getCantidad() );\r\n        itemCarritoDto.setPrecioUnitario( itemCarritoModel.getPrecioUnitario() );\r\n        itemCarritoDto.setSubTotal( itemCarritoModel.getSubTotal() );\r\n\r\n        return itemCarritoDto;\r\n    }\r\n\r\n    protected List<ItemCarritoDto> itemCarritoModelListToItemCarritoDtoList(List<ItemCarritoModel> list) {\r\n        if ( list == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoDto> list1 = new ArrayList<ItemCarritoDto>( list.size() );\r\n        for ( ItemCarritoModel itemCarritoModel : list ) {\r\n            list1.add( itemCarritoModelToItemCarritoDto( itemCarritoModel ) );\r\n        }\r\n\r\n        return list1;\r\n    }\r\n\r\n    private Long modelOwnerId(CarritoModel carritoModel) {\r\n        if ( carritoModel == null ) {\r\n            return null;\r\n        }\r\n        UsuarioModel owner = carritoModel.getOwner();\r\n        if ( owner == null ) {\r\n            return null;\r\n        }\r\n        Long id = owner.getId();\r\n        if ( id == null ) {\r\n            return null;\r\n        }\r\n        return id;\r\n    }\r\n\r\n    protected UsuarioModel carritoDtoToUsuarioModel(CarritoDto carritoDto) {\r\n        if ( carritoDto == null ) {\r\n            return null;\r\n        }\r\n\r\n        UsuarioModel usuarioModel = new UsuarioModel();\r\n\r\n        usuarioModel.setId( carritoDto.getOwnerId() );\r\n\r\n        return usuarioModel;\r\n    }\r\n\r\n    protected ItemCarritoModel itemCarritoDtoToItemCarritoModel(ItemCarritoDto itemCarritoDto) {\r\n        if ( itemCarritoDto == null ) {\r\n            return null;\r\n        }\r\n\r\n        ItemCarritoModel itemCarritoModel = new ItemCarritoModel();\r\n\r\n        itemCarritoModel.setProductoId( itemCarritoDto.getProductoId() );\r\n        itemCarritoModel.setCantidad( itemCarritoDto.getCantidad() );\r\n        itemCarritoModel.setPrecioUnitario( itemCarritoDto.getPrecioUnitario() );\r\n        itemCarritoModel.setSubTotal( itemCarritoDto.getSubTotal() );\r\n\r\n        return itemCarritoModel;\r\n    }\r\n\r\n    protected List<ItemCarritoModel> itemCarritoDtoListToItemCarritoModelList(List<ItemCarritoDto> list) {\r\n        if ( list == null ) {\r\n            return null;\r\n        }\r\n\r\n        List<ItemCarritoModel> list1 = new ArrayList<ItemCarritoModel>( list.size() );\r\n        for ( ItemCarritoDto itemCarritoDto : list ) {\r\n            list1.add( itemCarritoDtoToItemCarritoModel( itemCarritoDto ) );\r\n        }\r\n\r\n        return list1;\r\n    }\r\n}\r\n
+===================================================================
+diff --git a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java
+--- a/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java	(revision f6f626f5ffa642b79be2fe5ac724592c8ffa7226)
++++ b/target/generated-sources/annotations/FitStore/TpoGrupo10/presentation/mappers/CarritoPresentationMapperImpl.java	(date 1750357000038)
+@@ -12,8 +12,8 @@
+ 
+ @Generated(
+     value = "org.mapstruct.ap.MappingProcessor",
+-    date = "2025-06-17T20:56:41-0400",
+-    comments = "version: 1.5.5.Final, compiler: Eclipse JDT (IDE) 3.42.0.v20250514-1000, environment: Java 21.0.7 (Eclipse Adoptium)"
++    date = "2025-06-19T15:16:39-0300",
++    comments = "version: 1.5.5.Final, compiler: javac, environment: Java 17.0.15 (Microsoft)"
+ )
+ @Component
+ public class CarritoPresentationMapperImpl implements CarritoPresentationMapper {

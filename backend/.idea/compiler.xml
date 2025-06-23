@@ -113,11 +113,13 @@
           <entry name="$MAVEN_REPOSITORY$/org/javassist/javassist/3.28.0-GA/javassist-3.28.0-GA.jar" />
         </processorPath>
         <module name="TPO_Grupo10" />
+        <module name="TPOGrupo10" />
       </profile>
     </annotationProcessing>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
+      <module name="TPOGrupo10" options="-parameters" />
       <module name="TPO_Grupo10" options="-parameters" />
     </option>
   </component>
