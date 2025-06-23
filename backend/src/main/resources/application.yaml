@@ -3,7 +3,7 @@ spring:
     name: TPOGrupo10
 
   datasource:
-    url: jdbc:mysql://localhost:3307/fitstore?useSSL=false&serverTimezone=UTC
+    url: jdbc:mysql://localhost:3306/fitstore?useSSL=false&serverTimezone=UTC
     username: root
 
   jpa:
@@ -17,7 +17,7 @@ spring:
 
 firebase:
   credentials:
-    path: classpath:fitstore-tpo-firebase-adminsdk-fbsvc-a011839fe3.json
+    path: classpath:fitstore-tpo-firebase-adminsdk-fbsvc-f765dc5523.json
   bucket: fitstore-tpo.firebasestorage.app
 
 server:
