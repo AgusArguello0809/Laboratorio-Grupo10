@@ -5,14 +5,8 @@ import {
   Stack,
   Box
 } from "@mui/material";
+import { CATEGORIES } from "../../../config/categories";
 
-const categorias = [
-  "Calzado",
-  "Equipamiento",
-  "Ropa",
-  "Suplementos",
-  "Accesorios"
-];
 
 export default function ProductForm({ formData, setFormData }) {
   const handleChange = (e) => {
@@ -85,9 +79,9 @@ export default function ProductForm({ formData, setFormData }) {
           onChange={handleChange}
           sx={textFieldStyle}
         >
-          {categorias.map((cat) => (
-            <MenuItem key={cat} value={cat}>
-              {cat}
+          {CATEGORIES.map((cat) => (
+            <MenuItem key={cat.id} value={cat.id}>
+              {cat.name}
             </MenuItem>
           ))}
         </TextField>
