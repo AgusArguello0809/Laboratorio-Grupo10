@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, {useState } from 'react';
 import {
   Box,
   Card,
@@ -13,16 +13,16 @@ import {
   IconButton,
 } from '@mui/material';
 import { Check } from '@mui/icons-material';
-import { useNavigate } from 'react-router-dom';
 import { useCarrito } from '../context/CartContext';
 import { useAuth } from '../../auth/context/AuthContext';
 import { useProductService } from '../../product/hooks/useProductService';
 import { getToken } from '../../auth/services/authService';
 
+const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+
 const Carrito = () => {
   const { carrito, setCarrito } = useCarrito();
   const { user } = useAuth();
-  const navigate = useNavigate();
   const { fetchProducts } = useProductService();
   const token = getToken();
 
@@ -163,22 +163,42 @@ const Carrito = () => {
         return;
       }
 
+      // 🚀 Usar backend Java para actualizar stock
       await Promise.all(
         itemsValidos.map(async (item) => {
-          const res = await fetch(`http://localhost:3001/products/${item.id}`);
+          const res = await fetch(`${API_BASE_URL}/productos/${item.id}`, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+            },
+          });
+          
+          if (!res.ok) {
+            throw new Error(`Error al obtener producto ${item.title}`);
+          }
+          
           const productoActual = await res.json();
           const nuevoStock = productoActual.stock - item.cantidad;
 
-          if (nuevoStock < 0) throw new Error(`No hay suficiente stock de ${item.title}`);
+          if (nuevoStock < 0) {
+            throw new Error(`No hay suficiente stock de ${item.title}`);
+          }
 
-          await fetch(`http://localhost:3001/products/${item.id}`, {
-            method: 'PATCH',
+          // Actualizar stock en backend Java
+          const updateRes = await fetch(`${API_BASE_URL}/productos/${item.id}`, {
+            method: 'PUT',
             headers: {
               'Content-Type': 'application/json',
-              Authorization: `Bearer ${token}`,
+              'Authorization': `Bearer ${token}`,
             },
-            body: JSON.stringify({ stock: nuevoStock }),
+            body: JSON.stringify({
+              ...productoActual,
+              stock: nuevoStock
+            }),
           });
+
+          if (!updateRes.ok) {
+            throw new Error(`Error al actualizar stock de ${item.title}`);
+          }
         })
       );
 
@@ -189,7 +209,7 @@ const Carrito = () => {
       console.error('Error al actualizar el stock:', error);
       setSnackbar({
         open: true,
-        message: 'Hubo un error al procesar el pedido.',
+        message: error.message || 'Hubo un error al procesar el pedido.',
         severity: 'error',
       });
     }
