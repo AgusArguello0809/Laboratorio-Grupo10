@@ -2,7 +2,6 @@ package FitStore.TpoGrupo10.persistence.entities;
 
 import jakarta.persistence.*;
 
-// TODO: Tests unitarios
 @Entity
 @Table(name = "categorias")
 public class CategoriaEntity {

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
-//agregar cors
 @CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
@@ -38,7 +37,7 @@ public class AuthController {
         this.mapper = mapper;
     }
 
-    @Operation(summary = "Iniciar sesiÃ³n con un usuario")
+    @Operation(summary = "Iniciar sesion con un usuario")
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto request) {
         authenticationManager.authenticate(
@@ -47,8 +46,7 @@ public class AuthController {
 
         UsuarioModel usuario = usuarioService.findByUsername(request.getUsername());
         final String jwt = jwtUtil.generateToken(usuario.getUsername(), usuario.getId());
-        final Long jwtUserId = jwtUtil.extractUserId(jwt);
-        return ResponseEntity.ok(new AuthResponseDto(jwt, jwtUserId));
+        return ResponseEntity.ok(new AuthResponseDto(jwt));
     }
 
     @Operation(summary = "Registrar usuario")

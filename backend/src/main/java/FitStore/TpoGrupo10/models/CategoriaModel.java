@@ -1,6 +1,5 @@
 package FitStore.TpoGrupo10.models;
 
-// TODO: Tests unitarios
 public class CategoriaModel {
 
     private Long id;

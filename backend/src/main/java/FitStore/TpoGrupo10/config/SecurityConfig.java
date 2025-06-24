@@ -19,6 +19,7 @@ import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 // TODO: Tests unitarios
 @Configuration
@@ -27,42 +28,25 @@ public class SecurityConfig {
     private final JwtRequestFilter jwtRequestFilter;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CorsProperties corsProperties;
 
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter, CustomAccessDeniedHandler accessDeniedHandler, CustomAuthenticationEntryPoint authenticationEntryPoint) {
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter, CustomAccessDeniedHandler accessDeniedHandler, CustomAuthenticationEntryPoint authenticationEntryPoint, CorsProperties corsProperties) {
         this.jwtRequestFilter = jwtRequestFilter;
         this.accessDeniedHandler = accessDeniedHandler;
         this.authenticationEntryPoint = authenticationEntryPoint;
+        this.corsProperties = corsProperties;
     }
 
-    // 🚀 CONFIGURACIÓN CORS - AGREGADA
     @Bean
-    public CorsConfigurationSource corsConfigurationSource() {
+    public CorsConfigurationSource corsConfigurationSource(CorsProperties corsProps) {
         CorsConfiguration configuration = new CorsConfiguration();
 
-        // Permitir orígenes específicos
-        configuration.setAllowedOrigins(Arrays.asList(
-                "http://localhost:3000",
-                "http://localhost:5173",
-                "http://127.0.0.1:3000",
-                "http://127.0.0.1:5173"
-        ));
-
-        // Métodos HTTP permitidos
-        configuration.setAllowedMethods(Arrays.asList(
-                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
-        ));
-
-        // Headers permitidos
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-
-        // Permitir credenciales (importante para JWT)
-        configuration.setAllowCredentials(true);
-
-        // Headers expuestos (para que el frontend pueda leerlos)
-        configuration.setExposedHeaders(Arrays.asList("Authorization"));
-
-        // Tiempo de cache para preflight requests
-        configuration.setMaxAge(3600L);
+        configuration.setAllowedOrigins(corsProps.getAllowedOrigins());
+        configuration.setAllowedMethods(corsProps.getAllowedMethods());
+        configuration.setAllowedHeaders(corsProps.getAllowedHeaders());
+        configuration.setExposedHeaders(corsProps.getExposedHeaders());
+        configuration.setAllowCredentials(corsProps.getAllowCredentials());
+        configuration.setMaxAge(corsProps.getMaxAge());
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         source.registerCorsConfiguration("/**", configuration);
@@ -72,8 +56,8 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                // 🚀 HABILITAR CORS - AGREGADO
-                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                // HABILITAR CORS - AGREGADO
+                .cors(cors -> cors.configurationSource(corsConfigurationSource(corsProperties)))
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // login y registro
