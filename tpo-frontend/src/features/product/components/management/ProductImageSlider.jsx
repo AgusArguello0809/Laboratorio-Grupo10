@@ -15,11 +15,19 @@ export default function ProductImageSlider({ images, setImages }) {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    const urls = files.map((file) => URL.createObjectURL(file));
-    const newImages = [...images, ...urls].slice(0, 10);
-    setImages(newImages);
-    if (currentIndex >= newImages.length) {
-      setCurrentIndex(newImages.length - 1);
+    
+    // 🔧 CREAR objetos que contengan tanto la URL como el File
+    const newImageObjects = files.map((file) => ({
+      url: URL.createObjectURL(file), // Para mostrar
+      file: file                      // Para enviar al backend
+    }));
+    
+    // 🔧 COMBINAR con imágenes existentes (máximo 10)
+    const combinedImages = [...images, ...newImageObjects].slice(0, 10);
+    setImages(combinedImages);
+    
+    if (currentIndex >= combinedImages.length) {
+      setCurrentIndex(combinedImages.length - 1);
     }
   };
 
@@ -32,8 +40,14 @@ export default function ProductImageSlider({ images, setImages }) {
   };
 
   const handleDeleteImage = () => {
+    // 🔧 LIMPIAR URL del objeto eliminado
+    if (images[currentIndex]?.url) {
+      URL.revokeObjectURL(images[currentIndex].url);
+    }
+    
     const newImages = images.filter((_, i) => i !== currentIndex);
     setImages(newImages);
+    
     if (currentIndex >= newImages.length) {
       setCurrentIndex(Math.max(0, newImages.length - 1));
     }
@@ -60,7 +74,7 @@ export default function ProductImageSlider({ images, setImages }) {
       {images.length > 0 ? (
         <>
           <img
-            src={images[currentIndex]}
+            src={images[currentIndex]?.url || images[currentIndex]} // Soporte para formato antiguo
             alt={`imagen-${currentIndex}`}
             style={{
               width: "100%",
