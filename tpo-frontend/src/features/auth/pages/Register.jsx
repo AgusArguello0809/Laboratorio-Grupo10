@@ -49,7 +49,7 @@ function Register() {
     };
 
     try {
-      const response = await fetch("http://localhost:3001/users", {
+      const response = await fetch("http://localhost:8080/fitstore-api/v1/auth/register", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -68,9 +68,10 @@ function Register() {
           navigate("/login");
         }, 1500);
       } else {
+        const errorData = await response.json();
         setSnackbar({
           open: true,
-          message: "Error al registrar el usuario.",
+          message: errorData.message || "Error al registrar el usuario.",
           severity: "error",
         });
       }
