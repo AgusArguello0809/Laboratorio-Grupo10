@@ -10,7 +10,7 @@ export default function DraftPreviewDialog({ open, onClose, onConfirm, product }
   const handlePublish = () => {
     const isValid =
       product.title?.trim() &&
-      product.category?.trim() &&
+      parseInt(product.category) >= 0 &&
       parseFloat(product.price) > 0 &&
       parseInt(product.stock) >= 0 &&
       product.description?.trim() &&

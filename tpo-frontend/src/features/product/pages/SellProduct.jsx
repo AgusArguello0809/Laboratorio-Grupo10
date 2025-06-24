@@ -27,7 +27,7 @@ export default function SellProduct() {
 
   const isFormValid =
     formData.title.trim() !== "" &&
-    formData.category.trim() !== "" &&
+    parseInt(formData.category) > 0 &&
     parseFloat(formData.price) > 0 &&
     parseInt(formData.stock) >= 0 &&
     formData.description.trim() !== "" &&

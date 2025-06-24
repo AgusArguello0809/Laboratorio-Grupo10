@@ -9,16 +9,9 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
+import { CATEGORIES } from "../../../config/categories"; // ← Importar categorías centralizadas
 
 function ProductFilter({ filterOptions, onFilterChange }) {
-
-  const categorias = [
-    "Calzado",
-    "Equipamiento",
-    "Ropa",
-    "Suplementos",
-    "Accesorios"
-  ];;
 
   const handleFilterChange = (filterName, value) => {
     onFilterChange({ ...filterOptions, [filterName]: value });
@@ -49,9 +42,9 @@ function ProductFilter({ filterOptions, onFilterChange }) {
               onChange={(e) => handleFilterChange("category", e.target.value)}
             >
               <MenuItem value="all">Todas</MenuItem>
-              {categorias.map((cat) => (
-                <MenuItem key={cat} value={cat}>
-                  {cat}
+              {CATEGORIES.map((category) => (
+                <MenuItem key={category.id} value={category.id}>
+                  {category.name}
                 </MenuItem>
               ))}
             </Select>
