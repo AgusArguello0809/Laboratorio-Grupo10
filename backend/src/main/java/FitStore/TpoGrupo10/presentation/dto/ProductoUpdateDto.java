@@ -2,6 +2,8 @@ package FitStore.TpoGrupo10.presentation.dto;
 
 import jakarta.validation.constraints.*;
 
+import java.util.List;
+
 public class ProductoUpdateDto {
 
     @NotNull(message = "El titulo del producto no puede ser nulo")
@@ -22,7 +24,17 @@ public class ProductoUpdateDto {
     @NotNull(message = "La categoria del producto no puede ser nula")
     private Long categoryId;
 
-    // No se incluye el ownerId a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
+    private List<String> existingImageUrls;
+
+    public List<String> getExistingImageUrls() {
+        return existingImageUrls;
+    }
+
+    public void setExistingImageUrls(List<String> existingImageUrls) {
+        this.existingImageUrls = existingImageUrls;
+    }
+
+    // No se incluye el ownerId a propÃ³sito (no va a cambiar el id del usuario que haya cambiado el producto).
 
     public String getTitle() {
         return title;
