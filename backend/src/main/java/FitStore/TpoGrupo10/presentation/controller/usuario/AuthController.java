@@ -18,38 +18,37 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/auth")
+//agregar cors
+@CrossOrigin(origins = "*", allowedHeaders = "*")
 public class AuthController {
 
     private final AuthenticationManager authenticationManager;
-    private final CustomUserDetailsService userDetailsService;
     private final JwtUtil jwtUtil;
     private final UsuarioService usuarioService;
     private final UsuarioPresentationMapper mapper;
 
     public AuthController(
             AuthenticationManager authenticationManager,
-            CustomUserDetailsService userDetailsService,
             JwtUtil jwtUtil,
             UsuarioService usuarioService,
             UsuarioPresentationMapper mapper) {
         this.authenticationManager = authenticationManager;
-        this.userDetailsService = userDetailsService;
         this.jwtUtil = jwtUtil;
         this.usuarioService = usuarioService;
         this.mapper = mapper;
     }
 
-    @Operation(summary = "Iniciar sesión con un usuario")
+    @Operation(summary = "Iniciar sesiÃ³n con un usuario")
     @PostMapping("/login")
     public ResponseEntity<AuthResponseDto> login(@RequestBody @Valid AuthRequestDto request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword())
         );
 
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(request.getUsername());
-        final String jwt = jwtUtil.generateToken(userDetails.getUsername());
-
-        return ResponseEntity.ok(new AuthResponseDto(jwt));
+        UsuarioModel usuario = usuarioService.findByUsername(request.getUsername());
+        final String jwt = jwtUtil.generateToken(usuario.getUsername(), usuario.getId());
+        final Long jwtUserId = jwtUtil.extractUserId(jwt);
+        return ResponseEntity.ok(new AuthResponseDto(jwt, jwtUserId));
     }
 
     @Operation(summary = "Registrar usuario")

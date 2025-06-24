@@ -13,7 +13,6 @@ import org.springframework.stereotype.Service;
 
 import static FitStore.TpoGrupo10.persistence.entities.enums.Role.CLIENTE;
 
-// TODO: Tests unitarios
 @Service
 public class UsuarioServiceImpl implements UsuarioService {
 
@@ -64,5 +63,11 @@ public class UsuarioServiceImpl implements UsuarioService {
         usuario.setRole(newRole);
         repository.save(usuario);
     }
-}
 
+    @Override
+    public UsuarioModel findByUsername(String username) {
+        return repository.findByUsername(username)
+                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.USUARIO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.USUARIO_NO_ENCONTRADO));
+    }
+
+}
