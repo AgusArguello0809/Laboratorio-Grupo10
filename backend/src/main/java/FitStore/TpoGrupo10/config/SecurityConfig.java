@@ -14,6 +14,11 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+
+import java.util.Arrays;
 
 // TODO: Tests unitarios
 @Configuration
@@ -29,9 +34,47 @@ public class SecurityConfig {
         this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
+    // 🚀 CONFIGURACIÓN CORS - AGREGADA
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource() {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        // Permitir orígenes específicos
+        configuration.setAllowedOrigins(Arrays.asList(
+                "http://localhost:3000",
+                "http://localhost:5173",
+                "http://127.0.0.1:3000",
+                "http://127.0.0.1:5173"
+        ));
+
+        // Métodos HTTP permitidos
+        configuration.setAllowedMethods(Arrays.asList(
+                "GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"
+        ));
+
+        // Headers permitidos
+        configuration.setAllowedHeaders(Arrays.asList("*"));
+
+        // Permitir credenciales (importante para JWT)
+        configuration.setAllowCredentials(true);
+
+        // Headers expuestos (para que el frontend pueda leerlos)
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));
+
+        // Tiempo de cache para preflight requests
+        configuration.setMaxAge(3600L);
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
+    }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                // 🚀 HABILITAR CORS - AGREGADO
+                .cors(cors -> cors.configurationSource(corsConfigurationSource()))
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // login y registro
 
@@ -43,14 +86,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/productos/**").hasAnyRole("CLIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasAnyRole("CLIENTE", "ADMIN")
 
-
                         .requestMatchers("/carritos/**").hasAnyRole("CLIENTE", "ADMIN")
 
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
 
                         .anyRequest().permitAll()
                 );
-
 
         http.exceptionHandling(ex -> ex
                 .accessDeniedHandler(accessDeniedHandler)

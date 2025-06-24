@@ -13,4 +13,6 @@ public interface UsuarioService {
     UsuarioModel save(UsuarioModel model);
     void delete(Long id);
     void cambiarRol(Long id, Role newRole);
+
+    UsuarioModel findByUsername(String username);
 }
