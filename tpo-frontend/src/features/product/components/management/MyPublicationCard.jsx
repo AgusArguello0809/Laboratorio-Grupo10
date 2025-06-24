@@ -19,12 +19,11 @@ import EditProductDialog from "./EditProductDialog";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
 
 export default function MyPublicationCard({ product, onEdit, onDelete }) {
-  if (!product || typeof product !== "object") return null;
 
   const {
     title = "Sin título",
-    price = "N/A",
-    category = "Sin categoría",
+    price = 0,
+    category = 1,
     stock = 0,
     description = "Sin descripción",
     images = []
@@ -35,6 +34,8 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
   const [detailOpen, setDetailOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  if (!product || typeof product !== "object") return null;
 
   const toggleExpand = () => setExpanded(!expanded);
 
