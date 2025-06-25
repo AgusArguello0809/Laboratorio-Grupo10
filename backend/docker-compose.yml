@@ -1,0 +1,30 @@
+version: '3.8'
+services:
+
+  mysql:
+    image: mysql:8
+    container_name: fitstore-mysql
+    restart: always
+    environment:
+      MYSQL_DATABASE: fitstore
+      MYSQL_ROOT_PASSWORD: root
+    ports:
+      - "3307:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  backend:
+    build:
+      context: .
+    container_name: fitstore-backend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - mysql
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fitstore
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+
+volumes:
+  mysql_data:
