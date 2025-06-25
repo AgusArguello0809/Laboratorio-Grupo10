@@ -21,7 +21,6 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import java.util.Arrays;
 import java.util.List;
 
-// TODO: Tests unitarios
 @Configuration
 public class SecurityConfig {
 

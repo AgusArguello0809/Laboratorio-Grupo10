@@ -10,6 +10,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.*;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.*;
@@ -45,6 +46,15 @@ public class GlobalExceptionHandler {
         logger.error("FitstoreException en '{}': {} ({})", request.getRequestURI(), ex.getMessage(), ex.getCode(), ex);
 
         return buildResponse(status, ex.getMessage(), request, ex.getCode());
+    }
+
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<ApiErrorResponse> handleBadCredentialsException(
+            BadCredentialsException ex, HttpServletRequest request) {
+
+        logger.warn("Intento fallido de login en '{}': {}", request.getRequestURI(), ex.getMessage());
+
+        return buildResponse(HttpStatus.UNAUTHORIZED, ErrorCodeEnum.BAD_CREDENTIALS.getMessage(), request, ErrorCodeEnum.BAD_CREDENTIALS);
     }
 
     @ExceptionHandler(UsernameNotFoundException.class)

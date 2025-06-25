@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 import {
   Box,
   Typography,
@@ -14,22 +14,40 @@ import EmptyProductCard from "../components/management/EmptyProductCard";
 import FloatingPublishButton from "../components/management/FloatingPublishButton";
 import { useAuth } from "../../auth/context/AuthContext";
 import { useProductService } from "../hooks/useProductService";
+import { useLocation } from "react-router-dom";
 
 export default function MyPublications() {
-  const { user } = useAuth();
+  console.log("🔥 MyPublications renderizado");
+  const hasFetched = useRef(false);
+  const location = useLocation();
+  const successMessage = location.state?.successMessage || null;
+  useEffect(() => {
+    if (successMessage) {
+      // Limpiar el state para evitar que reaparezca en futuros renders
+      window.history.replaceState({}, document.title);
+    }
+  }, []);
+  const { isInitialized, user } = useAuth();
   const {
     loading,
+    fetchProducts,
     updateProduct,
     deleteProduct,
     getProductsByOwner
   } = useProductService();
 
+  useEffect(() => {
+    if (isInitialized && !hasFetched.current) {
+      fetchProducts();
+      hasFetched.current = true;
+    }
+  }, [isInitialized]);
+
   const [snackbar, setSnackbar] = useState({
-    open: false,
-    message: "",
+    open: !!successMessage,
+    message: successMessage || "",
     severity: "success"
   });
-
   const navigate = useNavigate();
 
   const handleEdit = async (updatedProduct) => {
@@ -84,8 +102,6 @@ export default function MyPublications() {
     }
   };
 
-  const misProductos = getProductsByOwner(user?.id);
-
   if (loading) {
     return (
       <Box sx={{ display: "flex", justifyContent: "center", alignItems: "center", height: "50vh" }}>
@@ -93,6 +109,8 @@ export default function MyPublications() {
       </Box>
     );
   }
+
+  const misProductos = getProductsByOwner(user?.id);
 
   return (
     <Box sx={{ p: 4 }}>

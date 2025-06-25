@@ -1,19 +1,17 @@
 package FitStore.TpoGrupo10.presentation.controller.usuario;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
-import FitStore.TpoGrupo10.presentation.dto.AuthRequestDto;
+import FitStore.TpoGrupo10.presentation.dto.request.AuthRequestDto;
 import FitStore.TpoGrupo10.presentation.dto.response.AuthResponseDto;
-import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
+import FitStore.TpoGrupo10.presentation.dto.create.UsuarioCreateDto;
 import FitStore.TpoGrupo10.presentation.dto.response.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
-import FitStore.TpoGrupo10.security.CustomUserDetailsService;
 import FitStore.TpoGrupo10.business.service.UsuarioService;
 import FitStore.TpoGrupo10.utils.JwtUtil;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import org.springframework.http.*;
 import org.springframework.security.authentication.*;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 @RestController

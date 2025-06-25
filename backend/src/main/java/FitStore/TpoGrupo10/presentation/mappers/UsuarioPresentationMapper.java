@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.presentation.mappers;
 
 import FitStore.TpoGrupo10.models.UsuarioModel;
-import FitStore.TpoGrupo10.presentation.dto.UsuarioCreateDto;
+import FitStore.TpoGrupo10.presentation.dto.create.UsuarioCreateDto;
 import FitStore.TpoGrupo10.presentation.dto.response.UsuarioResponseDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

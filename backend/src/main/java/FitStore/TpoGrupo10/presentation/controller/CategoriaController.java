@@ -1,6 +1,6 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
-import FitStore.TpoGrupo10.presentation.dto.CategoriaDto;
+import FitStore.TpoGrupo10.presentation.dto.response.CategoriaDto;
 import FitStore.TpoGrupo10.presentation.mappers.CategoriaPresentationMapper;
 import FitStore.TpoGrupo10.business.service.CategoriaService;
 import io.swagger.v3.oas.annotations.Operation;

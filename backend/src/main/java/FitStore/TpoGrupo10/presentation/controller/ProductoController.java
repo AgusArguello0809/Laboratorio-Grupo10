@@ -2,9 +2,9 @@ package FitStore.TpoGrupo10.presentation.controller;
 
 import FitStore.TpoGrupo10.config.customizer.ProductoEntityCustomizer;
 import FitStore.TpoGrupo10.persistence.entities.ProductoEntity;
-import FitStore.TpoGrupo10.presentation.dto.ProductoCreateDto;
+import FitStore.TpoGrupo10.presentation.dto.create.ProductoCreateDto;
 import FitStore.TpoGrupo10.presentation.dto.response.ProductoResponseDto;
-import FitStore.TpoGrupo10.presentation.dto.ProductoUpdateDto;
+import FitStore.TpoGrupo10.presentation.dto.update.ProductoUpdateDto;
 import FitStore.TpoGrupo10.presentation.mappers.ProductoPresentationMapper;
 import FitStore.TpoGrupo10.business.service.ProductoService;
 import FitStore.TpoGrupo10.models.ProductoModel;

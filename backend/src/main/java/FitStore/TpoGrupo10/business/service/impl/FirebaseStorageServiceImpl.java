@@ -10,7 +10,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import java.util.UUID;
 
-// TODO: Tests unitarios
 @Service
 public class FirebaseStorageServiceImpl implements FirebaseStorageService {
 

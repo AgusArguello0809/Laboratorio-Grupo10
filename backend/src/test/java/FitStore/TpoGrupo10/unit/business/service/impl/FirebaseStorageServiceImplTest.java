@@ -1,8 +1,6 @@
 
 package FitStore.TpoGrupo10.unit.business.service.impl;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.junit.jupiter.api.BeforeEach;
@@ -35,7 +33,7 @@ class FirebaseStorageServiceImplTest {
     }
 
     @Test
-    void uploadFile_deberiaRetornarUrlExitosa() throws IOException {
+    void uploadFile_deberiaRetornarUrlExitosa() {
         // Arrange
         MockMultipartFile file = new MockMultipartFile("archivo", "test.png", "image/png", "contenido".getBytes());
         String nombreBucket = "mi-bucket";
@@ -65,7 +63,7 @@ class FirebaseStorageServiceImplTest {
     }
 
     @Test
-    void uploadFile_deberiaLanzarBusinessExceptionEnError() throws IOException {
+    void uploadFile_deberiaLanzarBusinessExceptionEnError() {
         // Arrange
         MockMultipartFile file = new MockMultipartFile("archivo", "test.png", "image/png", "contenido".getBytes());
 

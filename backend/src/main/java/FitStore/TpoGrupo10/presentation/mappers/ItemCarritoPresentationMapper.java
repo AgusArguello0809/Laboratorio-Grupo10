@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.presentation.mappers;
 
 import FitStore.TpoGrupo10.models.ItemCarritoModel;
-import FitStore.TpoGrupo10.presentation.dto.ItemCarritoDto;
+import FitStore.TpoGrupo10.presentation.dto.response.ItemCarritoDto;
 import org.mapstruct.Mapper;
 
 import java.util.List;

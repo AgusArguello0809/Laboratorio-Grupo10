@@ -14,7 +14,6 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-// TODO: Tests unitarios
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
 

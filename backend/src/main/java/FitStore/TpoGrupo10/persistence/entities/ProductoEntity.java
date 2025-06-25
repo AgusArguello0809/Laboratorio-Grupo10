@@ -4,7 +4,6 @@ import jakarta.persistence.*;
 
 import java.util.List;
 
-// TODO: Tests unitarios
 @Entity
 @Table(name = "productos")
 public class ProductoEntity {

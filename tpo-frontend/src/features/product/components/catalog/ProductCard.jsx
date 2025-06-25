@@ -17,6 +17,7 @@ import { IconButton } from "@mui/material";
 import { useCarrito } from "../../../cart/context/CartContext";
 import { useAuth } from "../../../auth/context/AuthContext";
 import { useNavigate } from "react-router-dom";
+import { getCategoryName } from "../../../config/categories"
 
 
 function ProductCard({ product }) {
@@ -129,6 +130,33 @@ function ProductCard({ product }) {
               }}
             />
 
+            {product.images?.length > 1 && (
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 8,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  gap: "6px"
+                }}
+              >
+                {product.images.map((_, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      backgroundColor: currentImage === index ? "#FA9500" : "gray",
+                      opacity: currentImage === index ? 1 : 0.4,
+                      transition: "all 0.2s"
+                    }}
+                  />
+                ))}
+              </Box>
+            )}
+
             {hovered && product.images?.length > 1 && (
               <>
                 <IconButton
@@ -197,13 +225,27 @@ function ProductCard({ product }) {
               }}
             >
               <Typography variant="body2" color="text.secondary">
-                <strong>{product.category || "Sin categoría"}</strong>
+                <strong>{getCategoryName(product.categoryId || product.category)}</strong>
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 <strong>Stock:</strong> {product.stock}
               </Typography>
             </Box>
-            <Typography variant="body2" color="text.secondary" sx={{ mb: 2 }}>
+            <Typography
+              variant="body2"
+              color="text.secondary"
+              sx={{
+                mb: 2,
+                display: "-webkit-box",
+                WebkitLineClamp: 3,
+                WebkitBoxOrient: "vertical",
+                overflow: "hidden",
+                textOverflow: "ellipsis",
+                whiteSpace: "normal",
+                wordBreak: "break-word",
+                minHeight: "3.6em",
+              }}
+            >
               {product.description}
             </Typography>
           </Box>

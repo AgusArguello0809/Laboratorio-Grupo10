@@ -11,18 +11,22 @@ import {
   Alert,
   Typography
 } from "@mui/material";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import ProductImageSlider from "./ProductImageSlider";
+import { normalizeImages } from "../../utils/normalizeImages";
+import { useProductService } from "../../hooks/useProductService";
 
 const categorias = [
-  "Calzado",
-  "Equipamiento",
-  "Ropa",
-  "Suplementos",
-  "Accesorios"
+  { id: 1, name: "Calzado" },
+  { id: 2, name: "Equipamiento" },
+  { id: 3, name: "Ropa" },
+  { id: 4, name: "Suplementos" },
+  { id: 5, name: "Accesorios" }
 ];
 
 export default function EditProductDialog({ open, onClose, product, onSave }) {
+  const [originalForm, setOriginalForm] = useState(null);
+  const [originalImages, setOriginalImages] = useState([]);
   const [form, setForm] = useState({
     title: "",
     price: "",
@@ -33,50 +37,55 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
 
   const [images, setImages] = useState([]);
   const [error, setError] = useState(false);
+  const { updateProduct } = useProductService();
+
+  const prevProductIdRef = useRef(null);
 
   useEffect(() => {
-    if (open && product) {
-      setForm({
+    if (open && product && product.id !== prevProductIdRef.current) {
+      prevProductIdRef.current = product.id;
+
+      const initialForm = {
         title: product.title || "",
         price: product.price || "",
-        category: product.category || "",
+        category: product.categoryId?.toString() || product.category || "",
         stock: product.stock || "",
         description: product.description || ""
-      });
-      setImages(product.images || []);
+      };
+
+      const normalizedImages = normalizeImages(product.images || []);
+
+      setForm(initialForm);
+      setImages(normalizedImages);
+      setOriginalForm(initialForm);
+      setOriginalImages(normalizedImages);
     }
   }, [open, product]);
+
+  const atLeastOneImage =
+    images.some((img) =>
+      typeof img === "string" ||
+      (img && img.file instanceof File) ||
+      img instanceof File
+    );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
 
     if (name === "price") {
       if (/[^0-9.,]/.test(value)) return;
-
       const cleanValue = value.replace(",", ".");
-
-      if (value === "") {
-        setForm((prev) => ({ ...prev, [name]: "" }));
-        return;
-      }
-
+      if (value === "") return setForm((prev) => ({ ...prev, [name]: "" }));
       if (!/^\d*\.?\d{0,2}$/.test(cleanValue)) return;
       const floatVal = parseFloat(cleanValue);
       if (isNaN(floatVal) || floatVal < 1) return;
-
       setForm((prev) => ({ ...prev, [name]: cleanValue }));
 
     } else if (name === "stock") {
       if (/[^0-9]/.test(value)) return;
-
-      if (value === "") {
-        setForm((prev) => ({ ...prev, [name]: "" }));
-        return;
-      }
-
+      if (value === "") return setForm((prev) => ({ ...prev, [name]: "" }));
       const intVal = parseInt(value);
       if (isNaN(intVal) || intVal < 0) return;
-
       setForm((prev) => ({ ...prev, [name]: intVal }));
 
     } else {
@@ -84,27 +93,48 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
     }
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     const isValid =
       form.title.trim() !== "" &&
-      form.category.trim() !== "" &&
+      form.category &&
       form.price !== "" && !isNaN(form.price) &&
       form.stock !== "" && !isNaN(form.stock) &&
       form.description.trim() !== "" &&
-      images.length > 0;
+      atLeastOneImage;
 
     if (!isValid) {
       setError(true);
       return;
     }
 
-    onSave({
-      ...product,
-      ...form,
+    const productoEditado = {
+      id: product.id,
+      title: form.title.trim(),
+      description: form.description.trim(),
       price: parseFloat(form.price),
       stock: parseInt(form.stock, 10),
-      images
-    });
+      categoryId: parseInt(form.category),
+      images: images // ya viene normalizado
+    };
+
+    try {
+      const result = await updateProduct(productoEditado);
+
+      if (result.success) {
+        onSave?.(result.data); // trigger para refrescar vista si es necesario
+        onClose();
+      } else {
+        setError(true);
+      }
+    } catch (err) {
+      console.error("Error inesperado al actualizar producto:", err);
+      setError(true);
+    }
+  };
+
+  const handleClose = () => {
+    if (originalForm) setForm(originalForm);
+    if (originalImages) setImages(originalImages);
     onClose();
   };
 
@@ -133,11 +163,6 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
               fullWidth
               value={form.price}
               onChange={handleChange}
-              slotProps={{
-                input: {
-                  min: 1
-                }
-              }}
             />
             <TextField
               select
@@ -148,8 +173,8 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
               onChange={handleChange}
             >
               {categorias.map((cat) => (
-                <MenuItem key={cat} value={cat}>
-                  {cat}
+                <MenuItem key={cat.id} value={cat.id}>
+                  {cat.name}
                 </MenuItem>
               ))}
             </TextField>
@@ -159,11 +184,6 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
               fullWidth
               value={form.stock}
               onChange={handleChange}
-              slotProps={{
-                input: {
-                  min: 0
-                }
-              }}
             />
             <TextField
               label="Descripción"
@@ -178,7 +198,7 @@ export default function EditProductDialog({ open, onClose, product, onSave }) {
         </DialogContent>
 
         <DialogActions>
-          <Button onClick={onClose}>Cancelar</Button>
+          <Button onClick={handleClose}>Cancelar</Button>
           <Button onClick={handleSave} variant="contained" color="primary">
             Guardar
           </Button>

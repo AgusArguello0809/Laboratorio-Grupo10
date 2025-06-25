@@ -15,17 +15,17 @@ export default function ProductImageSlider({ images, setImages }) {
 
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
-    
+
     // 🔧 CREAR objetos que contengan tanto la URL como el File
     const newImageObjects = files.map((file) => ({
       url: URL.createObjectURL(file), // Para mostrar
       file: file                      // Para enviar al backend
     }));
-    
+
     // 🔧 COMBINAR con imágenes existentes (máximo 10)
     const combinedImages = [...images, ...newImageObjects].slice(0, 10);
     setImages(combinedImages);
-    
+
     if (currentIndex >= combinedImages.length) {
       setCurrentIndex(combinedImages.length - 1);
     }
@@ -44,10 +44,10 @@ export default function ProductImageSlider({ images, setImages }) {
     if (images[currentIndex]?.url) {
       URL.revokeObjectURL(images[currentIndex].url);
     }
-    
+
     const newImages = images.filter((_, i) => i !== currentIndex);
     setImages(newImages);
-    
+
     if (currentIndex >= newImages.length) {
       setCurrentIndex(Math.max(0, newImages.length - 1));
     }
@@ -136,7 +136,9 @@ export default function ProductImageSlider({ images, setImages }) {
                   width: 10,
                   height: 10,
                   borderRadius: "50%",
-                  backgroundColor: index === currentIndex ? "black" : "#aaa"
+                  backgroundColor: index === currentIndex ? "#FA9500" : "gray",
+                  opacity: currentIndex === index ? 1 : 0.4,
+                  transition: "all 0.2s"
                 }}
               />
             ))}

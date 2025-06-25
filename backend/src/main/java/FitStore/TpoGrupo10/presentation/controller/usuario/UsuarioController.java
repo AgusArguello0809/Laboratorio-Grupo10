@@ -1,7 +1,7 @@
 package FitStore.TpoGrupo10.presentation.controller.usuario;
 
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
-import FitStore.TpoGrupo10.presentation.dto.UpdateRoleDto;
+import FitStore.TpoGrupo10.presentation.dto.update.UpdateRoleDto;
 import FitStore.TpoGrupo10.presentation.dto.response.UsuarioResponseDto;
 import FitStore.TpoGrupo10.presentation.mappers.UsuarioPresentationMapper;
 import FitStore.TpoGrupo10.business.service.UsuarioService;

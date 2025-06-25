@@ -60,7 +60,9 @@ export default function SellProduct() {
     try {
       const result = await addProduct(nuevoProducto);
       if (result.success) {
-        navigate("/my-publications");
+        navigate("/my-publications", {
+          state: { successMessage: "Producto publicado con éxito" }
+        });
       } else {
         console.error("Error al guardar el producto:", result.error);
       }

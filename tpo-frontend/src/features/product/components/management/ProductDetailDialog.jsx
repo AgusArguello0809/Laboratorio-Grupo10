@@ -38,24 +38,43 @@ export default function ProductDetailDialog({ open, onClose, product }) {
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>{title}</DialogTitle>
       <DialogContent dividers>
-        <Box display="flex" justifyContent="center" alignItems="center" mb={2}>
-          <IconButton
-            onClick={handlePrev}
-            disabled={!images || images.length <= 1}
-          >
-            <ArrowBackIosIcon />
-          </IconButton>
-          <img
-            src={Array.isArray(images) && images.length > 0 ? images[currentImage] : ""}
-            alt={title}
-            style={{ width: "300px", height: "auto", margin: "0 12px" }}
-          />
-          <IconButton
-            onClick={handleNext}
-            disabled={!images || images.length <= 1}
-          >
-            <ArrowForwardIosIcon />
-          </IconButton>
+        <Box display="flex" flexDirection="column" alignItems="center" mb={2}>
+          <Box display="flex" alignItems="center">
+            <IconButton onClick={handlePrev} disabled={!images || images.length <= 1}>
+              <ArrowBackIosIcon />
+            </IconButton>
+            <img
+              src={
+                Array.isArray(images) && images.length > 0
+                  ? images[currentImage]
+                  : ""
+              }
+              alt={title}
+              style={{ width: "300px", height: "auto", margin: "0 12px" }}
+            />
+            <IconButton onClick={handleNext} disabled={!images || images.length <= 1}>
+              <ArrowForwardIosIcon />
+            </IconButton>
+          </Box>
+
+          {images.length > 1 && (
+            <Box display="flex" justifyContent="center" mt={1}>
+              {images.map((_, idx) => (
+                <Box
+                  key={idx}
+                  sx={{
+                    width: 10,
+                    height: 10,
+                    borderRadius: "50%",
+                    mx: 0.5,
+                    backgroundColor: idx === currentImage ? "#FA9500" : "gray",
+                    opacity: currentImage === idx ? 1 : 0.4,
+                    transition: "all 0.2s"
+                  }}
+                />
+              ))}
+            </Box>
+          )}
         </Box>
         <Typography variant="body2" gutterBottom>
           <strong>Precio:</strong> ${price}

@@ -3,7 +3,6 @@ package FitStore.TpoGrupo10.persistence.entities;
 import jakarta.persistence.*;
 import java.util.List;
 
-// TODO: Tests unitarios
 @Entity
 public class CarritoEntity {
 

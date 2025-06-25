@@ -10,6 +10,7 @@ public class ProductoResponseDto {
     private int stock;
     private double price;
     private Long categoryId;
+    private String categoryName;
     private Long ownerId;
     private List<String> images;
 
@@ -36,4 +37,11 @@ public class ProductoResponseDto {
 
     public List<String> getImages() { return images; }
     public void setImages(List<String> images) { this.images = images; }
+
+    public void setCategoryName(String categoryName) {
+        this.categoryName = categoryName;
+    }
+    public String getCategoryName() {
+        return categoryName;
+    }
 }

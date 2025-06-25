@@ -13,7 +13,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-// TODO: Tests unitarios
 @Repository
 public class UsuarioRepositoryImpl implements UsuarioRepository {
 

@@ -6,9 +6,11 @@ import {
   Box
 } from "@mui/material";
 import { CATEGORIES } from "../../../config/categories";
+import { useProductService } from "../../hooks/useProductService";
 
 
 export default function ProductForm({ formData, setFormData }) {
+  const { addProduct } = useProductService();
   const handleChange = (e) => {
     const { name, value } = e.target;
 

@@ -1,8 +1,8 @@
 package FitStore.TpoGrupo10.presentation.controller;
 
 import FitStore.TpoGrupo10.models.CarritoModel;
-import FitStore.TpoGrupo10.presentation.dto.AddProductRequestDto;
-import FitStore.TpoGrupo10.presentation.dto.CarritoDto;
+import FitStore.TpoGrupo10.presentation.dto.request.AddProductRequestDto;
+import FitStore.TpoGrupo10.presentation.dto.response.CarritoDto;
 import FitStore.TpoGrupo10.presentation.mappers.CarritoPresentationMapper;
 import FitStore.TpoGrupo10.business.service.CarritoService;
 import io.swagger.v3.oas.annotations.Operation;

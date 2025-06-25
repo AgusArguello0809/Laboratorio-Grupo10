@@ -7,6 +7,7 @@ public enum ErrorCodeEnum implements ErrorCode {
     // Seguridad (security package)
     ACCESS_DENIED("Acceso denegado"),
     UNAUTHORIZED("No estas autenticado para acceder a este recurso."),
+    BAD_CREDENTIALS("El username o password ingresadas son incorrectos"),
 
     //  Core / Generales (common)
     VALIDATION_ERROR("Error de validacion en la informacion entrante"),
