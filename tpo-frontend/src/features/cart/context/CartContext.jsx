@@ -28,8 +28,6 @@ export const CartProvider = ({ children }) => {
       const data = await res.json();
       const productos = data.productos || [];
 
-      console.warn("📦 Productos recibidos del carrito:", productos);
-
       const productosValidados = await Promise.all(
         productos.map(async (item) => {
           if (!item.productoId) return null;
@@ -103,10 +101,17 @@ export const CartProvider = ({ children }) => {
     ? carrito.productos.reduce((acc, item) => acc + (item.cantidad || 0), 0)
     : 0;
 
-  if (!isInitialized || !carritoCargado) return null;
-
   return (
-    <CartContext.Provider value={{ carrito, setCarrito, cantidadTotal, fetchCarrito }}>
+    <CartContext.Provider
+      value={{
+        carrito,
+        setCarrito,
+        cantidadTotal,
+        fetchCarrito,
+        carritoCargado,
+        isInitialized,
+      }}
+    >
       {children}
     </CartContext.Provider>
   );

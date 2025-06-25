@@ -12,7 +12,9 @@
 }
 
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
 }
 
@@ -48,16 +50,20 @@ a {
   color: #646cff;
   text-decoration: inherit;
 }
+
 a:hover {
   color: #fff;
 }
+
 body {
   margin: 0;
 }
+
 h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
+
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -69,22 +75,34 @@ button {
   cursor: pointer;
   transition: border-color 0.25s;
 }
+
 button:hover {
   border-color: #646cff;
 }
+
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
 }
+
 @media (prefers-color-scheme: light) {
   :root {
     color: #213547;
     background-color: #ffffff;
   }
+
   a:hover {
     color: #fff;
   }
+
   button {
     background-color: #f9f9f9;
   }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  width: 100%;
 }
