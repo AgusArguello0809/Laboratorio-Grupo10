@@ -1,6 +1,7 @@
 package FitStore.TpoGrupo10.unit.business.service.impl;
 
 import FitStore.TpoGrupo10.business.exception.BusinessException;
+import FitStore.TpoGrupo10.business.service.OrdenService;
 import FitStore.TpoGrupo10.business.service.impl.CarritoServiceImpl;
 import FitStore.TpoGrupo10.models.*;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
@@ -24,13 +25,15 @@ class CarritoServiceImplTest {
     private ProductoService productoService;
     private UsuarioRepository usuarioRepository;
     private CarritoServiceImpl carritoService;
+    private OrdenService ordenService;
 
     @BeforeEach
     void setUp() {
         carritoRepository = mock(CarritoRepository.class);
         productoService = mock(ProductoService.class);
         usuarioRepository = mock(UsuarioRepository.class);
-        carritoService = new CarritoServiceImpl(carritoRepository, productoService, usuarioRepository);
+        ordenService = mock(OrdenService.class);
+        carritoService = new CarritoServiceImpl(carritoRepository, productoService, usuarioRepository, ordenService);
     }
 
     private void mockSecurityContext(String username, boolean admin) {
@@ -166,5 +169,107 @@ class CarritoServiceImplTest {
 
         assertEquals(1, result.getProductos().size());
         assertEquals(300, result.getTotal());
+    }
+
+    @Test
+    void checkout_creaOrdenYVaciaCarrito() {
+        UsuarioModel user = new UsuarioModel();
+        user.setId(1L);
+        user.setUsername("agus");
+
+        CarritoModel carrito = new CarritoModel();
+        carrito.setId(1L);
+        carrito.setOwner(user);
+
+        ItemCarritoModel item = new ItemCarritoModel();
+        item.setProductoId(101L);
+        item.setCantidad(2);
+        item.setPrecioUnitario(50.0);
+        item.setSubTotal(100.0);
+        carrito.setProductos(List.of(item));
+        carrito.setTotal(100.0);
+
+        ProductoModel producto = new ProductoModel();
+        producto.setId(101L);
+        producto.setStock(5);
+        producto.setPrice(50.0);
+        UsuarioModel otro = new UsuarioModel();
+        otro.setId(999L); // distinto dueño
+        producto.setOwner(otro);
+
+        // Mockeo
+        carritoService = new CarritoServiceImpl(carritoRepository, productoService, usuarioRepository, ordenService);
+        mockSecurityContext("agus", false);
+
+        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
+        when(usuarioRepository.findByUsername("agus")).thenReturn(Optional.of(user));
+        when(productoService.findById(101L)).thenReturn(producto);
+        when(carritoRepository.save(any())).thenAnswer(i -> i.getArgument(0));
+
+        OrdenModel ordenEsperada = OrdenModel.fromCarrito(carrito, List.of(producto));
+        ordenEsperada.setId(99L); // Simulamos el ID generado
+        when(ordenService.save(any())).thenReturn(ordenEsperada);
+
+        // Act
+        OrdenModel orden = carritoService.checkout(1L);
+
+        // Assert
+        assertNotNull(orden);
+        assertEquals(99L, orden.getId());
+        assertEquals(user, orden.getComprador());
+        assertEquals(1, orden.getProductos().size());
+        assertEquals(100.0, orden.getTotal());
+
+        ItemOrdenModel ordenItem = orden.getProductos().get(0);
+        assertEquals(101L, ordenItem.getProductoId());
+        assertEquals(2, ordenItem.getCantidad());
+        assertEquals(50.0, ordenItem.getPrecioUnitario());
+        assertEquals(100.0, ordenItem.getSubTotal());
+
+        verify(ordenService).save(any());
+    }
+
+    @Test
+    void actualizarCantidad_actualizaCantidadCorrectamente() {
+        // Setup usuario y producto
+        UsuarioModel user = new UsuarioModel();
+        user.setId(1L);
+
+        ProductoModel producto = new ProductoModel();
+        producto.setId(10L);
+        producto.setPrice(100.0);
+        producto.setStock(20);
+        UsuarioModel otro = new UsuarioModel();
+        otro.setId(99L);
+        producto.setOwner(otro);
+
+        // Item en carrito
+        ItemCarritoModel item = new ItemCarritoModel();
+        item.setProductoId(10L);
+        item.setCantidad(2);
+        item.setPrecioUnitario(100.0);
+        item.setSubTotal(200.0);
+
+        CarritoModel carrito = new CarritoModel();
+        carrito.setId(1L);
+        carrito.setOwner(user);
+        carrito.setProductos(new ArrayList<>(List.of(item)));
+        carrito.setTotal(200.0);
+
+        // Mocks
+        when(carritoRepository.findById(1L)).thenReturn(Optional.of(carrito));
+        when(usuarioRepository.findByUsername("agus")).thenReturn(Optional.of(user));
+        when(productoService.findById(10L)).thenReturn(producto);
+        when(carritoRepository.save(any())).thenAnswer(inv -> inv.getArgument(0));
+        mockSecurityContext("agus", false);
+
+        // Act
+        CarritoModel actualizado = carritoService.actualizarCantidad(1L, 10L, 5);
+
+        // Assert
+        ItemCarritoModel actualizadoItem = actualizado.getProductos().get(0);
+        assertEquals(5, actualizadoItem.getCantidad());
+        assertEquals(500.0, actualizadoItem.getSubTotal());
+        assertEquals(500.0, actualizado.getTotal());
     }
 }

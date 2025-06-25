@@ -37,7 +37,7 @@ function ProductFilter({ filterOptions, onFilterChange }) {
           <FormControl fullWidth size="small" sx={{ minWidth: 200 }}>
             <InputLabel>Categoría</InputLabel>
             <Select
-              value={filterOptions.category || "all"}
+              value={filterOptions.category}
               label="Categoría"
               onChange={(e) => handleFilterChange("category", e.target.value)}
             >

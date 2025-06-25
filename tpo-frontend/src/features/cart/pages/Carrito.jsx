@@ -1,4 +1,4 @@
-import React, {useState } from 'react';
+import React, { useState } from 'react';
 import {
   Box,
   Card,
@@ -15,43 +15,59 @@ import {
 import { Check } from '@mui/icons-material';
 import { useCarrito } from '../context/CartContext';
 import { useAuth } from '../../auth/context/AuthContext';
-import { useProductService } from '../../product/hooks/useProductService';
 import { getToken } from '../../auth/services/authService';
+
 
 const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
 
 const Carrito = () => {
-  const { carrito, setCarrito } = useCarrito();
+  const { carrito, setCarrito, fetchCarrito } = useCarrito();
   const { user } = useAuth();
-  const { fetchProducts } = useProductService();
+  const carritoId = carrito?.id;
   const token = getToken();
 
   const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'info' });
-
-  // Guarda inputs temporales antes de confirmar
   const [cantidadTemp, setCantidadTemp] = useState({});
 
-  const disminuirCantidad = (id) => {
-    setCarrito((prev) =>
-      prev.map((item) =>
-        item.id === id && item.cantidad > 1
-          ? { ...item, cantidad: item.cantidad - 1 }
-          : item
-      )
-    );
+  const headers = {
+    'Content-Type': 'application/json',
+    'Authorization': `Bearer ${token}`
   };
 
-  const aumentarCantidad = (id) => {
-    setCarrito((prev) =>
-      prev.map((item) =>
-        item.id === id
-          ? { ...item, cantidad: Math.min(item.cantidad + 1, item.stock) }
-          : item
-      )
-    );
+  const disminuirCantidad = async (id) => {
+    const producto = carrito.productos.find(p => p.productoId === id);
+    if (!producto || producto.cantidad <= 1) {
+      setSnackbar({
+        open: true,
+        message: 'No podés tener menos de 1 unidad.',
+        severity: 'warning',
+      });
+      return;
+    }
+
+    try {
+      await fetch(`${API_BASE_URL}/carritos/${carrito.id}/producto/${id}/disminuir`, {
+        method: 'PATCH',
+        headers
+      });
+      await fetchCarrito();
+    } catch (e) {
+      setSnackbar({ open: true, message: 'Error al disminuir cantidad', severity: 'error' });
+    }
   };
 
-  // Al escribir en el input, guarda temporalmente
+  const aumentarCantidad = async (id) => {
+    try {
+      await fetch(`${API_BASE_URL}/carritos/${carritoId}/producto/${id}/incrementar`, {
+        method: 'PATCH',
+        headers
+      });
+      await fetchCarrito();
+    } catch (e) {
+      setSnackbar({ open: true, message: 'Error al aumentar cantidad', severity: 'error' });
+    }
+  };
+
   const manejarInputTemp = (id, valor) => {
     setCantidadTemp((prev) => ({
       ...prev,
@@ -59,8 +75,7 @@ const Carrito = () => {
     }));
   };
 
-  // Confirmar el valor ingresado al presionar el check
-  const confirmarCantidad = (id) => {
+  const confirmarCantidad = async (id) => {
     const valor = cantidadTemp[id];
     if (valor === undefined || valor === '') return;
 
@@ -74,7 +89,7 @@ const Carrito = () => {
       return;
     }
 
-    const producto = carrito.find(p => p.id === id);
+    const producto = carrito.productos.find(p => p.id === id || p.productoId === id);
     if (producto && num > producto.stock) {
       setSnackbar({
         open: true,
@@ -84,167 +99,105 @@ const Carrito = () => {
       return;
     }
 
-    setCarrito((prev) =>
-      prev.map((item) =>
-        item.id === id ? { ...item, cantidad: num } : item
-      )
-    );
-
-    setCantidadTemp((prev) => {
-      const nuevo = { ...prev };
-      delete nuevo[id];
-      return nuevo;
-    });
-  };
-
-  const eliminarProducto = (id) => {
-    setCarrito((prev) => prev.filter((item) => item.id !== id));
-    setCantidadTemp((prev) => {
-      const nuevo = { ...prev };
-      delete nuevo[id];
-      return nuevo;
-    });
-  };
-
-  const vaciarCarrito = () => {
-    setCarrito([]);
-    setCantidadTemp({});
-  };
-
-  const handleCheckout = async () => {
-    const itemsValidos = carrito.filter(
-      item =>
-        Number(item.cantidad) > 0 &&
-        !isNaN(item.cantidad) &&
-        Number(item.price) > 0
-    );
-
-    if (itemsValidos.length === 0) {
-      setSnackbar({
-        open: true,
-        message: 'Debés agregar al menos un producto válido para completar la compra.',
-        severity: 'warning',
-      });
-      return;
-    }
-
-    const totalCompra = itemsValidos.reduce(
-      (acc, item) => acc + (Number(item.price) * Number(item.cantidad)),
-      0
-    );
-
-    if (totalCompra === 0) {
-      setSnackbar({
-        open: true,
-        message: 'El total de la compra no puede ser cero.',
-        severity: 'warning',
-      });
-      return;
-    }
-
     try {
-      const productosPropios = itemsValidos.filter(item => item.ownerId === user?.id);
-      if (productosPropios.length > 0) {
-        setSnackbar({
-          open: true,
-          message: 'No podés comprar tus propios productos.',
-          severity: 'warning',
-        });
-        return;
-      }
-
-      const erroresStock = itemsValidos.find(item => item.stock < item.cantidad);
-      if (erroresStock) {
-        setSnackbar({
-          open: true,
-          message: `No hay suficiente stock de ${erroresStock.title}.`,
-          severity: 'error',
-        });
-        return;
-      }
-
-      // 🚀 Usar backend Java para actualizar stock
-      await Promise.all(
-        itemsValidos.map(async (item) => {
-          const res = await fetch(`${API_BASE_URL}/productos/${item.id}`, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-            },
-          });
-          
-          if (!res.ok) {
-            throw new Error(`Error al obtener producto ${item.title}`);
-          }
-          
-          const productoActual = await res.json();
-          const nuevoStock = productoActual.stock - item.cantidad;
-
-          if (nuevoStock < 0) {
-            throw new Error(`No hay suficiente stock de ${item.title}`);
-          }
-
-          // Actualizar stock en backend Java
-          const updateRes = await fetch(`${API_BASE_URL}/productos/${item.id}`, {
-            method: 'PUT',
-            headers: {
-              'Content-Type': 'application/json',
-              'Authorization': `Bearer ${token}`,
-            },
-            body: JSON.stringify({
-              ...productoActual,
-              stock: nuevoStock
-            }),
-          });
-
-          if (!updateRes.ok) {
-            throw new Error(`Error al actualizar stock de ${item.title}`);
-          }
-        })
-      );
-
-      await fetchProducts();
-      setSnackbar({ open: true, message: '¡Gracias por tu compra!', severity: 'success' });
-      vaciarCarrito();
-    } catch (error) {
-      console.error('Error al actualizar el stock:', error);
+      await fetch(`${API_BASE_URL}/carritos/${carritoId}/producto/${id}/cantidad`, {
+        method: 'PATCH',
+        headers,
+        body: JSON.stringify({ cantidad: num }),
+      });
+      await fetchCarrito();
+      setCantidadTemp((prev) => {
+        const nuevo = { ...prev };
+        delete nuevo[id];
+        return nuevo;
+      });
+    } catch (e) {
       setSnackbar({
         open: true,
-        message: error.message || 'Hubo un error al procesar el pedido.',
+        message: 'Error al actualizar cantidad',
         severity: 'error',
       });
     }
   };
 
-  const total = carrito.reduce(
-    (acc, item) => acc + (Number(item.price) * Number(item.cantidad || 0)),
+  const eliminarProducto = async (id) => {
+    try {
+      await fetch(`${API_BASE_URL}/carritos/${carritoId}/producto/${id}`, {
+        method: 'DELETE',
+        headers,
+      });
+      await fetchCarrito();
+    } catch (e) {
+      setSnackbar({ open: true, message: 'Error al eliminar producto', severity: 'error' });
+    }
+  };
+
+  const vaciarCarrito = async () => {
+    try {
+      await fetch(`${API_BASE_URL}/carritos/${carritoId}/vaciar`, {
+        method: 'DELETE',
+        headers
+      });
+      await fetchCarrito();
+    } catch (e) {
+      setSnackbar({ open: true, message: 'Error al vaciar carrito', severity: 'error' });
+    }
+  };
+
+  const handleCheckout = async () => {
+    try {
+      const res = await fetch(`${API_BASE_URL}/carritos/${carritoId}/checkout`, {
+        method: 'POST',
+        headers
+      });
+
+      if (!res.ok) {
+        throw new Error("Error al procesar el checkout");
+      }
+
+      await fetchCarrito();
+      setSnackbar({ open: true, message: '¡Gracias por tu compra!', severity: 'success' });
+    } catch (e) {
+      setSnackbar({ open: true, message: e.message || 'Error al hacer checkout', severity: 'error' });
+    }
+  };
+
+  const total = carrito.productos.reduce(
+    (acc, item) => {
+      const precio = parseFloat(item.price);
+      const cantidad = Number(item.cantidad || 0);
+      return acc + (isNaN(precio) ? 0 : precio * cantidad);
+    },
     0
   );
-
   return (
     <Box sx={{ padding: 4 }}>
       <Typography variant="h4" gutterBottom>
         Carrito de Compras
       </Typography>
 
-      {carrito.length === 0 ? (
+      {carrito.productos.length === 0 ? (
         <Typography variant="body1">El carrito está vacío.</Typography>
       ) : (
         <>
-          {carrito.map((item) => (
-            <Card key={item.id} sx={{ mb: 2 }}>
+          {carrito.productos.map((item) => (
+            <Card key={item.productoId} sx={{ mb: 2 }}>
               <CardContent>
                 <Typography variant="h6">{item.title}</Typography>
                 <Typography>
-                  Precio unitario: ${item.price} | Stock: {item.stock}
+                  Precio unitario: ${isNaN(parseFloat(item.price)) ? "N/A" : parseFloat(item.price).toFixed(2)} | Stock: {item.stock}
                 </Typography>
                 <Typography variant="subtitle2" sx={{ mb: 1 }}>
-                  Subtotal: ${(item.price * (item.cantidad || 0)).toFixed(2)}
+                  Subtotal: ${(
+                    (isNaN(parseFloat(item.price)) ? 0 : parseFloat(item.price)) *
+                    (Number(item.cantidad || 0))
+                  ).toFixed(2)}
                 </Typography>
                 <CardActions sx={{ gap: 1 }}>
                   <Button
                     size="small"
                     variant="outlined"
-                    onClick={() => disminuirCantidad(item.id)}
+                    onClick={() => disminuirCantidad(item.productoId)}
                     sx={estiloBoton('-')}
                   >
                     -
@@ -253,10 +206,10 @@ const Carrito = () => {
                   <TextField
                     size="small"
                     type="text"
-                    value={cantidadTemp[item.id] ?? item.cantidad}
-                    onChange={(e) => manejarInputTemp(item.id, e.target.value)}
+                    value={cantidadTemp[item.productoId] ?? item.cantidad}
+                    onChange={(e) => manejarInputTemp(item.productoId, e.target.value)}
                     sx={{ width: 90 }}
-                    inputMode={{
+                    inputProps={{
                       style: { textAlign: 'center' },
                       inputMode: 'numeric',
                       pattern: '[0-9]*',
@@ -267,11 +220,11 @@ const Carrito = () => {
 
                   <IconButton
                     color="primary"
-                    onClick={() => confirmarCantidad(item.id)}
+                    onClick={() => confirmarCantidad(item.productoId)}
                     disabled={
-                      cantidadTemp[item.id] === undefined ||
-                      cantidadTemp[item.id] === '' ||
-                      Number(cantidadTemp[item.id]) === item.cantidad
+                      cantidadTemp[item.productoId] === undefined ||
+                      cantidadTemp[item.productoId] === '' ||
+                      Number(cantidadTemp[item.productoId]) === item.cantidad
                     }
                   >
                     <Check />
@@ -280,7 +233,7 @@ const Carrito = () => {
                   <Button
                     size="small"
                     variant="outlined"
-                    onClick={() => aumentarCantidad(item.id)}
+                    onClick={() => aumentarCantidad(item.productoId)}
                     sx={estiloBoton('+')}
                   >
                     +
@@ -289,7 +242,7 @@ const Carrito = () => {
                   <Button
                     size="small"
                     color="error"
-                    onClick={() => eliminarProducto(item.id)}
+                    onClick={() => eliminarProducto(item.productoId)}
                   >
                     Eliminar
                   </Button>

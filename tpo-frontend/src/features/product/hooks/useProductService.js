@@ -243,7 +243,7 @@ export const useProductService = () => {
       }
 
       const matchesCategory =
-        category === "all" || product.category === category;
+        category === "all" || product.categoryId === category;
 
       return matchesSearch && matchesStock && matchesCategory;
     });

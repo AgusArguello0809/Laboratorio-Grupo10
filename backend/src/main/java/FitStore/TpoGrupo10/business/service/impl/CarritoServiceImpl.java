@@ -1,10 +1,8 @@
 package FitStore.TpoGrupo10.business.service.impl;
 
+import FitStore.TpoGrupo10.business.service.OrdenService;
 import FitStore.TpoGrupo10.exceptions.enums.ErrorCodeEnum;
-import FitStore.TpoGrupo10.models.CarritoModel;
-import FitStore.TpoGrupo10.models.ItemCarritoModel;
-import FitStore.TpoGrupo10.models.ProductoModel;
-import FitStore.TpoGrupo10.models.UsuarioModel;
+import FitStore.TpoGrupo10.models.*;
 import FitStore.TpoGrupo10.persistence.repositories.CarritoRepository;
 import FitStore.TpoGrupo10.business.service.CarritoService;
 import FitStore.TpoGrupo10.business.service.ProductoService;
@@ -22,11 +20,13 @@ public class CarritoServiceImpl implements CarritoService {
     private final CarritoRepository repository;
     private final ProductoService productoService;
     private final UsuarioRepository usuarioRepository;
+    private final OrdenService ordenService;
 
-    public CarritoServiceImpl(CarritoRepository repository, ProductoService productoService, UsuarioRepository usuarioRepository) {
+    public CarritoServiceImpl(CarritoRepository repository, ProductoService productoService, UsuarioRepository usuarioRepository, OrdenService ordenService) {
         this.repository = repository;
         this.productoService = productoService;
         this.usuarioRepository = usuarioRepository;
+        this.ordenService = ordenService;
     }
 
     private UsuarioModel getAuthenticatedUser() {
@@ -120,6 +120,54 @@ public class CarritoServiceImpl implements CarritoService {
     }
 
     @Override
+    public CarritoModel actualizarCantidad(Long idCarrito, Long idProducto, int nuevaCantidad) {
+        if (nuevaCantidad < 1 || nuevaCantidad > 9999) {
+            throw new BusinessException(
+                    ErrorCodeEnum.CANTIDAD_INVALIDA.getMessage(),
+                    ErrorCodeEnum.CANTIDAD_INVALIDA
+            );
+        }
+
+        CarritoModel carrito = repository.findById(idCarrito)
+                .orElseThrow(() -> new BusinessException(
+                        ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(),
+                        ErrorCodeEnum.CARRITO_NO_ENCONTRADO
+                ));
+
+        verificarAutorizacion(carrito);
+
+        ItemCarritoModel item = carrito.getProductos().stream()
+                .filter(p -> Objects.equals(p.getProductoId(), idProducto))
+                .findFirst()
+                .orElseThrow(() -> new BusinessException(
+                        ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO.getMessage(),
+                        ErrorCodeEnum.PRODUCTO_NO_ENCONTRADO
+                ));
+
+        ProductoModel producto = productoService.findById(idProducto);
+
+        if (producto.getOwner().getId().equals(carrito.getOwner().getId())) {
+            throw new BusinessException(
+                    ErrorCodeEnum.PROPIO_PRODUCTO.getMessage(),
+                    ErrorCodeEnum.PROPIO_PRODUCTO
+            );
+        }
+
+        if (producto.getStock() < nuevaCantidad) {
+            throw new BusinessException(
+                    ErrorCodeEnum.STOCK_INSUFICIENTE.getMessage(),
+                    ErrorCodeEnum.STOCK_INSUFICIENTE
+            );
+        }
+
+        item.setCantidad(nuevaCantidad);
+        actualizarPrecioYSubtotal(item, producto);
+
+        carrito.setTotal(calcularTotal(carrito.getProductos()));
+        return repository.save(carrito);
+    }
+
+    @Override
     public void vaciarCarrito(Long id) {
         CarritoModel carrito = repository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
@@ -178,17 +226,23 @@ public class CarritoServiceImpl implements CarritoService {
     }
 
     @Override
-    public CarritoModel checkout(Long id) {
+    public OrdenModel checkout(Long id) {
         CarritoModel carrito = repository.findById(id)
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
 
         verificarAutorizacion(carrito);
+
+        List<ProductoModel> productosActuales = new ArrayList<>();
 
         for (ItemCarritoModel item : carrito.getProductos()) {
             ProductoModel producto = productoService.findById(item.getProductoId());
 
             if (producto.getStock() < item.getCantidad()) {
                 throw new BusinessException(ErrorCodeEnum.STOCK_INSUFICIENTE.getMessage() + " para el producto con ID: " + item.getProductoId(), ErrorCodeEnum.STOCK_INSUFICIENTE);
+            }
+
+            if (producto.getOwner().getId().equals(carrito.getOwner().getId())) {
+                throw new BusinessException(ErrorCodeEnum.PROPIO_PRODUCTO.getMessage(), ErrorCodeEnum.PROPIO_PRODUCTO);
             }
 
             productoService.actualizarPrecioYStock(
@@ -198,11 +252,18 @@ public class CarritoServiceImpl implements CarritoService {
             );
 
             actualizarPrecioYSubtotal(item, producto);
+            productosActuales.add(producto);
         }
 
-        carrito.setTotal(0);
+        // Crear y guardar la orden
+        OrdenModel ordenFromCarrito = OrdenModel.fromCarrito(carrito, productosActuales);
+        OrdenModel orden = ordenService.save(ordenFromCarrito);
+
+        // Vaciar carrito
         carrito.setProductos(new ArrayList<>());
-        return repository.save(carrito);
+        carrito.setTotal(0);
+        repository.save(carrito);
+        return orden;
     }
 
     private void verificarAutorizacion(CarritoModel carrito) {

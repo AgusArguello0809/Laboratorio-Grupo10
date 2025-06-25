@@ -17,13 +17,15 @@ import { IconButton } from "@mui/material";
 import { useCarrito } from "../../../cart/context/CartContext";
 import { useAuth } from "../../../auth/context/AuthContext";
 import { useNavigate } from "react-router-dom";
-import { getCategoryName } from "../../../config/categories"
+import { getCategoryName } from "../../../config/categories";
+import { getToken } from "../../../auth/services/authService";
 
+export const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
 
 function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { carrito, setCarrito } = useCarrito();
+  const { carrito, setCarrito, fetchCarrito } = useCarrito();
   const { user } = useAuth();
   const navigate = useNavigate();
   const [currentImage, setCurrentImage] = useState(0);
@@ -46,7 +48,7 @@ function ProductCard({ product }) {
     setOpen(false);
   };
 
-  const agregarAlCarrito = () => {
+  const agregarAlCarrito = async () => {
     if (!user) {
       navigate("/login");
       return;
@@ -54,42 +56,46 @@ function ProductCard({ product }) {
     if (loading) return;
     setLoading(true);
 
-    const existente = carrito.find((item) => item.id === product.id);
-    const stock = Number(product.stock);
-    const price = typeof product.price === "string"
-      ? Number(product.price.replace("$", ""))
-      : Number(product.price);
-
-    if (existente) {
-      if (existente.cantidad < stock) {
-        setCarrito(prev =>
-          prev.map((item) =>
-            item.id === product.id
-              ? { ...item, cantidad: item.cantidad + 1 }
-              : item
-          )
-        );
-      } else {
-        alert("No hay más stock disponible para este producto.");
-        setLoading(false);
+    try {
+      if (product.ownerId === user.id) {
+        alert("No podés comprar tu propio producto.");
         return;
       }
-    } else {
-      const nuevoItem = {
-        id: product.id,
-        title: product.title,
-        price: product.price,
-        cantidad: 1,
-        images: product.images,
-        stock: product.stock,
-        ownerId: product.ownerId
-      };
-      setCarrito(prev => [...prev, nuevoItem]);
-    }
 
-    setOpen(true);
-    setTimeout(() => setLoading(false), 1000);
+      if (product.stock <= 0) {
+        alert("Producto sin stock disponible.");
+        return;
+      }
+
+      const res = await fetch(`${API_BASE_URL}/carritos`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${getToken()}`,
+        },
+        body: JSON.stringify({
+          productId: product.id,
+          cant: 1,
+        }),
+      });
+
+      if (!res.ok) {
+        throw new Error("No se pudo agregar el producto al carrito.");
+      }
+
+      // Usar el fetchCarrito que valida e hidrata bien los datos
+      await new Promise(resolve => setTimeout(resolve, 300)); // delay opcional por si el back es lento
+      await fetchCarrito();
+
+      setOpen(true);
+    } catch (error) {
+      console.error(error);
+      alert(error.message || "Error al agregar el producto al carrito.");
+    } finally {
+      setLoading(false);
+    }
   };
+
 
   return (
     <>
