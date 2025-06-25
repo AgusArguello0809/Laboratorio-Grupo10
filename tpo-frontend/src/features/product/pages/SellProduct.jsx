@@ -27,7 +27,7 @@ export default function SellProduct() {
 
   const isFormValid =
     formData.title.trim() !== "" &&
-    formData.category.trim() !== "" &&
+    parseInt(formData.category) > 0 &&
     parseFloat(formData.price) > 0 &&
     parseInt(formData.stock) >= 0 &&
     formData.description.trim() !== "" &&
@@ -60,7 +60,9 @@ export default function SellProduct() {
     try {
       const result = await addProduct(nuevoProducto);
       if (result.success) {
-        navigate("/my-publications");
+        navigate("/my-publications", {
+          state: { successMessage: "Producto publicado con éxito" }
+        });
       } else {
         console.error("Error al guardar el producto:", result.error);
       }

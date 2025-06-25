@@ -2,7 +2,6 @@ package FitStore.TpoGrupo10.models;
 
 import java.util.List;
 
-// TODO: Tests unitarios
 public class ProductoModel {
 
     private Long id;
@@ -11,7 +10,6 @@ public class ProductoModel {
     private int stock;
     private double price;
     private List<String> images;
-
     private CategoriaModel category;
     private UsuarioModel owner;
 

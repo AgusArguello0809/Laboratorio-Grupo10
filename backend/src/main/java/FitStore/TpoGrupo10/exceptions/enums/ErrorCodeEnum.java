@@ -7,6 +7,7 @@ public enum ErrorCodeEnum implements ErrorCode {
     // Seguridad (security package)
     ACCESS_DENIED("Acceso denegado"),
     UNAUTHORIZED("No estas autenticado para acceder a este recurso."),
+    BAD_CREDENTIALS("El username o password ingresadas son incorrectos"),
 
     //  Core / Generales (common)
     VALIDATION_ERROR("Error de validacion en la informacion entrante"),
@@ -16,6 +17,11 @@ public enum ErrorCodeEnum implements ErrorCode {
     // Carrito
     CARRITO_NO_ENCONTRADO("El carrito solicitado no se encuentra disponible"),
     STOCK_INSUFICIENTE("Stock insuficiente"),
+    PROPIO_PRODUCTO("El usuario no puede comprar productos que haya publicado"),
+    CANTIDAD_INVALIDA("Solo se puede elegir entre 1 y 9999 productos"),
+
+    //Orden
+    ORDEN_NO_ENCONTRADA("La orden solicitada no fue encontrada"),
 
     // Usuario
     USUARIO_NO_ENCONTRADO("El usuario solicitado no se encuentra disponible"),

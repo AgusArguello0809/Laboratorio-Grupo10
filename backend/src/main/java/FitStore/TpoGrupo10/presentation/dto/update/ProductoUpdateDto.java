@@ -1,27 +1,40 @@
-package FitStore.TpoGrupo10.presentation.dto;
+package FitStore.TpoGrupo10.presentation.dto.update;
 
 import jakarta.validation.constraints.*;
-import org.hibernate.validator.constraints.Range;
 
-public class ProductoCreateDto {
+import java.util.List;
+
+public class ProductoUpdateDto {
 
     @NotNull(message = "El titulo del producto no puede ser nulo")
-    @NotBlank(message = "El titulo del producto no puede ser vacio")
+    @NotBlank(message = "El titulo del producto no puede estar vacio")
     @Size(min = 8, max = 100, message = "El titulo debe tener entre 8 y 100 caracteres")
     private String title;
 
     @NotNull(message = "La descripcion del producto no puede ser nula")
-    @NotBlank(message = "La descripcion del producto no puede ser vacia")
+    @NotBlank(message = "La descripcion del producto no puede estar vacia")
     private String description;
 
-    @Range(min = 1, max = 9999, message = "El stock debe estar entre 1 y 9999")
+    @NotNull(message = "El stock del producto no puede ser nulo")
     private int stock;
 
     @DecimalMin(value = "1.0", message = "El precio del producto debe ser minimo $1.0")
     private double price;
 
-    @NotNull(message = "El ID de la categoria del producto no puede ser nula")
+    @NotNull(message = "La categoria del producto no puede ser nula")
     private Long categoryId;
+
+    private List<String> existingImageUrls;
+
+    public List<String> getExistingImageUrls() {
+        return existingImageUrls;
+    }
+
+    public void setExistingImageUrls(List<String> existingImageUrls) {
+        this.existingImageUrls = existingImageUrls;
+    }
+
+    // No se incluye el ownerId a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
 
     public String getTitle() {
         return title;
@@ -62,6 +75,4 @@ public class ProductoCreateDto {
     public void setCategoryId(Long categoryId) {
         this.categoryId = categoryId;
     }
-
 }
-

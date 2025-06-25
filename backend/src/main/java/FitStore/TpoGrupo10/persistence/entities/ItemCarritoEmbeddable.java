@@ -2,7 +2,6 @@ package FitStore.TpoGrupo10.persistence.entities;
 
 import jakarta.persistence.Embeddable;
 
-// TODO: Tests unitarios
 @Embeddable
 public class ItemCarritoEmbeddable {
 

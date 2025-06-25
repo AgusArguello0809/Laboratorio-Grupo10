@@ -3,7 +3,6 @@ package FitStore.TpoGrupo10.persistence.entities;
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 import jakarta.persistence.*;
 
-// TODO: Tests unitarios
 @Entity
 @Table(name = "usuarios")
 public class UsuarioEntity {

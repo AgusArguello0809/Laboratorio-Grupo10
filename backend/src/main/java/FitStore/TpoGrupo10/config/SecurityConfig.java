@@ -14,24 +14,50 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.CorsConfigurationSource;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
-// TODO: Tests unitarios
+import java.util.Arrays;
+import java.util.List;
+
 @Configuration
 public class SecurityConfig {
 
     private final JwtRequestFilter jwtRequestFilter;
     private final CustomAccessDeniedHandler accessDeniedHandler;
     private final CustomAuthenticationEntryPoint authenticationEntryPoint;
+    private final CorsProperties corsProperties;
 
-    public SecurityConfig(JwtRequestFilter jwtRequestFilter, CustomAccessDeniedHandler accessDeniedHandler, CustomAuthenticationEntryPoint authenticationEntryPoint) {
+    public SecurityConfig(JwtRequestFilter jwtRequestFilter, CustomAccessDeniedHandler accessDeniedHandler, CustomAuthenticationEntryPoint authenticationEntryPoint, CorsProperties corsProperties) {
         this.jwtRequestFilter = jwtRequestFilter;
         this.accessDeniedHandler = accessDeniedHandler;
         this.authenticationEntryPoint = authenticationEntryPoint;
+        this.corsProperties = corsProperties;
+    }
+
+    @Bean
+    public CorsConfigurationSource corsConfigurationSource(CorsProperties corsProps) {
+        CorsConfiguration configuration = new CorsConfiguration();
+
+        configuration.setAllowedOrigins(corsProps.getAllowedOrigins());
+        configuration.setAllowedMethods(corsProps.getAllowedMethods());
+        configuration.setAllowedHeaders(corsProps.getAllowedHeaders());
+        configuration.setExposedHeaders(corsProps.getExposedHeaders());
+        configuration.setAllowCredentials(corsProps.getAllowCredentials());
+        configuration.setMaxAge(corsProps.getMaxAge());
+
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);
+        return source;
     }
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)
+        http
+                // HABILITAR CORS - AGREGADO
+                .cors(cors -> cors.configurationSource(corsConfigurationSource(corsProperties)))
+                .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/**").permitAll() // login y registro
 
@@ -43,14 +69,12 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.PATCH, "/productos/**").hasAnyRole("CLIENTE", "ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/productos/**").hasAnyRole("CLIENTE", "ADMIN")
 
-
                         .requestMatchers("/carritos/**").hasAnyRole("CLIENTE", "ADMIN")
 
                         .requestMatchers("/usuarios/**").hasRole("ADMIN")
 
                         .anyRequest().permitAll()
                 );
-
 
         http.exceptionHandling(ex -> ex
                 .accessDeniedHandler(accessDeniedHandler)

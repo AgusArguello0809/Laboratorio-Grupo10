@@ -15,7 +15,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
 
-// TODO: Tests unitarios
 @Repository
 public class ProductoRepositoryImpl implements ProductoRepository {
     private static final Logger LOGGER = LoggerFactory.getLogger(ProductoRepositoryImpl.class);

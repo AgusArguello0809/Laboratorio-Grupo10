@@ -17,14 +17,14 @@ import ArrowForwardIosIcon from "@mui/icons-material/ArrowForwardIos";
 import ProductDetailDialog from "./ProductDetailDialog";
 import EditProductDialog from "./EditProductDialog";
 import DeleteConfirmDialog from "./DeleteConfirmDialog";
+import { getCategoryName } from "../../../config/categories"
 
 export default function MyPublicationCard({ product, onEdit, onDelete }) {
-  if (!product || typeof product !== "object") return null;
 
   const {
     title = "Sin título",
-    price = "N/A",
-    category = "Sin categoría",
+    price = 0,
+    category = 1,
     stock = 0,
     description = "Sin descripción",
     images = []
@@ -35,6 +35,8 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
   const [detailOpen, setDetailOpen] = useState(false);
   const [editOpen, setEditOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
+
+  if (!product || typeof product !== "object") return null;
 
   const toggleExpand = () => setExpanded(!expanded);
 
@@ -90,6 +92,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               }}
             />
           </Box>
+
           {expanded && images?.length > 1 && (
             <>
               <IconButton
@@ -105,6 +108,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               >
                 <ArrowBackIosIcon fontSize="small" />
               </IconButton>
+
               <IconButton
                 onClick={nextImage}
                 sx={{
@@ -118,50 +122,78 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               >
                 <ArrowForwardIosIcon fontSize="small" />
               </IconButton>
+
+              <Box
+                sx={{
+                  position: "absolute",
+                  bottom: 8,
+                  left: "50%",
+                  transform: "translateX(-50%)",
+                  display: "flex",
+                  gap: "6px"
+                }}
+              >
+                {images.map((_, index) => (
+                  <Box
+                    key={index}
+                    sx={{
+                      width: 8,
+                      height: 8,
+                      borderRadius: "50%",
+                      backgroundColor: currentImage === index ? "#FA9500" : "gray",
+                      opacity: currentImage === index ? 1 : 0.4,
+                      transition: "all 0.2s"
+                    }}
+                  />
+                ))}
+              </Box>
             </>
           )}
         </Box>
 
         <CardContent>
           <Typography variant="h6">{title}</Typography>
-          <Typography variant="subtitle1">${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}</Typography>
+          <Typography variant="subtitle1">
+            ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{ display: "flex", justifyContent: "space-between", mb: 0.5 }}
+          >
+            <span>{getCategoryName(product.categoryId)}</span>
+            <span>Stock: {stock}</span>
+          </Typography>
+
+          <Typography
+            variant="body2"
+            color="text.secondary"
+            sx={{
+              display: "-webkit-box",
+              WebkitLineClamp: 3,
+              WebkitBoxOrient: "vertical",
+              overflow: "hidden",
+              textOverflow: "ellipsis",
+              whiteSpace: "normal",
+              minHeight: "3.6em",
+              wordBreak: "break-word"
+            }}
+          >
+            {description}
+          </Typography>
         </CardContent>
 
         <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent sx={{ pt: 0 }}>
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              sx={{ display: "flex", justifyContent: "space-between" }}
-            >
-              <span>{category}</span>
-              <span>Stock: {stock}</span>
-            </Typography>
-            <Typography
-              variant="body2"
-              mt={1}
-              sx={{
-                display: "-webkit-box",
-                WebkitLineClamp: 3,
-                WebkitBoxOrient: "vertical",
-                overflow: "hidden",
-                textOverflow: "ellipsis",
-              }}
-            >
-              {description}
-            </Typography>
-          </CardContent>
-
           <CardActions sx={{ justifyContent: "space-between", px: 2 }}>
             <IconButton
               onClick={(e) => { e.stopPropagation(); setDetailOpen(true); }}
               sx={{
                 color: "gray",
                 transition: "color 0.2s",
-                "&:hover": {
-                  color: "#FA9500"
-                }
-              }}>
+                "&:hover": { color: "#FA9500" }
+              }}
+            >
               <VisibilityIcon />
             </IconButton>
             <IconButton
@@ -169,10 +201,9 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               sx={{
                 color: "gray",
                 transition: "color 0.2s",
-                "&:hover": {
-                  color: "#FA9500"
-                }
-              }}>
+                "&:hover": { color: "#FA9500" }
+              }}
+            >
               <EditIcon />
             </IconButton>
             <IconButton
@@ -180,9 +211,7 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
               sx={{
                 color: "gray",
                 transition: "color 0.2s",
-                "&:hover": {
-                  color: "#FA9500"
-                }
+                "&:hover": { color: "#FA9500" }
               }}
             >
               <DeleteIcon />

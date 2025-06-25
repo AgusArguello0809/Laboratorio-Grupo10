@@ -39,12 +39,12 @@ function Login() {
       // Usamos el email como identificador para JWT
       // La API de JWT normalmente espera un email específico
       const result = await login(values.identificador, values.password);
-      
+
       if (result.success) {
         setSnackbarMessage("✅ ¡Entraste!");
         setSnackbarSeverity("success");
         setOpenSnackbar(true);
-        
+
         setTimeout(() => {
           navigate(from, { replace: true });
         }, 1500);
@@ -55,12 +55,17 @@ function Login() {
         setOpenSnackbar(true);
       }
     } catch (error) {
-      console.error("Error al hacer login:", error);
-      setSnackbarMessage(`❌ ${error.message || "Error de conexión"}`);
+      console.log("Error login:", error, error.errorCode);
+
+      if (error.errorCode === "BAD_CREDENTIALS") {
+        setSnackbarMessage("❌ Usuario o contraseña incorrectos");
+      } else {
+        setSnackbarMessage(`❌ ${error.message || "Error de conexión"}`);
+      }
+
       setSnackbarSeverity("error");
       setOpenSnackbar(true);
     }
-    
     setSubmitting(false);
   };
 

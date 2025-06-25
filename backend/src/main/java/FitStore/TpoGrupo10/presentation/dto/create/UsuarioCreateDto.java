@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.presentation.dto;
+package FitStore.TpoGrupo10.presentation.dto.create;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;

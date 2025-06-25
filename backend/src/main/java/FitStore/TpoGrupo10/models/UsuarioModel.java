@@ -2,7 +2,6 @@ package FitStore.TpoGrupo10.models;
 
 import FitStore.TpoGrupo10.persistence.entities.enums.Role;
 
-// TODO: Tests unitarios
 public class UsuarioModel {
 
     private Long id;

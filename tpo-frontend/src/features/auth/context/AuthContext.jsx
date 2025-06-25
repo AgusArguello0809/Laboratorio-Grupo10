@@ -27,12 +27,12 @@ export const AuthProvider = ({ children }) => {
     checkAuth();
   }, []);
 
-  const login = async (email, password) => {
+  const login = async (username, password) => {
     setLoading(true);
     setError(null);
 
     try {
-      const data = await loginService(email, password);
+      const data = await loginService(username, password);
       setUser(data.user);
       return { success: true };
     } catch (err) {

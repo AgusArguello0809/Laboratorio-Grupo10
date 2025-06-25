@@ -1,57 +1,112 @@
 import { createContext, useContext, useState, useEffect } from "react";
 import { useAuth } from "../../auth/context/AuthContext";
+import { getToken } from "../../auth/services/authService";
 
 const CartContext = createContext();
 export const useCarrito = () => useContext(CartContext);
 
 export const CartProvider = ({ children }) => {
   const { user, isInitialized } = useAuth();
-  const [carrito, setCarrito] = useState([]);
+  const [carrito, setCarrito] = useState({ id: null, productos: [] });
   const [carritoCargado, setCarritoCargado] = useState(false);
 
-  useEffect(() => {
-    console.log("useEffect de CartProvider ejecutado");
-    console.log("isInitialized:", isInitialized);
-    console.log("user:", user);
+  const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+  const token = getToken();
 
-    if (!isInitialized) return;
+  const fetchCarrito = async () => {
+    if (!user?.id || fetchCarrito.loading) return;
 
-    if (user) {
-      const key = `carrito_${user.id}`;
-      const guardado = JSON.parse(localStorage.getItem(key)) || [];
-      console.log(`Leyendo carrito para key: ${key}`, guardado);
-      setCarrito(guardado);
-    } else {
-      console.log("No hay user. Vaciando carrito");
-      setCarrito([]);
+    fetchCarrito.loading = true;
+
+    try {
+      const res = await fetch(`${API_BASE_URL}/carritos`, {
+        headers: { Authorization: `Bearer ${token}` },
+      });
+
+      if (!res.ok) throw new Error("Fallo al obtener el carrito");
+
+      const data = await res.json();
+      const productos = data.productos || [];
+
+      console.warn("📦 Productos recibidos del carrito:", productos);
+
+      const productosValidados = await Promise.all(
+        productos.map(async (item) => {
+          if (!item.productoId) return null;
+
+          try {
+            const res = await fetch(`${API_BASE_URL}/productos/${item.productoId}`, {
+              headers: { Authorization: `Bearer ${token}` },
+            });
+            if (!res.ok) return null;
+            const producto = await res.json();
+
+            return {
+              ...item,
+              title: producto.title,
+              price: parseFloat(producto.price) || 0,
+              stock: producto.stock,
+              ownerId: producto.ownerId,
+              images: producto.images || [],
+            };
+          } catch {
+            return null;
+          }
+        })
+      );
+
+      const productosFiltrados = productosValidados.filter(
+        (item) =>
+          item &&
+          item.productoId &&
+          typeof item.title === "string" &&
+          !isNaN(item.price) &&
+          !isNaN(item.stock) &&
+          !isNaN(item.cantidad)
+      );
+
+      const nuevoCarrito = {
+        id: data.id ?? null,
+        productos: productosFiltrados,
+      };
+
+      setCarrito(nuevoCarrito);
+      localStorage.setItem(`carrito_${user.id}`, JSON.stringify(nuevoCarrito));
+    } catch (err) {
+      console.error("🛑 Error al cargar carrito:", err);
+      const local = JSON.parse(localStorage.getItem(`carrito_${user.id}`)) || {
+        id: null,
+        productos: [],
+      };
+      setCarrito(local);
+    } finally {
+      setCarritoCargado(true);
+      fetchCarrito.loading = false;
     }
+  };
 
-    setCarritoCargado(true);
-  }, [isInitialized, user]);
+  fetchCarrito.loading = false;
 
-  // Guardar carrito si cambió y ya se cargó
+  useEffect(() => {
+    if (isInitialized && user?.id) {
+      fetchCarrito();
+    }
+  }, [isInitialized, user?.id]);
+
   useEffect(() => {
     if (carritoCargado && user) {
-      const key = `carrito_${user.id}`;
-      console.log(`Guardando carrito para key: ${key}`, carrito);
-      localStorage.setItem(key, JSON.stringify(carrito));
+      localStorage.setItem(`carrito_${user.id}`, JSON.stringify(carrito));
     }
   }, [carrito, user, carritoCargado]);
 
-  useEffect(() => {
-    if (isInitialized && !user) {
-      setCarrito([]);
-      setCarritoCargado(true); // por si vuelve a montar el componente sin reiniciar
-    }
-  }, [user, isInitialized]);
+  const cantidadTotal = Array.isArray(carrito.productos)
+    ? carrito.productos.reduce((acc, item) => acc + (item.cantidad || 0), 0)
+    : 0;
 
-  const cantidadTotal = carrito.reduce((acc, item) => acc + item.cantidad, 0);
-
-  // Mientras no está inicializado o no se cargó el carrito, no renderizar nada
   if (!isInitialized || !carritoCargado) return null;
 
   return (
-    <CartContext.Provider value={{ carrito, setCarrito, cantidadTotal }}>
+    <CartContext.Provider value={{ carrito, setCarrito, cantidadTotal, fetchCarrito }}>
       {children}
     </CartContext.Provider>
   );

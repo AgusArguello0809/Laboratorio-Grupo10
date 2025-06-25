@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.presentation.dto;
+package FitStore.TpoGrupo10.presentation.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.Getter;

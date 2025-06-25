@@ -75,7 +75,7 @@ function Navbar() {
       ) : (
         <>
           <Button color="inherit" onClick={handleMenuClick}>
-            {user.name + " " + user.lastName || "Usuario"}
+            {user.username || "Usuario"}
           </Button>
           <Menu anchorEl={anchorEl} open={open} onClose={handleMenuClose}>
             <MenuItem onClick={handleLogout}>Cerrar sesión</MenuItem>

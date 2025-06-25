@@ -1,18 +1,36 @@
-import React, { useState, useMemo } from "react";
+import React, { useState, useMemo, useEffect, useRef } from "react";
 import { Grid, Box, Container, CircularProgress } from "@mui/material";
 import ProductCard from "./ProductCard";
 import ProductFilter from "./ProductFilter";
 import { useProductService } from "../../hooks/useProductService";
+import { useAuth } from "../../../auth/context/AuthContext";
 
 const ProductCatalog = () => {
+  const { isInitialized } = useAuth();
+  const {
+    products,
+    loading,
+    error,
+    filterProducts,
+    sortProducts,
+    fetchProducts
+  } = useProductService();
+
+  const hasFetched = useRef(false); // evita múltiples llamadas
+
+  useEffect(() => {
+    if (isInitialized && !hasFetched.current) {
+      fetchProducts();
+      hasFetched.current = true;
+    }
+  }, [isInitialized, fetchProducts]);
+
   const [filterOptions, setFilterOptions] = useState({
     searchTerm: "",
     stockFilter: "all",
     sortBy: "titleAsc",
     category: "all"
   });
-
-  const { products, loading, error, filterProducts, sortProducts } = useProductService();
 
   const sortedProducts = useMemo(() => {
     const filtered = filterProducts(
@@ -24,7 +42,8 @@ const ProductCatalog = () => {
     return sortProducts(filtered, filterOptions.sortBy);
   }, [products, filterOptions, filterProducts, sortProducts]);
 
-  if (loading) {
+  // ✅ Ahora sí: lógica de renderizado condicional
+  if (!isInitialized || loading) {
     return (
       <Container maxWidth="lg">
         <Box
@@ -90,7 +109,7 @@ const ProductCatalog = () => {
                     id: producto.id,
                     title: producto.title,
                     price: parseFloat(producto.price),
-                    category: producto.category,
+                    categoryId: producto.categoryId || producto.category,
                     description: producto.description,
                     stock: producto.stock,
                     images: producto.images,

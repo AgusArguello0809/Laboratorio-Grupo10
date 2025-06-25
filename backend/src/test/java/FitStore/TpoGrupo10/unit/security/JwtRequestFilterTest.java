@@ -1,4 +1,4 @@
-/*
+
 package FitStore.TpoGrupo10.unit.security;
 
 import java.util.Collections;
@@ -54,6 +54,7 @@ class JwtRequestFilterTest {
     void setUp() {
         MockitoAnnotations.openMocks(this);
         jwtRequestFilter = new TestableJwtRequestFilter(jwtUtil, userDetailsService);
+        SecurityContextHolder.clearContext();
     }
 
     @Test
@@ -107,4 +108,3 @@ class JwtRequestFilterTest {
         verify(filterChain).doFilter(request, response);
     }
 }
-*/

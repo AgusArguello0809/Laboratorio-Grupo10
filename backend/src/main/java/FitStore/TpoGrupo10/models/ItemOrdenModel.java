@@ -1,9 +1,9 @@
-package FitStore.TpoGrupo10.presentation.dto;
+package FitStore.TpoGrupo10.models;
 
-
-public class ItemCarritoDto {
+public class ItemOrdenModel {
 
     private Long productoId;
+    private String nombreProducto;
     private int cantidad;
     private double precioUnitario;
     private double subTotal;
@@ -14,6 +14,14 @@ public class ItemCarritoDto {
 
     public void setProductoId(Long productoId) {
         this.productoId = productoId;
+    }
+
+    public String getNombreProducto() {
+        return nombreProducto;
+    }
+
+    public void setNombreProducto(String nombreProducto) {
+        this.nombreProducto = nombreProducto;
     }
 
     public int getCantidad() {
@@ -38,5 +46,16 @@ public class ItemCarritoDto {
 
     public void setSubTotal(double subTotal) {
         this.subTotal = subTotal;
+    }
+
+    @Override
+    public String toString() {
+        return "ItemOrdenModel{" +
+                "productoId=" + productoId +
+                ", nombreProducto='" + nombreProducto + '\'' +
+                ", cantidad=" + cantidad +
+                ", precioUnitario=" + precioUnitario +
+                ", subTotal=" + subTotal +
+                '}';
     }
 }

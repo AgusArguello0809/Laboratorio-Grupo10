@@ -20,7 +20,6 @@ import org.springframework.web.multipart.MultipartFile;
 import java.util.ArrayList;
 import java.util.List;
 
-// TODO: Tests unitarios
 @Service
 public class ProductoServiceImpl implements ProductoService {
 
@@ -79,26 +78,36 @@ public class ProductoServiceImpl implements ProductoService {
     }
 
     @Override
-    public ProductoModel update(Long id, ProductoModel model, MultipartFile[] images) {
+    public ProductoModel update(Long id, ProductoModel model, MultipartFile[] newImages, List<String> existingImageUrls) {
         ProductoModel existente = findById(id);
         validarPropietario(existente);
 
         CategoriaModel categoria = categoriaRepository.findById(model.getCategory().getId())
                 .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA.getMessage(), ErrorCodeEnum.CATEGORIA_NO_ENCONTRADA));
 
-        if (images != null) {
-            if (images.length > 10) {
-                throw new BusinessException(ErrorCodeEnum.IMAGENES_EXCEDIDAS.getMessage(), ErrorCodeEnum.IMAGENES_EXCEDIDAS);
-            }
-            if (images.length > 0) {
-                model.setImages(subirImagenes(images));
-            } else {
-                model.setImages(existente.getImages());
-            }
-        } else {
-            model.setImages(existente.getImages());
+        List<String> finalImages = new ArrayList<>();
+
+        // Agregar imágenes existentes que se quieren conservar
+        if (existingImageUrls != null) {
+            finalImages.addAll(existingImageUrls);
         }
 
+        // Subir nuevas imágenes si se mandaron
+        if (newImages != null && newImages.length > 0) {
+            if (newImages.length + finalImages.size() > 10) {
+                throw new BusinessException(ErrorCodeEnum.IMAGENES_EXCEDIDAS.getMessage(), ErrorCodeEnum.IMAGENES_EXCEDIDAS);
+            }
+
+            for (MultipartFile image : newImages) {
+                if (image == null || image.isEmpty()) {
+                    throw new BusinessException(ErrorCodeEnum.IMAGEN_VACIA.getMessage(), ErrorCodeEnum.IMAGEN_VACIA);
+                }
+            }
+
+            finalImages.addAll(subirImagenes(newImages));
+        }
+
+        model.setImages(finalImages);
         model.setCategory(categoria);
         model.setOwner(existente.getOwner());
         existente.updateFrom(model);

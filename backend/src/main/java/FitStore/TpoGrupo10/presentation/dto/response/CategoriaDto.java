@@ -1,4 +1,4 @@
-package FitStore.TpoGrupo10.presentation.dto;
+package FitStore.TpoGrupo10.presentation.dto.response;
 
 public class CategoriaDto {
 
