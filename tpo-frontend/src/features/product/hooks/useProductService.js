@@ -40,14 +40,24 @@ const createFormDataWithProduct = (productData, processedImages, mode = "POST") 
   };
 
   if (mode === "PUT") {
-    productPayload.existingImageUrls = productData.images
-      ?.filter((img) => typeof img === "string") || [];
-  }
+    // Extraer en orden exacto
+    const existingImageUrls = [];
+    const newFiles = [];
 
-  formData.append("data", JSON.stringify(productPayload));
-  processedImages.forEach((file) => {
-    formData.append("images", file);
-  });
+    productData.images.forEach(img => {
+      if (typeof img === "string") existingImageUrls.push(img);
+      else if (img?.file instanceof File) newFiles.push(img.file);
+      else if (img instanceof File) newFiles.push(img);
+    });
+
+    productPayload.existingImageUrls = existingImageUrls;
+
+    formData.append("data", JSON.stringify(productPayload));
+    newFiles.forEach(file => formData.append("images", file));
+  } else {
+    formData.append("data", JSON.stringify(productPayload));
+    processedImages.forEach(file => formData.append("images", file));
+  }
 
   return formData;
 };

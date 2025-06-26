@@ -9,7 +9,7 @@ import {
   Grid,
   Typography,
 } from "@mui/material";
-import { CATEGORIES } from "../../../config/categories"; // ← Importar categorías centralizadas
+import { CATEGORIES } from "../../../config/categories"; // Importar categorías centralizadas
 
 function ProductFilter({ filterOptions, onFilterChange }) {
 

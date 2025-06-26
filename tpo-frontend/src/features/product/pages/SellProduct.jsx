@@ -24,6 +24,7 @@ export default function SellProduct() {
   const [openConfirm, setOpenConfirm] = useState(false);
   const [openDraft, setOpenDraft] = useState(false);
   const [validationError, setValidationError] = useState(false);
+  const [snackbar, setSnackbar] = useState({ open: false, message: '', severity: 'success' });
 
   const isFormValid =
     formData.title.trim() !== "" &&
@@ -60,9 +61,16 @@ export default function SellProduct() {
     try {
       const result = await addProduct(nuevoProducto);
       if (result.success) {
-        navigate("/my-publications", {
-          state: { successMessage: "Producto publicado con éxito" }
+        setSnackbar({
+          open: true,
+          message: "Producto agregado. Redirigiendo a Mis Publicaciones...",
+          severity: "success"
         });
+        setTimeout(() => {
+          navigate("/my-publications", {
+            state: { successMessage: "Producto publicado con éxito" }
+          });
+        }, 1800);
       } else {
         console.error("Error al guardar el producto:", result.error);
       }
@@ -123,6 +131,20 @@ export default function SellProduct() {
           variant="filled"
         >
           Completá todos los campos e incluí al menos una imagen
+        </Alert>
+      </Snackbar>
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={3000}
+        onClose={() => setSnackbar({ ...snackbar, open: false })}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'center' }}
+      >
+        <Alert
+          onClose={() => setSnackbar({ ...snackbar, open: false })}
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
         </Alert>
       </Snackbar>
     </Box>

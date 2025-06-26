@@ -42,7 +42,7 @@ const ProductCatalog = () => {
     return sortProducts(filtered, filterOptions.sortBy);
   }, [products, filterOptions, filterProducts, sortProducts]);
 
-  // ✅ Ahora sí: lógica de renderizado condicional
+  // Lógica de renderizado condicional
   if (!isInitialized || loading) {
     return (
       <Container maxWidth="lg">

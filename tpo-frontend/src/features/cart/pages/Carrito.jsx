@@ -235,6 +235,7 @@ const Carrito = () => {
                     variant="outlined"
                     onClick={() => aumentarCantidad(item.productoId)}
                     sx={estiloBoton('+')}
+                    disabled={item.cantidad >= item.stock}
                   >
                     +
                   </Button>

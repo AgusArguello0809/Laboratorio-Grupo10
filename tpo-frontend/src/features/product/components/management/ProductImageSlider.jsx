@@ -16,13 +16,13 @@ export default function ProductImageSlider({ images, setImages }) {
   const handleFileChange = (e) => {
     const files = Array.from(e.target.files);
 
-    // 🔧 CREAR objetos que contengan tanto la URL como el File
+    // CREAR objetos que contengan tanto la URL como el File
     const newImageObjects = files.map((file) => ({
       url: URL.createObjectURL(file), // Para mostrar
       file: file                      // Para enviar al backend
     }));
 
-    // 🔧 COMBINAR con imágenes existentes (máximo 10)
+    // COMBINAR con imágenes existentes (máximo 10)
     const combinedImages = [...images, ...newImageObjects].slice(0, 10);
     setImages(combinedImages);
 
@@ -40,7 +40,7 @@ export default function ProductImageSlider({ images, setImages }) {
   };
 
   const handleDeleteImage = () => {
-    // 🔧 LIMPIAR URL del objeto eliminado
+    // LIMPIAR URL del objeto eliminado
     if (images[currentIndex]?.url) {
       URL.revokeObjectURL(images[currentIndex].url);
     }

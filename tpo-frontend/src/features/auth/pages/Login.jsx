@@ -17,7 +17,7 @@ import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 
 const validationSchema = Yup.object({
-  identificador: Yup.string().required("El email o usuario es obligatorio"),
+  identificador: Yup.string().required("El usuario es obligatorio"),
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")
     .required("La contraseña es obligatoria"),
@@ -36,8 +36,8 @@ function Login() {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
-      // Usamos el email como identificador para JWT
-      // La API de JWT normalmente espera un email específico
+      // Usamos el username como identificador para JWT
+      // La API de JWT normalmente espera un username específico
       const result = await login(values.identificador, values.password);
 
       if (result.success) {
@@ -121,7 +121,7 @@ function Login() {
               <TextField
                 margin="normal"
                 fullWidth
-                label="Email o nombre de usuario"
+                label="Nombre de usuario"
                 name="identificador"
                 type="text"
                 autoComplete="username"

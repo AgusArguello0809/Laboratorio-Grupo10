@@ -18,7 +18,8 @@ import * as Yup from "yup";
 
 const validationSchema = Yup.object({
   username: Yup.string()
-    .min(4, "Debe tener al menos 4 caracteres")
+    .min(8, "Debe tener al menos 8 caracteres")
+    .max(32, "Debe tener máximo 32 caracteres")
     .required("El nombre de usuario es obligatorio"),
   firstName: Yup.string().required("El nombre es obligatorio"),
   lastName: Yup.string().required("El apellido es obligatorio"),
@@ -26,7 +27,8 @@ const validationSchema = Yup.object({
     .email("Formato de email inválido")
     .required("El email es obligatorio"),
   password: Yup.string()
-    .min(6, "La contraseña debe tener al menos 6 caracteres")
+    .min(8, "La contraseña debe tener al menos 8 caracteres")
+    .max(32, "La contraseña debe tener máximo 32 caracteres")
     .required("La contraseña es obligatoria"),
 });
 
