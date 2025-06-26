@@ -38,7 +38,7 @@ public class OrdenRepositoryImpl implements OrdenRepository {
 
     @Override
     public List<OrdenModel> findByCompradorId(Long compradorId) {
-        LOGGER.debug("Buscando órdenes del comprador con ID {}", compradorId);
+        LOGGER.debug("Buscando ordenes del comprador con ID {}", compradorId);
         return dao.findByCompradorId(compradorId).stream()
                 .map(mapper::toModel)
                 .toList();

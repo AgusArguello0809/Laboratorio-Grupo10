@@ -26,6 +26,8 @@ public class ProductoUpdateDto {
 
     private List<String> existingImageUrls;
 
+    // No se incluye el ownerId a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
+
     public List<String> getExistingImageUrls() {
         return existingImageUrls;
     }
@@ -33,8 +35,6 @@ public class ProductoUpdateDto {
     public void setExistingImageUrls(List<String> existingImageUrls) {
         this.existingImageUrls = existingImageUrls;
     }
-
-    // No se incluye el ownerId a propósito (no va a cambiar el id del usuario que haya cambiado el producto).
 
     public String getTitle() {
         return title;

@@ -27,7 +27,7 @@ public class UsuarioRepositoryImpl implements UsuarioRepository {
 
     @Override
     public Page<UsuarioModel> findAll(Pageable pageable) {
-        LOGGER.debug("Buscando todos los usuarios de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+        LOGGER.debug("Buscando todos los usuarios de la pagina {} con size {}", pageable.getPageNumber(), pageable.getPageSize());
         return dao.findAll(pageable).map(mapper::toModel);
     }
 

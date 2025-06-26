@@ -28,7 +28,7 @@ public class ProductoRepositoryImpl implements ProductoRepository {
 
     @Override
     public Page<ProductoModel> findAll(Predicate predicate, Pageable pageable) {
-        LOGGER.debug("Buscando todos los productos de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+        LOGGER.debug("Buscando todos los productos de la pagina {} con size {}", pageable.getPageNumber(), pageable.getPageSize());
         return productoDao.findAll(predicate, pageable).map(mapper::toModel);
     }
 

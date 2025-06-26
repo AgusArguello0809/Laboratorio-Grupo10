@@ -27,7 +27,7 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
 
     @Override
     public Page<CategoriaModel> findAll(Pageable pageable) {
-        LOGGER.debug("Buscando todas las categorias de la página {} con tamaño {}", pageable.getPageNumber(), pageable.getPageSize());
+        LOGGER.debug("Buscando todas las categorias de la pagina {} con size {}", pageable.getPageNumber(), pageable.getPageSize());
         return categoriaDao.findAll(pageable).map(mapper::toModel);
     }
 
