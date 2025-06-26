@@ -4,13 +4,13 @@ import { useProductContext } from "../context/ProductContext";
 import { getToken, authenticatedFetch } from "../../auth/services/authService";
 import { useAuth } from "../../auth/context/AuthContext";
 
-const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 const getAuthHeaders = () => {
   const token = getToken();
   return {
-    'Content-Type': 'application/json',
-    ...(token && { Authorization: `Bearer ${token}` })
+    "Content-Type": "application/json",
+    ...(token && { Authorization: `Bearer ${token}` }),
   };
 };
 
@@ -28,7 +28,11 @@ const processProductImages = (images) => {
     .filter((file) => file instanceof File);
 };
 
-const createFormDataWithProduct = (productData, processedImages, mode = "POST") => {
+const createFormDataWithProduct = (
+  productData,
+  processedImages,
+  mode = "POST"
+) => {
   const formData = new FormData();
 
   const productPayload = {
@@ -36,7 +40,7 @@ const createFormDataWithProduct = (productData, processedImages, mode = "POST") 
     description: productData.description,
     price: productData.price,
     stock: productData.stock,
-    categoryId: productData.categoryId || productData.category || 1
+    categoryId: productData.categoryId || productData.category || 1,
   };
 
   if (mode === "PUT") {
@@ -44,7 +48,7 @@ const createFormDataWithProduct = (productData, processedImages, mode = "POST") 
     const existingImageUrls = [];
     const newFiles = [];
 
-    productData.images.forEach(img => {
+    productData.images.forEach((img) => {
       if (typeof img === "string") existingImageUrls.push(img);
       else if (img?.file instanceof File) newFiles.push(img.file);
       else if (img instanceof File) newFiles.push(img);
@@ -53,10 +57,10 @@ const createFormDataWithProduct = (productData, processedImages, mode = "POST") 
     productPayload.existingImageUrls = existingImageUrls;
 
     formData.append("data", JSON.stringify(productPayload));
-    newFiles.forEach(file => formData.append("images", file));
+    newFiles.forEach((file) => formData.append("images", file));
   } else {
     formData.append("data", JSON.stringify(productPayload));
-    processedImages.forEach(file => formData.append("images", file));
+    processedImages.forEach((file) => formData.append("images", file));
   }
 
   return formData;
@@ -66,9 +70,9 @@ const sendFormDataRequest = async (url, method, formData, token) => {
   const response = await fetch(url, {
     method,
     headers: {
-      ...(token && { Authorization: `Bearer ${token}` })
+      ...(token && { Authorization: `Bearer ${token}` }),
     },
-    body: formData
+    body: formData,
   });
 
   if (!response.ok) {
@@ -81,21 +85,16 @@ const sendFormDataRequest = async (url, method, formData, token) => {
 
 export const useProductService = () => {
   const { isInitialized } = useAuth();
-  const {
-    products,
-    setProducts,
-    loading,
-    setLoading,
-    error,
-    setError
-  } = useProductContext();
+  const { products, setProducts, loading, setLoading, error, setError } =
+    useProductContext();
 
   const fetchProducts = async () => {
     console.log("📦 fetchProducts llamado");
+
     setLoading(true);
     try {
       const response = await axios.get(`${API_BASE_URL}/productos`, {
-        headers: getAuthHeaders()
+        headers: getAuthHeaders(),
       });
 
       let productosArray = [];
@@ -136,17 +135,20 @@ export const useProductService = () => {
         throw new Error("Debe agregar al menos una imagen para el producto");
       }
 
-      const formData = createFormDataWithProduct(newProduct, processedImages, "POST");
+      const formData = createFormDataWithProduct(
+        newProduct,
+        processedImages,
+        "POST"
+      );
       const data = await sendFormDataRequest(
         `${API_BASE_URL}/productos`,
-        'POST',
+        "POST",
         formData,
         token
       );
 
       setError(null);
       return { success: true, data: data };
-
     } catch (err) {
       console.error("Error en addProduct:", err);
       setError("Error al añadir producto: " + err.message);
@@ -163,16 +165,21 @@ export const useProductService = () => {
 
       if (updatedProduct.images && updatedProduct.images.length > 0) {
         const processedImages = processProductImages(updatedProduct.images);
-        const existingUrls = updatedProduct.images?.filter((img) => typeof img === "string") || [];
+        const existingUrls =
+          updatedProduct.images?.filter((img) => typeof img === "string") || [];
 
         if (processedImages.length === 0 && existingUrls.length === 0) {
           throw new Error("Debe agregar al menos una imagen para el producto");
         }
 
-        const formData = createFormDataWithProduct(updatedProduct, processedImages, "PUT");
+        const formData = createFormDataWithProduct(
+          updatedProduct,
+          processedImages,
+          "PUT"
+        );
         const data = await sendFormDataRequest(
           `${API_BASE_URL}/productos/${updatedProduct.id}`,
-          'PUT',
+          "PUT",
           formData,
           token
         );
@@ -185,7 +192,7 @@ export const useProductService = () => {
           `${API_BASE_URL}/productos/${updatedProduct.id}`,
           updatedProduct,
           {
-            headers: getAuthHeaders()
+            headers: getAuthHeaders(),
           }
         );
 
@@ -193,7 +200,6 @@ export const useProductService = () => {
 
         return { success: true, data: response.data };
       }
-
     } catch (err) {
       console.error("Error al actualizar producto:", err);
 
@@ -213,7 +219,7 @@ export const useProductService = () => {
     setLoading(true);
     try {
       await axios.delete(`${API_BASE_URL}/productos/${productId}`, {
-        headers: getAuthHeaders()
+        headers: getAuthHeaders(),
       });
 
       await fetchProducts();
@@ -236,14 +242,20 @@ export const useProductService = () => {
 
   const getProductsByOwner = (ownerId) => {
     if (!Array.isArray(products)) return [];
-    return products.filter(product => product.ownerId === ownerId);
+    return products.filter((product) => product.ownerId === ownerId);
   };
 
-  const filterProducts = (searchTerm = "", stockFilter = "all", category = "all") => {
+  const filterProducts = (
+    searchTerm = "",
+    stockFilter = "all",
+    category = "all"
+  ) => {
     if (!Array.isArray(products) || products.length === 0) return [];
 
-    return products.filter(product => {
-      const matchesSearch = product.title?.toLowerCase().includes(searchTerm.toLowerCase());
+    return products.filter((product) => {
+      const matchesSearch = product.title
+        ?.toLowerCase()
+        .includes(searchTerm.toLowerCase());
 
       let matchesStock = true;
       if (stockFilter === "inStock") {
@@ -288,6 +300,6 @@ export const useProductService = () => {
     deleteProduct,
     getProductsByOwner,
     filterProducts,
-    sortProducts
+    sortProducts,
   };
 };

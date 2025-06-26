@@ -1,6 +1,6 @@
-import { jwtDecode } from 'jwt-decode';
+import { jwtDecode } from "jwt-decode";
 
-const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 export const login = async (username, password) => {
   try {
@@ -38,13 +38,13 @@ export const login = async (username, password) => {
           id: decoded.id,
         };
 
-        console.log(user)
+        console.log(user);
         localStorage.setItem("user", JSON.stringify(user));
 
         return {
           success: true,
           user: user,
-          token: data.jwt
+          token: data.jwt,
         };
       } catch (decodeError) {
         console.error("Error decodificando JWT:", decodeError);
@@ -124,7 +124,7 @@ export const authenticatedFetch = async (url, options = {}) => {
   const token = getToken();
 
   const headers = {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
     ...options.headers,
   };
 

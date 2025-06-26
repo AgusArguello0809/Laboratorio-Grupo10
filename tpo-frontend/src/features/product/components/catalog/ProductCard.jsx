@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getCategoryName } from "../../../config/categories";
 import { getToken } from "../../../auth/services/authService";
 
-export const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL;
 
 function ProductCard({ product }) {
   const [open, setOpen] = useState(false);
@@ -84,7 +84,7 @@ function ProductCard({ product }) {
       }
 
       // Usar el fetchCarrito que valida e hidrata bien los datos
-      await new Promise(resolve => setTimeout(resolve, 300)); // delay opcional por si el back es lento
+      await new Promise((resolve) => setTimeout(resolve, 300)); // delay opcional por si el back es lento
       await fetchCarrito();
 
       setOpen(true);
@@ -95,7 +95,6 @@ function ProductCard({ product }) {
       setLoading(false);
     }
   };
-
 
   return (
     <>
@@ -144,7 +143,7 @@ function ProductCard({ product }) {
                   left: "50%",
                   transform: "translateX(-50%)",
                   display: "flex",
-                  gap: "6px"
+                  gap: "6px",
                 }}
               >
                 {product.images.map((_, index) => (
@@ -154,9 +153,10 @@ function ProductCard({ product }) {
                       width: 8,
                       height: 8,
                       borderRadius: "50%",
-                      backgroundColor: currentImage === index ? "#FA9500" : "gray",
+                      backgroundColor:
+                        currentImage === index ? "#FA9500" : "gray",
                       opacity: currentImage === index ? 1 : 0.4,
-                      transition: "all 0.2s"
+                      transition: "all 0.2s",
                     }}
                   />
                 ))}
@@ -231,7 +231,9 @@ function ProductCard({ product }) {
               }}
             >
               <Typography variant="body2" color="text.secondary">
-                <strong>{getCategoryName(product.categoryId || product.category)}</strong>
+                <strong>
+                  {getCategoryName(product.categoryId || product.category)}
+                </strong>
               </Typography>
               <Typography variant="body2" color="text.secondary">
                 <strong>Stock:</strong> {product.stock}
@@ -256,7 +258,10 @@ function ProductCard({ product }) {
             </Typography>
           </Box>
           <Typography variant="h5" component="div" sx={{ mb: 2 }}>
-            ${!isNaN(parseFloat(product.price)) ? parseFloat(product.price).toFixed(2) : "0.00"}
+            $
+            {!isNaN(parseFloat(product.price))
+              ? parseFloat(product.price).toFixed(2)
+              : "0.00"}
           </Typography>
           <Button
             variant="contained"

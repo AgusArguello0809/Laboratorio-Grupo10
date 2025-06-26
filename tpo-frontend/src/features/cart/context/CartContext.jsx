@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [carrito, setCarrito] = useState({ id: null, productos: [] });
   const [carritoCargado, setCarritoCargado] = useState(false);
 
-  const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+  const API_BASE_URL = "http://backend_app:8080/fitstore-api/v1";
   const token = getToken();
 
   const fetchCarrito = async () => {
@@ -33,9 +33,12 @@ export const CartProvider = ({ children }) => {
           if (!item.productoId) return null;
 
           try {
-            const res = await fetch(`${API_BASE_URL}/productos/${item.productoId}`, {
-              headers: { Authorization: `Bearer ${token}` },
-            });
+            const res = await fetch(
+              `${API_BASE_URL}/productos/${item.productoId}`,
+              {
+                headers: { Authorization: `Bearer ${token}` },
+              }
+            );
             if (!res.ok) return null;
             const producto = await res.json();
 
