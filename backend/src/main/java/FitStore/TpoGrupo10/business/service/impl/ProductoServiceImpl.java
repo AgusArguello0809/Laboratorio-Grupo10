@@ -107,6 +107,11 @@ public class ProductoServiceImpl implements ProductoService {
             finalImages.addAll(subirImagenes(newImages));
         }
 
+        // Limpiar antes de setear para reordenar las imagenes
+        existente.getImages().clear();
+        productoRepository.save(existente); // fuerza el delete previo para evitar duplicados
+
+        // Ahora sí setear el resto
         model.setImages(finalImages);
         model.setCategory(categoria);
         model.setOwner(existente.getOwner());

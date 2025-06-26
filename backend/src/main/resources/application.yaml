@@ -12,7 +12,6 @@ spring:
     properties:
       hibernate:
         dialect: org.hibernate.dialect.MySQL8Dialect
-        ddl-auto: update
 
 web:
   cors:

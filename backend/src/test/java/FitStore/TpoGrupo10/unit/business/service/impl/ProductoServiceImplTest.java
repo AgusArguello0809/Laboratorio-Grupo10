@@ -98,6 +98,43 @@ class ProductoServiceImplTest {
     }
 
     @Test
+    void update_productoConImagenesActualizaCorrectamente() throws Exception {
+        // Setup producto existente
+        List<String> imagenesExistentes = new ArrayList<>(List.of("img1", "img2"));
+        productoModel.setId(1L);
+        productoModel.setImages(imagenesExistentes);
+        productoModel.setOwner(usuarioModel);
+        usuarioModel.setUsername("testuser");
+        mockSecurityContext("testuser");
+
+        // Nuevas imágenes a subir
+        MockMultipartFile nuevaImagen = new MockMultipartFile("file", "nueva.jpg", "image/jpeg", "contenido".getBytes());
+        MultipartFile[] nuevas = new MultipartFile[]{nuevaImagen};
+
+        // Producto que llega del frontend
+        ProductoModel input = new ProductoModel();
+        input.setTitle("Producto Actualizado");
+        input.setPrice(99.99);
+        input.setStock(5);
+        input.setCategory(categoriaModel);
+        input.setImages(new ArrayList<>()); // se setea después en el service
+
+        when(productoRepository.findById(1L)).thenReturn(Optional.of(productoModel));
+        when(categoriaRepository.findById(anyLong())).thenReturn(Optional.of(categoriaModel));
+        when(storageService.uploadFile(any())).thenReturn("img3");
+        when(productoRepository.save(any())).thenAnswer(invocation -> invocation.getArgument(0));
+
+        ProductoModel actualizado = productoService.update(1L, input, nuevas, List.of("img2")); // conserva img2, agrega img3
+
+        assertNotNull(actualizado);
+        assertEquals("Producto Actualizado", actualizado.getTitle());
+        assertEquals(2, actualizado.getImages().size());
+        assertTrue(actualizado.getImages().contains("img2"));
+        assertTrue(actualizado.getImages().contains("img3"));
+        verify(productoRepository, times(2)).save(any()); // 1ro al hacer clear(), 2do al setear final
+    }
+
+    @Test
     void findById_productoExiste_retornaProducto() {
         when(productoRepository.findById(1L)).thenReturn(Optional.of(productoModel));
         ProductoModel resultado = productoService.findById(1L);

@@ -31,6 +31,7 @@ public class ProductoEntity {
     @ElementCollection(fetch = FetchType.EAGER)
     @CollectionTable(name = "producto_images", joinColumns = @JoinColumn(name = "producto_id"))
     @Column(name = "image_url")
+    @OrderColumn(name = "orden")
     private List<String> images;
 
     public Long getId() { return id; }

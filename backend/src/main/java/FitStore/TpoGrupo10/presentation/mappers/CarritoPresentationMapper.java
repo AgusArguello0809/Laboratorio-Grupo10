@@ -5,7 +5,7 @@ import FitStore.TpoGrupo10.presentation.dto.response.CarritoDto;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring", uses = ProductoPresentationMapper.class)
+@Mapper(componentModel = "spring", uses = ItemCarritoPresentationMapper.class)
 public interface CarritoPresentationMapper {
     @Mapping(source = "productos", target = "productos")
     CarritoDto toDto(CarritoModel model);
