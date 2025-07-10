@@ -43,7 +43,7 @@ services:
     build:
       context: ./tpo-frontend
       args:
-        VITE_API_URL: http://backend:8080
+        VITE_API_URL: http://localhost:8080
     container_name: frontend
     depends_on:
       - backend

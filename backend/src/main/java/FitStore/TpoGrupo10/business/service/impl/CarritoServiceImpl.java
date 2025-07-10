@@ -40,7 +40,13 @@ public class CarritoServiceImpl implements CarritoService {
         UsuarioModel usuario = getAuthenticatedUser();
 
         return repository.findByOwnerId(usuario.getId())
-                .orElseThrow(() -> new BusinessException(ErrorCodeEnum.CARRITO_NO_ENCONTRADO.getMessage(), ErrorCodeEnum.CARRITO_NO_ENCONTRADO));
+                .orElseGet(() -> {
+                    CarritoModel nuevoCarrito = new CarritoModel();
+                    nuevoCarrito.setOwner(usuario);
+                    nuevoCarrito.setProductos(new ArrayList<>());
+                    nuevoCarrito.setTotal(0);
+                    return repository.save(nuevoCarrito);
+                });
     }
 
     @Override

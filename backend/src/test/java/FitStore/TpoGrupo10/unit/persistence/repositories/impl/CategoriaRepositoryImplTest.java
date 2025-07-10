@@ -84,4 +84,33 @@ class CategoriaRepositoryImplTest {
         verify(categoriaDao).findById(99L);
         verify(mapper, never()).toModel(any());
     }
+
+    @Test
+    void count_devuelveCantidadCorrecta() {
+        when(categoriaDao.count()).thenReturn(5L);
+
+        long resultado = repository.count();
+
+        assertEquals(5L, resultado);
+        verify(categoriaDao).count();
+    }
+
+    @Test
+    void saveAll_convierteYGuardaCategorias() {
+        CategoriaModel model1 = new CategoriaModel(); model1.setNombre("Accesorios");
+        CategoriaModel model2 = new CategoriaModel(); model2.setNombre("Ropa");
+
+        CategoriaEntity entity1 = new CategoriaEntity(); entity1.setNombre("Accesorios");
+        CategoriaEntity entity2 = new CategoriaEntity(); entity2.setNombre("Ropa");
+
+        List<CategoriaModel> modelos = List.of(model1, model2);
+        List<CategoriaEntity> entidades = List.of(entity1, entity2);
+
+        when(mapper.toEntityList(modelos)).thenReturn(entidades);
+
+        repository.saveAll(modelos);
+
+        verify(mapper).toEntityList(modelos);
+        verify(categoriaDao).saveAll(entidades);
+    }
 }

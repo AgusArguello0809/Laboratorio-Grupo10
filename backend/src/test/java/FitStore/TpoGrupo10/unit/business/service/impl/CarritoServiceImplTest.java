@@ -68,14 +68,27 @@ class CarritoServiceImplTest {
     }
 
     @Test
-    void getCarritoByOwnerId_carritoNoExiste() {
-        UsuarioModel user = new UsuarioModel(); user.setId(2L); user.setUsername("agus");
-        mockSecurityContext("agus", false);
+    void getCarritoByOwnerId_carritoNoExiste_seCreaAutomáticamente() {
+        UsuarioModel user = new UsuarioModel();
+        user.setId(5L);
+        user.setUsername("nuevo");
+        mockSecurityContext("nuevo", false);
 
-        when(usuarioRepository.findByUsername("agus")).thenReturn(Optional.of(user));
-        when(carritoRepository.findByOwnerId(2L)).thenReturn(Optional.empty());
+        when(usuarioRepository.findByUsername("nuevo")).thenReturn(Optional.of(user));
+        when(carritoRepository.findByOwnerId(5L)).thenReturn(Optional.empty());
+        when(carritoRepository.save(any())).thenAnswer(invocation -> {
+            CarritoModel creado = invocation.getArgument(0);
+            creado.setId(123L); // simulamos que le asigna un ID
+            return creado;
+        });
 
-        assertThrows(BusinessException.class, () -> carritoService.getCarritoByOwnerId());
+        CarritoModel result = carritoService.getCarritoByOwnerId();
+
+        assertNotNull(result);
+        assertEquals(5L, result.getOwner().getId());
+        assertEquals(123L, result.getId());
+        assertEquals(0, result.getProductos().size());
+        assertEquals(0, result.getTotal()); // si es int/double
     }
 
     @Test
