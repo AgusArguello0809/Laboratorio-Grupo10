@@ -33,7 +33,6 @@ services:
       SPRING_DATASOURCE_URL: jdbc:mysql://mysql:3306/fitstore
       SPRING_DATASOURCE_USERNAME: user
       SPRING_DATASOURCE_PASSWORD: pass
-      JWT_SECRET: unaClaveSecretaConAlMenos32Caracteres!!
     ports:
       - "8080:8080"
     networks:

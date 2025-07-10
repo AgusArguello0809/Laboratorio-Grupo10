@@ -7,7 +7,7 @@ WORKDIR /app
 COPY package.json package-lock.json ./
 RUN npm install --frozen-lockfile
 
-# Copiar el resto del código, incluyendo .env.production
+# Copiar el resto del código, incluyendo .env
 COPY . .
 
 ARG VITE_API_URL
