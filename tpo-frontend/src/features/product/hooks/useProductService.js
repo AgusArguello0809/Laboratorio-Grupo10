@@ -4,7 +4,7 @@ import { useProductContext } from "../context/ProductContext";
 import { getToken, authenticatedFetch } from "../../auth/services/authService";
 import { useAuth } from "../../auth/context/AuthContext";
 
-const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/fitstore-api/v1`;
 
 const getAuthHeaders = () => {
   const token = getToken();

@@ -38,4 +38,17 @@ public class CategoriaRepositoryImpl implements CategoriaRepository {
         return categoriaDao.findById(id).map(mapper::toModel);
     }
 
+    @Override
+    public long count() {
+        LOGGER.debug("Contando todas las categorias en base de datos");
+        return categoriaDao.count();
+    }
+
+    @Override
+    public void saveAll(Iterable<CategoriaModel> categorias) {
+        LOGGER.debug("Guardando multiples categorias");
+        var entidades = mapper.toEntityList(categorias);
+        categoriaDao.saveAll(entidades);
+    }
+
 }

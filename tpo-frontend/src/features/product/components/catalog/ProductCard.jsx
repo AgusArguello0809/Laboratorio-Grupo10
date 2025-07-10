@@ -20,7 +20,7 @@ import { useNavigate } from "react-router-dom";
 import { getCategoryName } from "../../../config/categories";
 import { getToken } from "../../../auth/services/authService";
 
-export const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+export const API_BASE_URL = `${import.meta.env.VITE_API_URL}/fitstore-api/v1`;
 
 function ProductCard({ product }) {
   const [open, setOpen] = useState(false);

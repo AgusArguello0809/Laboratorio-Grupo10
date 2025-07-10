@@ -1,14 +1,14 @@
-# Dockerfile para el backend (Spring Boot)
-FROM eclipse-temurin:17-jdk-alpine as build
-WORKDIR /app
-COPY pom.xml mvnw ./
-COPY .mvn .mvn
-COPY src ./src
-RUN chmod +x mvnw
-RUN ./mvnw clean package -DskipTests
+# Imagen base de Java 17
+FROM eclipse-temurin:17-jdk-alpine
 
-FROM eclipse-temurin:17-jre-alpine
+# Crear directorio de trabajo
 WORKDIR /app
-COPY --from=build /app/target/*.jar app.jar
+
+# Copiar el .jar compilado al contenedor
+COPY target/*.jar app.jar
+
+# Exponer el puerto que usa Spring Boot (por defecto es el 8080)
 EXPOSE 8080
-ENTRYPOINT ["java","-jar","app.jar"]
+
+# Comando para ejecutar la app
+ENTRYPOINT ["java", "-jar", "app.jar"]

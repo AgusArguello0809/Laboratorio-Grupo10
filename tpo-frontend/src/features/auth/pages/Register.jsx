@@ -51,7 +51,8 @@ function Register() {
     };
 
     try {
-      const response = await fetch("http://localhost:8080/fitstore-api/v1/auth/register", {
+      const API_BASE_URL = import.meta.env.VITE_API_URL;
+      const response = await fetch(`${API_BASE_URL}/fitstore-api/v1/auth/register`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

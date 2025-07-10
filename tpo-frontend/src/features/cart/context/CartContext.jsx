@@ -10,7 +10,7 @@ export const CartProvider = ({ children }) => {
   const [carrito, setCarrito] = useState({ id: null, productos: [] });
   const [carritoCargado, setCarritoCargado] = useState(false);
 
-  const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+  const API_BASE_URL = `${import.meta.env.VITE_API_URL}/fitstore-api/v1`;
   const token = getToken();
 
   const fetchCarrito = async () => {

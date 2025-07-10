@@ -18,7 +18,7 @@ import { useAuth } from '../../auth/context/AuthContext';
 import { getToken } from '../../auth/services/authService';
 
 
-const API_BASE_URL = "http://localhost:8080/fitstore-api/v1";
+const API_BASE_URL = `${import.meta.env.VITE_API_URL}/fitstore-api/v1`;
 
 const Carrito = () => {
   const { carrito, setCarrito, fetchCarrito } = useCarrito();
