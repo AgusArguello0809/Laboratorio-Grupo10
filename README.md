@@ -34,6 +34,8 @@ Backend (Spring Boot): http://localhost:8080
 Swagger UI: http://localhost:8080/fitstore-api/v1/swagger-ui.html
 
 phpMyAdmin (para ver la base de datos): http://localhost:8081
+Usuario: user
+Contraseña: pass
 
 ℹ️ phpMyAdmin accede directamente al contenedor de MySQL gracias al volumen compartido, por lo que se puede visualizar y gestionar la base fitstore fácilmente desde esa interfaz web.
 
