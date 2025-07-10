@@ -224,7 +224,10 @@ export default function MyPublicationCard({ product, onEdit, onDelete }) {
       <ProductDetailDialog
         open={detailOpen}
         onClose={() => setDetailOpen(false)}
-        product={product}
+        product={{
+          ...product,
+          category: { name: getCategoryName(product.categoryId) }
+        }}
       />
 
       <EditProductDialog

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: mysql:3306
--- Tiempo de generación: 10-07-2025 a las 14:11:50
+-- Tiempo de generación: 10-07-2025 a las 15:03:47
 -- Versión del servidor: 8.4.5
 -- Versión de PHP: 8.2.27
 
@@ -41,9 +41,10 @@ INSERT INTO `carrito_entity` (`id`, `total`, `owner_id`) VALUES
 (1, 89999.91, 2),
 (2, 60.300000000000004, 3),
 (3, 39999.96, 1),
-(4, 99999.99, 4),
+(4, 0, 4),
 (5, 29999.97, 5),
-(6, 0, 6);
+(6, 0, 6),
+(7, 0, 7);
 
 -- --------------------------------------------------------
 
@@ -67,7 +68,6 @@ INSERT INTO `carrito_entity_productos` (`carrito_entity_id`, `cantidad`, `precio
 (2, 3, 20.1, 1, 60.300000000000004),
 (3, 4, 9999.99, 2, 39999.96),
 (1, 9, 9999.99, 2, 89999.91),
-(4, 1, 99999.99, 3, 99999.99),
 (5, 3, 9999.99, 2, 29999.97);
 
 -- --------------------------------------------------------
@@ -114,7 +114,9 @@ INSERT INTO `orden_entity` (`id`, `fecha`, `total`, `comprador_id`) VALUES
 (2, '2025-07-10 12:59:52.866519', 9999.99, 1),
 (3, '2025-07-10 13:00:01.618423', 20.1, 3),
 (4, '2025-07-10 13:00:11.407128', 10020.09, 2),
-(5, '2025-07-10 13:05:19.950045', 100020.09000000001, 3);
+(5, '2025-07-10 13:05:19.950045', 100020.09000000001, 3),
+(6, '2025-07-10 14:44:45.764500', 99999.99, 4),
+(7, '2025-07-10 14:49:39.346759', 20.1, 7);
 
 -- --------------------------------------------------------
 
@@ -142,7 +144,9 @@ INSERT INTO `orden_entity_productos` (`orden_entity_id`, `cantidad`, `nombre_pro
 (4, 1, 'Mancuernas de 2kg', 20.1, 1, 20.1),
 (4, 1, 'Pelota Mundial de Clubes 2025', 9999.99, 2, 9999.99),
 (5, 1, 'Mancuernas de 2kg', 20.1, 1, 20.1),
-(5, 1, 'Camiseta Palermo 9 LG Temporada 2009 - 2010 FIRMADA', 99999.99, 3, 99999.99);
+(5, 1, 'Camiseta Palermo 9 LG Temporada 2009 - 2010 FIRMADA', 99999.99, 3, 99999.99),
+(6, 1, 'Camiseta Palermo 9 LG Temporada 2009 - 2010 FIRMADA', 99999.99, 3, 99999.99),
+(7, 1, 'Mancuernas de 2kg', 20.1, 1, 20.1);
 
 -- --------------------------------------------------------
 
@@ -165,9 +169,10 @@ CREATE TABLE `productos` (
 --
 
 INSERT INTO `productos` (`id`, `description`, `price`, `stock`, `title`, `category_id`, `owner_id`) VALUES
-(1, 'Mancuernas de varios colores de 2kg cada una.', 20.1, 17, 'Mancuernas de 2kg', 2, 1),
+(1, 'Mancuernas de varios colores de 2kg cada una.', 20.1, 16, 'Mancuernas de 2kg', 2, 1),
 (2, 'Pelota Mundial de Clubes 2025 importada directo de Estados Unidos. Ultima oportunidad para conseguirla!', 9999.99, 18, 'Pelota Mundial de Clubes 2025', 2, 3),
-(3, 'Yo soy palermo así que nada, la firmé yo.', 99999.99, 1, 'Camiseta Palermo 9 LG Temporada 2009 - 2010 FIRMADA', 3, 2);
+(3, 'Yo soy palermo así que nada, la firmé yo.', 99999.99, 0, 'Camiseta Palermo 9 LG Temporada 2009 - 2010 FIRMADA', 3, 2),
+(4, 'Queres ser como la bestia????? Comprate YA estas barras PUSH UP!!! SOY UNA BESTIAAAAAAAAAAA!!', 16.66, 16, 'Barras Push Up', 2, 7);
 
 -- --------------------------------------------------------
 
@@ -190,7 +195,9 @@ INSERT INTO `producto_images` (`producto_id`, `image_url`, `orden`) VALUES
 (1, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/3e5a6c0a-07d8-407b-a2d9-265d377664f0-images.jpeg', 1),
 (1, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/805fdd42-23e4-4f20-9302-e036670feb95-27938__600__600__MANCUERNAS-DE-VINILO-DE-2-KILOS-AC2043-VERDE.jpeg', 2),
 (2, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/b8d3662e-f36a-4fcc-b12a-5b6d03b6f067-balon-mundial-de-clubes.png', 0),
-(3, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/20404c04-24d6-42c2-ab4e-c3025f6d2b60-images (1).jpeg', 0);
+(3, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/20404c04-24d6-42c2-ab4e-c3025f6d2b60-images (1).jpeg', 0),
+(4, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/46d65e8f-4d3d-4ff6-8d8e-e87f9f051feb-766378-mla29729827850_032019-o-b19367ec3e5ad4f51d15571842545579-640-0.jpg', 0),
+(4, 'https://storage.googleapis.com/fitstore-tpo.firebasestorage.app/a2a36b57-3458-47f5-b8ba-f142aa9c4fad-61nSPlW1kuL.jpg', 1);
 
 -- --------------------------------------------------------
 
@@ -218,7 +225,8 @@ INSERT INTO `usuarios` (`id`, `email`, `last_name`, `name`, `password`, `role`, 
 (3, 'guille7@gmail.com', 'Barros Schelotto', 'Guillermo', '$2a$10$8V.tCZ1uDcJ/u/9wzZo.7.Qr0io28XdTVhgWk0M2gN3al7SkbQpQO', 'CLIENTE', 'guillermo7'),
 (4, 'messi@gmail.com', 'Messi', 'Lionel', '$2a$10$VjRURkC97HukhSiGXPQ7wuIknYidqdxVLHOMM9hcBlr0TEjdMwtMW', 'ADMIN', 'lionelmessi10'),
 (5, 'suarrez@gmail.com', 'Suarez', 'Luis', '$2a$10$mBOfu96XXU4CA93O.V5yvOB44zkoWKBNykb2tvhWtGyH74QT3r2VS', 'CLIENTE', 'luissuarez9'),
-(6, 'siuuu7@gmail.com', 'Ronaldo', 'Cristiano', '$2a$10$1KN6j9W.ZJ4QVkNkxQfgleOVd9B2jnk0OSExWLMU296vjO0Dt3lVi', 'CLIENTE', 'cristianoronaldosu7');
+(6, 'siuuu7@gmail.com', 'Ronaldo', 'Cristiano', '$2a$10$1KN6j9W.ZJ4QVkNkxQfgleOVd9B2jnk0OSExWLMU296vjO0Dt3lVi', 'CLIENTE', 'cristianoronaldosu7'),
+(7, 'merentiel16@gmail.com', 'Merentiel', 'Miguel', '$2a$10$Ltbl4nzWOhjTbIqVijUgl.MAILKai0GxBfZzbO2PqZWQKJ4wz28AO', 'CLIENTE', 'labestia16');
 
 --
 -- Índices para tablas volcadas
@@ -284,7 +292,7 @@ ALTER TABLE `usuarios`
 -- AUTO_INCREMENT de la tabla `carrito_entity`
 --
 ALTER TABLE `carrito_entity`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `categorias`
@@ -296,19 +304,19 @@ ALTER TABLE `categorias`
 -- AUTO_INCREMENT de la tabla `orden_entity`
 --
 ALTER TABLE `orden_entity`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT de la tabla `productos`
 --
 ALTER TABLE `productos`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT de la tabla `usuarios`
 --
 ALTER TABLE `usuarios`
-  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Restricciones para tablas volcadas

@@ -20,10 +20,10 @@ export default function ProductDetailDialog({ open, onClose, product }) {
   const {
     title = "Sin título",
     price = "N/A",
-    category = "Sin categoría",
     stock = 0,
     description = "Sin descripción",
     images = [],
+    category,
   } = product;
 
   const handleNext = () =>
@@ -80,7 +80,7 @@ export default function ProductDetailDialog({ open, onClose, product }) {
           <strong>Precio:</strong> ${price}
         </Typography>
         <Typography variant="body2" gutterBottom>
-          <strong>Categoría:</strong> {category}
+          <strong>Categoría:</strong> {category?.name || "Sin categoría"}
         </Typography>
         <Typography variant="body2" gutterBottom>
           <strong>Stock:</strong> {stock}
