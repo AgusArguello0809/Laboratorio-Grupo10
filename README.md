@@ -25,6 +25,10 @@ Para poder subir y visualizar imágenes desde el almacenamiento de Firebase (Sto
 
 docker compose build
 docker compose up -d
+
+O en su defecto:
+docker compose up --build
+
 El sistema estará disponible en:
 
 Frontend: http://localhost:3000
